@@ -1,0 +1,55 @@
+.MarkdownEditor{
+	margin:auto;
+	width: 75%;
+	height: 100%;
+}
+.MarkdownEditor .textArea{
+	
+	margin:auto;
+	display: inline-block;
+	width:49%;
+	height:210px;
+	float: left;
+}
+.MarkdownEditor #Selector{
+	
+	margin-top: 36px;
+	margin-bottom: 60px;
+}
+.MarkdownEditor #Selector .select{
+
+	display: inline-block;
+	width:70%;
+	margin-right: 16px;
+
+}
+.MarkdownEditor #Selector .Send{
+	display: inline-block;
+	margin:0px;
+	padding: 0px;
+}
+.MarkdownEditor .preview{
+
+	margin:auto;
+	padding: 4px;
+	display: inline-block;
+	border: 1px solid black;
+	width:49%;
+	height:210px;
+	clear:both;
+	background-color: white;
+	overflow: auto;
+	word-wrap: break-word;
+}
+
+@media screen and (max-width: 870px ){
+
+	.MarkdownEditor #Selector .select{
+		margin-right: 0px;
+		margin-bottom: 4px;
+		width: 100%;
+	}
+	.MarkdownEditor #Selector .Send{
+		padding-left: 30%;
+	}
+}

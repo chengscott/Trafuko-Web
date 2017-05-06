@@ -1,0 +1,29 @@
+.text-center{
+	padding:36px;
+	text-align: center;
+}
+.text-center .picshow{
+	
+	width: 80%;
+	height: 100%;
+
+}
+.text-center .pagination{
+	display: inline-block;
+	list-style:none;
+	border-radius: 0.25rem;
+	padding-left: 0px;
+}
+.text-center .pagination li{
+	display: inline;
+}
+.text-center .pagination .page-link{
+    position: relative;
+    display: inline-block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #0275d8;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
