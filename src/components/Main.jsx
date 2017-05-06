@@ -24,17 +24,11 @@ import {
 
 import MarkdownEditor from 'components/MarkdownEditor.jsx';
 import PictureShow from 'components/PictureShow.jsx';
-import './Main.css';
+import TrafukoPage from 'components/TrafukoPage.jsx';
+import RankPage from 'components/RankPage.jsx';
+import TrashPoolPage from 'components/TrashPoolPage.jsx';
 
-const RuleStr = 
-"0.當你勾選後，即代表您同意遵守 Facebook 社群使用規則.\n\
-1.嚴禁發表任何霸凌內容、或有相關意圖之內容，違反將被刪除\n\
-2.靠北勿指名道姓、透漏任何個資或隱私資訊，或在文中直接提到任何公司、機構、學校名稱，違反者一律刪文\n\
-3.嚴禁發表任何情色、暴力之相關內容，或有相關意圖之內容，違反將被刪除\n\
-4.與本版主題無關、或發文內容明顯為測試意圖、或無關之推薦文、廣告文、職缺文，將被刪除\n\
-5.轉載他人原創發文時，一律需經過原作者同意並註明出處\n\
-6.因應臉書政策，涉及種族歧視之發文格殺勿論\n\
-7.請善用「███」取代敏感字詞" 
+import './Main.css';
 
 export default class Main extends React.Component{
 
@@ -76,6 +70,17 @@ export default class Main extends React.Component{
 				        </Navbar>
 				    </div>
 
+				    <div id="id_content">
+				    	<Route exact path="/" render={() => (
+                        	<TrafukoPage />
+               			 )}/>
+                		<Route exact path="/Rank" render={() => (
+                      	  	<RankPage />
+               			 )}/>
+                		<Route exact path="/TrashPool" render={() => (
+                       		 <TrashPoolPage />
+               			 )}/>
+				    </div>
 
 			        <div id="id_footer">
 						<Breadcrumb className="nomargin">
@@ -85,6 +90,7 @@ export default class Main extends React.Component{
 						</Breadcrumb>
 					</div>
 				</div>
+
 			</Router>
 		);
 	}
