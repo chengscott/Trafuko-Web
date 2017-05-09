@@ -34,7 +34,7 @@ export default class TrafukoPage extends React.Component{
 					<Label className="ruleTitle" for="ruleText">規章</Label>
           			<Input type="textarea" name="text" className="ruleText" readOnly="true" defaultValue={RuleText}/>
           			<div className="checkbox">
-            			<input className="checkbox-input" type="checkbox"/>
+            			<input className="checkbox-input" onClick={this.handleClick} type="checkbox"/>
             			我同意上述規範
             		</div>
 				</FormGroup>
@@ -43,7 +43,6 @@ export default class TrafukoPage extends React.Component{
 		);
 	}
 	handleClick(e){
-		
+		console.log("I agree the rule!");
 	}
-
 }
