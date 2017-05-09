@@ -16,10 +16,7 @@ import {
 	NavbarToggler,
 	Collapse,
 	Breadcrumb, 
-	BreadcrumbItem,
-	FormGroup,
-	Input,
-	Label
+	BreadcrumbItem
  } from 'reactstrap';
 
 import MarkdownEditor from 'components/MarkdownEditor.jsx';
@@ -94,28 +91,5 @@ export default class Main extends React.Component{
 			</Router>
 		);
 	}
-
 }
 
-/*
-<div id="id_content">
-				    	<FormGroup>
-          					<Label for="ruleText">規章</Label>
-          					<Input type="textarea" name="text" className="ruleText" readOnly="true" defaultValue={RuleStr}/>
-        				</FormGroup>
-
-        				<MarkdownEditor/>
-				    </div>
-<NavItem>
-			                	<NavLink tag={Link} to='/Register'>註冊</NavLink>
-			              	</NavItem>
-			              	<NavItem>
-			                	<NavLink tag={Link} to='/Login'>登入</NavLink>
-			              	</NavItem>
-
-			              	  <Route exact path="/" render={() => (
-                        <Today searchText={this.state.searchText} />
-                    )}/>
-                    <Route exact path="/forecast" render={() => (
-                        <Forecast />
-                    )}/>*/

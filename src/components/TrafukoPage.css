@@ -1,0 +1,37 @@
+.trafuko{
+	padding : 1rem;
+}
+.trafuko .ruleTitle{
+
+	text-align: center;
+	font-weight: bold;
+	color: red;
+	width: 100%;
+}
+.trafuko .ruleText{
+	height: 160px;
+	max-width: 720px;
+	margin:auto;
+	cursor: not-allowed;
+}
+.trafuko .checkbox{
+	position: relative;
+    padding-top: 1px;
+    height: 24px;
+	max-width: 720px;
+	margin:auto;
+	font-weight: bold;
+	cursor: pointer;
+}
+.trafuko .checkbox .checkbox-input{
+	width:24px;
+}
+.trafuko .label-css{
+	padding-left: 25px;
+    height: 20px;
+    display: inline-block;
+    line-height: 20px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    cursor: pointer;
+}

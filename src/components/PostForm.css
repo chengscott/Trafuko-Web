@@ -1,0 +1,22 @@
+.postFormDisplay{
+	height: 160px;
+	max-width: 720px;
+	margin:auto;
+	margin-bottom: 10px;
+	overflow-y: auto;
+}
+.postForm{
+	height: 36px;
+	max-width: 720px;
+	margin:auto;	
+}
+.postForm .checkbox input[type="checkbox"]{
+	width:16px;
+	height:16px;
+}
+.postForm .checkbox{
+	display: inline-block;
+}
+.postForm .button{
+	width: 100%;
+}

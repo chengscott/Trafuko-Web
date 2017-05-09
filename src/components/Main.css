@@ -16,13 +16,8 @@ html body{
 
 #id_content {
 
-	margin:auto;
-	width:75%;
 	padding-top: 36px;
 	padding-bottom: 36px;
-}
-#id_content .ruleText {
-	height:120px;
 }
 
 #id_footer{

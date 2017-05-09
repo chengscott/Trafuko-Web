@@ -12,6 +12,10 @@ Main
 	- RankPage
 	- TrashPoolPage
 
+2017-5-9
+1. delete postFormDsiplay
+2. add ruletext and textarea
+
 
 
 
