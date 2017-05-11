@@ -34,7 +34,7 @@ import './Main.css';
 
 export default class Main extends React.Component{
 
-
+	
 	constructor(props) {
         super(props);
 

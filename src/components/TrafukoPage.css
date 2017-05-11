@@ -10,6 +10,7 @@
 }
 .trafuko .ruleText{
 	height: 160px;
+	min-width: 160px;
 	max-width: 720px;
 	margin:auto;
 	cursor: not-allowed;

@@ -38,11 +38,13 @@ export default class TrafukoPage extends React.Component{
             			我同意上述規範
             		</div>
 				</FormGroup>
-				<PostForm/>
+				<PostForm agreeCheck={this.state.isAgree}/>
 			</div>
 		);
 	}
 	handleClick(e){
-		console.log("I agree the rule!");
+		this.setState({
+			isAgree: !this.state.isAgree
+		});
 	}
 }
