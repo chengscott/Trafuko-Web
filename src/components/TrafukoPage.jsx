@@ -49,7 +49,7 @@ export default class TrafukoPage extends React.Component{
     componentDidMount() {
         this.reRender = setInterval(
             () => this.tick(),
-            8000
+            15000
         );
     }
     
@@ -62,13 +62,12 @@ export default class TrafukoPage extends React.Component{
         nextPage = nextPage + 1;
         if(nextPage >= Math.floor(Data.length / runNum)) nextPage = 0;
         this.setState({runtextPage: nextPage});
-        this.forceUpdate();
     }
 
     render(){
         const page = this.state.runtextPage;
         const data = Data.slice(page * runNum, Math.min((page + 1) * runNum, Data.length - 1));
-        const showList = (this.state.runtext) ? data.map(a => <RunText text={a.content} key={a.ip} />) : <div></div>;
+        const showList = (this.state.runtext) ? data.map(a => <RunText text={a.content} key={a.id} />) : <div></div>;
         return (
             <div className = "trafuko">
                 <FormGroup>
