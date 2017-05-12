@@ -16,14 +16,13 @@ export default class RunText extends React.Component{
         return (
             <Animate
                       default={{
-                        scale: 1,
                         color: 'black',
                         left: `${(screen.width - 400 + Math.random() * 700 ) + "px"}`
                       }}
                       data={
                         this.state.style
                       }
-                      duration={8000}
+                      duration={10000}
                       easing='easeLinear'
                     >
                       {data => (
@@ -49,7 +48,6 @@ export default class RunText extends React.Component{
 
 function makeItem() {
     const left = (-200 - Math.random() * 300 ) + "px";
-    //const left = (300 ) + "px";
     const top =  (screen.height * Math.random() * 0.8) + "px";
     return {
         left: left,
