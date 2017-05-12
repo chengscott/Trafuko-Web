@@ -1,35 +1,36 @@
-html body{
-	height: 100%;
+html body {
+    height: 100%;
 }
-#root{
-	min-height:100%;
-	background-color: #97E2F8;
+
+#root {
+    min-height: 100%;
+    background-color: #97E2F8;
 }
+
 #id_wrapper {
-	position: relative;
+    position: relative;
     height: 100vh;
 }
-#id_header{
-	height: 36px;
-	box-sizing: border-box;
+
+#id_header {
+    height: 36px;
+    box-sizing: border-box;
 }
 
 #id_content {
-
-	padding-top: 36px;
-	padding-bottom: 36px;
+    padding-top: 36px;
+    padding-bottom: 36px;
 }
 
-#id_footer{
-
-	margin:0px;
-	height:36px;
-	box-sizing: border-box;
-	position: absolute;
-	bottom: 0px;
-	width: 100%;
+#id_footer {
+    margin: 0px;
+    height: 36px;
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
 }
 
 #id_footer .nomargin {
-	margin: 0px;
+    margin: 0px;
 }

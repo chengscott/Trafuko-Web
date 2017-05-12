@@ -32,19 +32,19 @@ const runNum = 7;
 
 export default class TrafukoPage extends React.Component{
 
-	constructor(props){
-		super(props);
+    constructor(props){
+        super(props);
 
-		this.state = {
-			isAgree: false,
-			runtext: true,
-			runtextPage: 0
-		}
+        this.state = {
+            isAgree: false,
+            runtext: true,
+            runtextPage: 0
+        }
 
         this.tick = this.tick.bind(this);
-		this.handleClick = this.handleClick.bind(this);
-		this.runtextClick = this.runtextClick.bind(this);
-	}
+        this.handleClick = this.handleClick.bind(this);
+        this.runtextClick = this.runtextClick.bind(this);
+    }
 
     componentDidMount() {
         this.reRender = setInterval(
@@ -58,53 +58,52 @@ export default class TrafukoPage extends React.Component{
     }
 
     tick() {
-    	let nextPage = this.state.runtextPage;
+        let nextPage = this.state.runtextPage;
         nextPage = nextPage + 1;
         if(nextPage >= Math.floor(Data.length / runNum)) nextPage = 0;
         this.setState({runtextPage: nextPage});
         this.forceUpdate();
     }
 
-	render(){
-		const page = this.state.runtextPage;
-		const data = Data.slice(page * runNum, Math.min((page + 1) * runNum, Data.length - 1));
-		const showList = (this.state.runtext) ? data.map(a => <RunText text={a.content} key={a.ip} />) : <div></div>;
-		return (
-			<div className = "trafuko">
-				<FormGroup>
-					<Label className="ruleTitle" for="ruleText">規章</Label>
-          			<Input type="textarea" name="text" className="ruleText" readOnly="true" defaultValue={RuleText}/>
-          			<div className="checkbox">
-            			<input className="checkbox-input" onClick={this.handleClick} type="checkbox"/>
-            			我同意上述規範
-						<input className="checkbox-input" onClick={this.runtextClick} type="checkbox"/>
-						取消彈幕
-            		</div>
-				</FormGroup>
-				<PostForm agreeCheck={this.state.isAgree}/>
-				{showList}
-			</div>
-		);
-	}
+    render(){
+        const page = this.state.runtextPage;
+        const data = Data.slice(page * runNum, Math.min((page + 1) * runNum, Data.length - 1));
+        const showList = (this.state.runtext) ? data.map(a => <RunText text={a.content} key={a.ip} />) : <div></div>;
+        return (
+            <div className = "trafuko">
+                <FormGroup>
+                    <Label className="ruleTitle" for="ruleText">規章</Label>
+                      <Input type="textarea" name="text" className="ruleText" readOnly="true" defaultValue={RuleText}/>
+                      <div className="checkbox">
+                        <input className="checkbox-input" onClick={this.handleClick} type="checkbox"/>
+                        我同意上述規範
+                        <input className="checkbox-input" onClick={this.runtextClick} type="checkbox"/>
+                        取消彈幕
+                    </div>
+                </FormGroup>
+                <PostForm agreeCheck={this.state.isAgree}/>
+                {showList}
+            </div>
+        );
+    }
 
-	runtextClick(e) {
-		this.setState({
-			runtext: !this.state.runtext
-		});
-		if (this.state.runtext) {
-        	this.reRender = setInterval(
-        	    () => this.tick(),
-        	    10000
-        	);
-		} else {
-			clearInterval(this.reRender);
-		}
-	}
+    runtextClick(e) {
+        this.setState({
+            runtext: !this.state.runtext
+        });
+        if (this.state.runtext) {
+            this.reRender = setInterval(
+                () => this.tick(),
+                10000
+            );
+        } else {
+            clearInterval(this.reRender);
+        }
+    }
 
-	handleClick(e){
-		this.setState({
-			isAgree: !this.state.isAgree
-		});
-	}
+    handleClick(e){
+        this.setState({
+            isAgree: !this.state.isAgree
+        });
+    }
 }
-

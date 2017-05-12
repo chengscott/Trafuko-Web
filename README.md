@@ -1,21 +1,19 @@
-# Trafuko-Web
+### Software Studio
+# Trafuko | 垃圾話
 
-2017-5-7 
-1. modify Main.jsx Main.css
-2. add develop struct 
+## Prerequisites
 
-Main
-	- TrafukoPage
-		- PostForm
-		- PostFormDisplay
-		- DailyDisplay
-	- RankPage
-	- TrashPoolPage
+* node
+* yarn
 
-2017-5-9
-1. delete postFormDsiplay
-2. add ruletext and textarea
-3. finish footer about and logs (using modal)
+## Environment Setup
 
+```bash
+yarn install # install dependencies
+```
 
+## Run
 
+```bash
+yarn run start
+```

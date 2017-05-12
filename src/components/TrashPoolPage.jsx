@@ -28,10 +28,10 @@ var Data = [{title:"", id: "0001", content:"11111", score: 23, order: 0},{title:
 
 const showNum = 3;
 
-export default class TrashPoolPage extends React.Component{
+export default class TrashPoolPage extends React.Component {
 
-	constructor(props){
-		super(props);
+    constructor(props) {
+        super(props);
         this.state = {
             a: 0,
             b: 1,
@@ -88,7 +88,7 @@ export default class TrashPoolPage extends React.Component{
         }
     }
 
-	render(){
+    render() {
 
         const data1 = Data.slice( this.state.a * showNum, (this.state.a + 1) * showNum);
         const data2 = Data.slice( this.state.b * showNum, (this.state.b + 1) * showNum);
@@ -98,13 +98,13 @@ export default class TrashPoolPage extends React.Component{
         const data6 = Data.slice( this.state.f * showNum, (this.state.f + 1) * showNum);
 
         const items1 = data1.map(a => (<Item text={a.content} key={a.id} status={this.s1} />));
-		const items2 = data2.map(a => (<Item text={a.content} key={a.id} status={this.s2} />));
+        const items2 = data2.map(a => (<Item text={a.content} key={a.id} status={this.s2} />));
         const items3 = data3.map(a => (<Item text={a.content} key={a.id} status={this.s3} />));
         const items4 = data4.map(a => (<Item text={a.content} key={a.id} status={this.s4} />));
         const items5 = data5.map(a => (<Item text={a.content} key={a.id} status={this.s5} />));
         const items6 = data6.map(a => (<Item text={a.content} key={a.id} status={this.s6} />));
         return (
-			<div>
+            <div>
                 {items1}
                 {items2}
                 {items3}
@@ -112,12 +112,12 @@ export default class TrashPoolPage extends React.Component{
                 {items5}
                 {items6}
             </div>
-		);
-	}
+        );
+    }
 }
 
 class Item extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             style: change(this.props.status)
@@ -132,7 +132,7 @@ class Item extends React.Component {
             5000
         );
     }
-    
+
     componentWillUnmount() {
         clearInterval(this.change);
     }
@@ -178,10 +178,9 @@ class Item extends React.Component {
                           <h2>{this.props.text}</h2>
                         </div>
                       )}
-                </Animate>      
+                </Animate>
             );
     }
-
 }
 
 function change(status) {

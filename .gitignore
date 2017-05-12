@@ -1,4 +1,4 @@
 node_modules/*
-.tern-project
-dist/index.bundle.js
-dist/vendor.bundle.js
+yarn.lock
+dist/index.bundle.js*
+dist/vendor.bundle.js*

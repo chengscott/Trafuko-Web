@@ -3,16 +3,15 @@ import ReactDOM from 'react-dom';
 
 import './DailyDisplay.css';
 
+export default class DailyDisplay extends React.Component {
 
-export default class DailyDisplay extends React.Component{
+    constructor(props) {
+        super(props);
+    }
 
-	constructor(props){
-		super(props);
-	}
-
-	render(){
-		return (
-			<div> </div>
-		);
-	}
+    render() {
+        return (
+            <div></div>
+        );
+    }
 }

@@ -7,92 +7,92 @@ import './PostForm.css';
 
 export default class PostForm extends React.Component{
 
-	constructor(props){
-		super(props);
+    constructor(props){
+        super(props);
 
-		this.state = {
-			inputValue: '',
-			inputDanger: false,
-			text: 'type some here',
-			color: 'black',
-			fontstyle: ''
-		};
+        this.state = {
+            inputValue: '',
+            inputDanger: false,
+            text: 'type some here',
+            color: 'black',
+            fontstyle: ''
+        };
 
-		this.inputEl = null;
+        this.inputEl = null;
 
-		this.handleInputChange = this.handleInputChange.bind(this);
-		this.handleCheckbox = this.handleCheckbox.bind(this);
-		this.handlePost = this.handlePost.bind(this);
-		this.handleColorMode = this.handleColorMode.bind(this);
-	}
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleCheckbox = this.handleCheckbox.bind(this);
+        this.handlePost = this.handlePost.bind(this);
+        this.handleColorMode = this.handleColorMode.bind(this);
+    }
 
-	render(){
+    render(){
 
-		const inputDanger = (this.state.inputDanger == true)?'has-danger':'';		
-		return (
-			<div>
-				<FormGroup className={inputDanger}>
-					<div className="postFormDisplay">
-						<Input style={{color:this.state.color}}className="TextArea" type="textarea" getRef={el => {this.inputEl = el}} onChange={this.handleInputChange}  placeholder={this.state.text}/>
-						<div className="toolList">
-							<Button className="box" style={{background: 'black'}} onClick={()=>{this.handleColorMode('black')}}></Button>
-							<Button className="box" style={{background: 'red'}} onClick={()=>{this.handleColorMode('red')}}></Button>
-							<Button className="box" style={{background: 'green'}} onClick={()=>{this.handleColorMode('green')}}></Button>
-							<Button className="box" style={{background: 'blue'}} onClick={()=>{this.handleColorMode('blue')}}></Button>
-							<Button className="box" style={{background: 'yellow'}} onClick={()=>{this.handleColorMode('yellow')}}></Button>
-						</div>
-					</div>
+        const inputDanger = (this.state.inputDanger == true)?'has-danger':'';
+        return (
+            <div>
+                <FormGroup className={inputDanger}>
+                    <div className="postFormDisplay">
+                        <Input style={{color:this.state.color}}className="TextArea" type="textarea" getRef={el => {this.inputEl = el}} onChange={this.handleInputChange}  placeholder={this.state.text}/>
+                        <div className="toolList">
+                            <Button className="box" style={{background: 'black'}} onClick={()=>{this.handleColorMode('black')}}></Button>
+                            <Button className="box" style={{background: 'red'}} onClick={()=>{this.handleColorMode('red')}}></Button>
+                            <Button className="box" style={{background: 'green'}} onClick={()=>{this.handleColorMode('green')}}></Button>
+                            <Button className="box" style={{background: 'blue'}} onClick={()=>{this.handleColorMode('blue')}}></Button>
+                            <Button className="box" style={{background: 'yellow'}} onClick={()=>{this.handleColorMode('yellow')}}></Button>
+                        </div>
+                    </div>
 
-					<div className = "postForm">
-					    <Button color="success" onClick={this.handlePost} className="button">我要講幹話!!!</Button>
-						<div className="checkbox">
-		        			<input className="checkbox-input" onClick={this.handleCheckbox} type="checkbox"/>
-		        			發文在靠北工程師fb
-		        		</div>
-		        	</div>
-	        	</FormGroup>
-			</div>
-		);
-	}
+                    <div className = "postForm">
+                        <Button color="success" onClick={this.handlePost} className="button">我要講幹話!!!</Button>
+                        <div className="checkbox">
+                            <input className="checkbox-input" onClick={this.handleCheckbox} type="checkbox"/>
+                            發文在靠北工程師fb
+                        </div>
+                    </div>
+                </FormGroup>
+            </div>
+        );
+    }
 
-	handleInputChange(e){
-		const text = e.target.value;
-		this.setState({
-			inputValue: text
-		});
-		if(text) console.log("nothing");
-		else console.log("input");
-	}
+    handleInputChange(e){
+        const text = e.target.value;
+        this.setState({
+            inputValue: text
+        });
+        if(text) console.log("nothing");
+        else console.log("input");
+    }
 
-	handleCheckbox(e){
-		console.log("checkbox");		
-	}
+    handleCheckbox(e){
+        console.log("checkbox");
+    }
 
-	handleColorMode(color){
-		console.log("done");
-		this.setState({
-			color:color
-		});			
-	}
-	handlePost(e){
-		if(this.props.agreeCheck){
-			if(!this.state.inputValue){
-				this.setState({
-					inputDanger: true
-				});
-				return;
-			}
-			this.setState({
-				inputDanger: false
-			});
-			console.log("post");
-		}		
-		else {
-			this.setState({
-				inputDanger: true
-			});
-			console.log("No Agree");
-			return;
-		}
-	}
+    handleColorMode(color){
+        console.log("done");
+        this.setState({
+            color:color
+        });
+    }
+    handlePost(e){
+        if(this.props.agreeCheck){
+            if(!this.state.inputValue){
+                this.setState({
+                    inputDanger: true
+                });
+                return;
+            }
+            this.setState({
+                inputDanger: false
+            });
+            console.log("post");
+        }
+        else {
+            this.setState({
+                inputDanger: true
+            });
+            console.log("No Agree");
+            return;
+        }
+    }
 }
