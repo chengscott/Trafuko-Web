@@ -17,3 +17,9 @@ yarn install # install dependencies
 ```bash
 yarn run start
 ```
+
+## Lint
+
+```bash
+yarn run lint
+```

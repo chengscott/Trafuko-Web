@@ -1,0 +1,29 @@
+{
+    env: {
+        "browser": true,
+        "es6": true,
+        "node": true,
+        "mocha": true
+    },
+    parser: "babel-eslint",
+    parserOptions: {
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true,
+            "jsx": true,
+            "modules": true
+        }
+    },
+    rules: {
+        "react/jsx-uses-react": 2,
+        "react/jsx-uses-vars": 2,
+        "react/react-in-jsx-scope": 2,
+        brace-style: [2, "1tbs", { "allowSingleLine": true }]
+    },
+    extends: [
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
+    plugins: [
+        "react"
+    ]
+}

@@ -47,6 +47,14 @@ module.exports = {
                     }
                 ]
             }, {
+                test: /\.(js|jsx)$/,
+                exclude: [/node_modules/],
+                loader: "eslint-loader",
+                options: {
+                    emitError: false,
+                    emitWarning: false
+                }
+            }, {
                 test: /\.css$/,
                 use: [
                     'style-loader',

@@ -13,7 +13,7 @@ export default class PostForm extends React.Component{
         this.state = {
             inputValue: '',
             inputDanger: false,
-            text: 'type some here',
+            text: '你今天都在幹話些什麼？',
             color: 'black',
             fontstyle: ''
         };
@@ -43,11 +43,11 @@ export default class PostForm extends React.Component{
                         </div>
                     </div>
 
-                    <div className = "postForm">
-                        <Button color="success" onClick={this.handlePost} className="button">我要講幹話!!!</Button>
+                    <div className="postForm">
+                        <Button color="success" onClick={this.handlePost} className="button">我要發文！！</Button>
                         <div className="checkbox">
                             <input className="checkbox-input" onClick={this.handleCheckbox} type="checkbox"/>
-                            發文在靠北工程師fb
+                            &nbsp;同時發文在靠北工程師
                         </div>
                     </div>
                 </FormGroup>
@@ -55,28 +55,28 @@ export default class PostForm extends React.Component{
         );
     }
 
-    handleInputChange(e){
+    handleInputChange(e) {
         const text = e.target.value;
         this.setState({
             inputValue: text
         });
-        if(text) console.log("nothing");
+        if (text) console.log("nothing");
         else console.log("input");
     }
 
-    handleCheckbox(e){
+    handleCheckbox(e) {
         console.log("checkbox");
     }
 
-    handleColorMode(color){
+    handleColorMode(color) {
         console.log("done");
         this.setState({
             color:color
         });
     }
-    handlePost(e){
-        if(this.props.agreeCheck){
-            if(!this.state.inputValue){
+    handlePost(e) {
+        if (this.props.agreeCheck) {
+            if (!this.state.inputValue) {
                 this.setState({
                     inputDanger: true
                 });

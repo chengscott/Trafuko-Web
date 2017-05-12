@@ -23,7 +23,7 @@ var Data = [{title:"", id: "0001", content:"我這個人，不說垃圾話的!!!
 {title:"", id: "0023", content:"在非洲，不用電腦也能玩踩地雷", score: 84, order: 0},{title:"", id:"0024", content:"我不是胖，我只是瘦的不明顯而已", score: 79, order: 0},
 ];
 
-function compare(a,b) {
+function compare(a, b) {
     if (a.score < b.score)
         return 1;
     if (a.score > b.score)

@@ -42,7 +42,6 @@ export default class Main extends React.Component {
             collapsed: false,
             modal_about: false,
             modal_logs:false
-
         }
         this.toggleNavbar = this.toggleNavbar.bind(this);
         this.toggleModal_A = this.toggleModal_A.bind(this);
@@ -74,27 +73,27 @@ export default class Main extends React.Component {
                 <div id="id_wrapper">
                     <div id="id_header">
                         <Navbar color="faded" light toggleable>
-                             <NavbarToggler  right onClick={this.toggleNavbar} />
-                              <NavbarBrand href="/">Trafuko</NavbarBrand>
-                              <Collapse isOpen={this.state.collapsed} navbar>
-                            <Nav className="ml-auto" navbar>
-                                <NavItem>
-                                    <NavLink tag={Link} to='/Rank'>排名榜</NavLink>
-                                  </NavItem>
-                                  <NavItem>
-                                    <NavLink tag={Link} to='/TrashPool'>幹話池</NavLink>
-                                  </NavItem>
-                                <NavItem>
-                                    <NavLink tag={Link} to='/Login'>登入</NavLink>
-                                </NavItem>
+                            <NavbarToggler  right onClick={this.toggleNavbar} />
+                            <NavbarBrand href="/">Trafuko</NavbarBrand>
+                            <Collapse isOpen={this.state.collapsed} navbar>
+                                <Nav className="ml-auto" navbar>
+                                    <NavItem>
+                                        <NavLink tag={Link} to='/Rank'>排名榜</NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink tag={Link} to='/TrashPool'>幹話池</NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink tag={Link} to='/Login'>登入</NavLink>
+                                    </NavItem>
                                 </Nav>
-                              </Collapse>
+                            </Collapse>
                         </Navbar>
                     </div>
 
                     <div id="id_content">
                         <Route exact path="/" render={() => (
-                            <TrafukoPage />
+                                <TrafukoPage />
                             )}/>
                         <Route exact path="/Rank" render={() => (
                                 <RankPage />
@@ -106,36 +105,34 @@ export default class Main extends React.Component {
 
                     <div id="id_footer">
                         <Breadcrumb className="nomargin">
-                                <BreadcrumbItem>Trafuko</BreadcrumbItem>
-                                <BreadcrumbItem><a href="#" onClick={this.toggleModal_A}>About</a></BreadcrumbItem>
-                                <BreadcrumbItem active><a href="#" onClick={this.toggleModal_L}>Log</a></BreadcrumbItem>
+                            <BreadcrumbItem>Trafuko</BreadcrumbItem>
+                            <BreadcrumbItem><a href="#" onClick={this.toggleModal_A}>About</a></BreadcrumbItem>
+                            <BreadcrumbItem active><a href="#" onClick={this.toggleModal_L}>Log</a></BreadcrumbItem>
                         </Breadcrumb>
                     </div>
-                    <Modal  isOpen={this.state.modal_about} toggle={this.toggleModal_A} >
+                    <Modal isOpen={this.state.modal_about} toggle={this.toggleModal_A} >
                         <ModalHeader toggle={this.toggleModal_A}>關於我們</ModalHeader>
                         <ModalBody>
-                                Trafuko誕生於 2017-3-17 <br/>
-                                總部設於虛擬世界芬蘭的某個小鎮中<br/>
+                                Trafuko 誕生於 2017-3-17<br/>
+                                總部設於芬蘭的某個小鎮中<br/>
                                 相信幹話能帶給世界美好與歡笑
                         </ModalBody>
                         <ModalFooter>
                             <Button color="primary" onClick={this.toggleModal_A}>Cancel</Button>
                         </ModalFooter>
                     </Modal>
-                    <Modal  isOpen={this.state.modal_logs} toggle={this.toggleModal_L} >
+                    <Modal isOpen={this.state.modal_logs} toggle={this.toggleModal_L} >
                         <ModalHeader toggle={this.toggleModal_L}>歷史紀錄</ModalHeader>
                         <ModalBody>
-                                2017-3-16 : &nbsp;&nbsp;Finish Landing Page<br/>
-                                2017-4-16 : &nbsp;&nbsp;Survey over 50 people <br/>
-                                2017-5-07 : &nbsp;&nbsp;Basic struct build
+                            2017-05-07 : &nbsp;&nbsp;完成基本功能<br/>
+                            2017-04-16 : &nbsp;&nbsp;問卷調查超過 50 人<br/>
+                            2017-03-16 : &nbsp;&nbsp;Landing Page 上線
                         </ModalBody>
                         <ModalFooter>
-                            <Button color="primary" onClick={this.toggleModal_L}>Cancel</Button>
+                            <Button color="primary" onClick={this.toggleModal_L}>確定</Button>
                         </ModalFooter>
                     </Modal>
-
                 </div>
-
             </Router>
         );
     }
