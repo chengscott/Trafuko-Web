@@ -20,26 +20,26 @@ var Data = [{title:"", id: "0001", content:"我這個人，不說垃圾話的!!!
 {title:"", id: "0023", content:"在非洲，不用電腦也能玩踩地雷", score: 84, order: 0},{title:"", id:"0024", content:"我不是胖，我只是瘦的不明顯而已", score: 79, order: 0},
 ];
 
-export default class TrashPoolPage extends React.Component{
+export default class TrashPoolPage extends React.Component {
 
-	constructor(props){
-		super(props);
-	}
+    constructor(props) {
+        super(props);
+    }
 
 
-	render(){
+    render() {
         //let data = [{title:"", id: "0001", content:"我這個人，不說垃圾話的!!!", score: 23, order: 0}, {title:"", id:"0002", content:"柏穎啊", score: 107, order: 0}, {title:"", id: "0003", content:"華碩電池 一個小時", score: 23, order: 0}];
         const items = Data.map(a => (<Item text={a.content} key={a.id}/>));
-		return (
-			<div>
+        return (
+            <div>
                 {items}
             </div>
-		);
-	}
+        );
+    }
 }
 
 class Item extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             item: makeItem()
@@ -53,15 +53,15 @@ class Item extends React.Component {
             5000
         );
     }
-    
+
     componentWillUnmount() {
         clearInterval(this.reRender);
     }
-    
+
     tick() {
         this.setState({
             item: makeItem()
-        });  
+        });
     }
 
     render() {
@@ -98,10 +98,9 @@ class Item extends React.Component {
                           <h2>{this.props.text}</h2>
                         </div>
                       )}
-                </Animate>      
+                </Animate>
             );
     }
-
 }
 
 function makeItem() {

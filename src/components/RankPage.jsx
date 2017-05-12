@@ -24,14 +24,14 @@ var Data = [{title:"", id: "0001", content:"我這個人，不說垃圾話的!!!
 ];
 
 function compare(a,b) {
-  if (a.score < b.score)
-    return 1;
-  if (a.score > b.score)
-    return -1;
-  return 0;
+    if (a.score < b.score)
+        return 1;
+    if (a.score > b.score)
+        return -1;
+    return 0;
 }
 
-export default class RankPage extends React.Component{
+export default class RankPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -48,12 +48,12 @@ export default class RankPage extends React.Component{
     changeNumPerPage(npp) {
         if (npp >= 3 && npp <= 15) this.setState({npp: npp});
     }
-    
+
     render() {
         const npp = this.state.npp;
         const data = Data.sort(compare);
         const showList = data.slice((this.state.page - 1) * npp , Math.min(this.state.page * npp, Data.length - 1));
-        const listItems = showList.map((each) => <Box order={data.indexOf(each) + 1} key={each.id} info={each}/>); 
+        const listItems = showList.map((each) => <Box order={data.indexOf(each) + 1} key={each.id} info={each}/>);
         return(
             <div>
                 <Table><tbody>
@@ -64,7 +64,7 @@ export default class RankPage extends React.Component{
                     </tr>
                     {listItems}
                 </tbody></Table>
-                
+
                 <Pagination>
                     <PaginationItem onClick={() => this.changePage(this.state.page - 1)}>
                         <PaginationLink previous/>
@@ -79,9 +79,9 @@ export default class RankPage extends React.Component{
                         <input id="npp_input" placeholder="每頁顯示數量"></input>
                     </PaginationItem>
                     <PaginationItem>
-                        <Button onClick={() => this.changeNumPerPage(npp_input.value)}>確認</Button>  
+                        <Button onClick={() => this.changeNumPerPage(npp_input.value)}>確認</Button>
                     </PaginationItem>
-                </Pagination>            
+                </Pagination>
             </div>
         );
     }
@@ -94,5 +94,5 @@ function Box(props) {
             <td>{props.info.content}</td>
             <td><Button color="success">讚</Button></td>
         </tr>
-        );
+    );
 }

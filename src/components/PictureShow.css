@@ -1,23 +1,26 @@
-.text-center{
-	padding:36px;
-	text-align: center;
+.text-center {
+    padding:36px;
+    text-align: center;
 }
-.text-center .picshow{
-	
-	width: 80%;
-	height: 100%;
+
+.text-center .picshow {
+    width: 80%;
+    height: 100%;
 
 }
-.text-center .pagination{
-	display: inline-block;
-	list-style:none;
-	border-radius: 0.25rem;
-	padding-left: 0px;
+
+.text-center .pagination {
+    display: inline-block;
+    list-style:none;
+    border-radius: 0.25rem;
+    padding-left: 0px;
 }
-.text-center .pagination li{
-	display: inline;
+
+.text-center .pagination li {
+    display: inline;
 }
-.text-center .pagination .page-link{
+
+.text-center .pagination .page-link {
     position: relative;
     display: inline-block;
     padding: 0.5rem 0.75rem;

@@ -15,36 +15,37 @@ const RuleText = "0.當你勾選後，即代表您同意遵守 Facebook 社群�
 6.因應臉書政策，涉及種族歧視之發文格殺勿論\n\
 7.請善用「███」取代敏感字詞" ;
 
-export default class TrafukoPage extends React.Component{
+export default class TrafukoPage extends React.Component {
 
-	constructor(props){
-		super(props);
+    constructor(props) {
+        super(props);
 
-		this.state = {
-			isAgree: false
-		}
+        this.state = {
+            isAgree: false
+        }
 
-		this.handleClick = this.handleClick.bind(this);
-	}
-    
-	render(){
-		return (
-			<div className = "trafuko">
-				<FormGroup>
-					<Label className="ruleTitle" for="ruleText">規章</Label>
-          			<Input type="textarea" name="text" className="ruleText" readOnly="true" defaultValue={RuleText}/>
-          			<div className="checkbox">
-            			<input className="checkbox-input" onClick={this.handleClick} type="checkbox"/>
-            			我同意上述規範
-            		</div>
-				</FormGroup>
-				<PostForm agreeCheck={this.state.isAgree}/>
-			</div>
-		);
-	}
-	handleClick(e){
-		this.setState({
-			isAgree: !this.state.isAgree
-		});
-	}
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    render() {
+        return (
+            <div className = "trafuko">
+                <FormGroup>
+                    <Label className="ruleTitle" for="ruleText">規章</Label>
+                      <Input type="textarea" name="text" className="ruleText" readOnly="true" defaultValue={RuleText}/>
+                      <div className="checkbox">
+                        <input className="checkbox-input" onClick={this.handleClick} type="checkbox"/>
+                        我同意上述規範
+                    </div>
+                </FormGroup>
+                <PostForm agreeCheck={this.state.isAgree}/>
+            </div>
+        );
+    }
+
+    handleClick(e) {
+        this.setState({
+            isAgree: !this.state.isAgree
+        });
+    }
 }

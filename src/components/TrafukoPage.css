@@ -1,34 +1,39 @@
-.trafuko{
-	padding : 1rem;
+.trafuko {
+    padding : 1rem;
 }
-.trafuko .ruleTitle{
 
-	text-align: center;
-	font-weight: bold;
-	color: red;
-	width: 100%;
+.trafuko .ruleTitle {
+
+    text-align: center;
+    font-weight: bold;
+    color: red;
+    width: 100%;
 }
-.trafuko .ruleText{
-	height: 160px;
-	min-width: 160px;
-	max-width: 720px;
-	margin:auto;
-	cursor: not-allowed;
+
+.trafuko .ruleText {
+    height: 160px;
+    min-width: 160px;
+    max-width: 720px;
+    margin:auto;
+    cursor: not-allowed;
 }
-.trafuko .checkbox{
-	position: relative;
+
+.trafuko .checkbox {
+    position: relative;
     padding-top: 1px;
     height: 24px;
-	max-width: 720px;
-	margin:auto;
-	font-weight: bold;
-	cursor: pointer;
+    max-width: 720px;
+    margin:auto;
+    font-weight: bold;
+    cursor: pointer;
 }
-.trafuko .checkbox .checkbox-input{
-	width:24px;
+
+.trafuko .checkbox .checkbox-input {
+    width:24px;
 }
-.trafuko .label-css{
-	padding-left: 25px;
+
+.trafuko .label-css {
+    padding-left: 25px;
     height: 20px;
     display: inline-block;
     line-height: 20px;
