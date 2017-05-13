@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 
 import { Animate } from 'react-move';
 
+import {
+    Button
+} from 'reactstrap';
 
 import './TrashPoolPage.css';
 
@@ -38,7 +41,11 @@ export default class TrashPoolPage extends React.Component {
             c: 2,
             d: 3,
             e: 4,
-            f: 5
+            f: 5,
+            style: {},
+            ifPause: false,
+            ptext: "",
+            id: ""
         }
         this.s1 = 0;
         this.s2 = 1;
@@ -48,6 +55,7 @@ export default class TrashPoolPage extends React.Component {
         this.s6 = 5;
         this.index = 5;
         this.tick = this.tick.bind(this);
+        this.capture = this.capture.bind(this);
     }
 
     componentDidMount() {
@@ -88,6 +96,15 @@ export default class TrashPoolPage extends React.Component {
         }
     }
 
+    capture(style, text, id) {
+        this.setState({
+                style: style,
+                ifPause: true,
+                ptext: text,
+                id: id
+            });
+    }
+
     render() {
 
         const data1 = Data.slice( this.state.a * showNum, (this.state.a + 1) * showNum);
@@ -97,14 +114,15 @@ export default class TrashPoolPage extends React.Component {
         const data5 = Data.slice( this.state.e * showNum, (this.state.e + 1) * showNum);
         const data6 = Data.slice( this.state.f * showNum, (this.state.f + 1) * showNum);
 
-        const items1 = data1.map(a => (<Item text={a.text} key={a.id} status={this.s1} />));
-        const items2 = data2.map(a => (<Item text={a.text} key={a.id} status={this.s2} />));
-        const items3 = data3.map(a => (<Item text={a.text} key={a.id} status={this.s3} />));
-        const items4 = data4.map(a => (<Item text={a.text} key={a.id} status={this.s4} />));
-        const items5 = data5.map(a => (<Item text={a.text} key={a.id} status={this.s5} />));
-        const items6 = data6.map(a => (<Item text={a.text} key={a.id} status={this.s6} />));
+        const items1 = data1.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s1} pause={this.capture}/>));
+        const items2 = data2.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s2} pause={this.capture}/>));
+        const items3 = data3.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s3} pause={this.capture}/>));
+        const items4 = data4.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s4} pause={this.capture}/>));
+        const items5 = data5.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s5} pause={this.capture}/>));
+        const items6 = data6.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s6} pause={this.capture}/>));
         return (
             <div>
+                <Pause style={this.state.style} ifPause={this.state.ifPause} text={this.state.ptext} id={this.state.id}/>
                 {items1}
                 {items2}
                 {items3}
@@ -116,6 +134,50 @@ export default class TrashPoolPage extends React.Component {
     }
 }
 
+class Pause extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            style: this.props.style
+        }
+    }
+
+    handleLike() {
+
+    }
+
+    render() {
+        if(this.props.ifPause)
+        return (
+               <div style={{
+                float: 'center',
+                width: '200px',
+                height: "auto",
+                padding: "10px",
+                borderRadius: "10px",
+                position: "absolute",
+                left: this.props.style.left,
+                top: this.props.style.top,
+                scale: this.props.style.scale,
+                background: this.props.style.color,
+                color: this.props.style.textcolor,
+                zIndex: 1
+               }}>
+                 <h2>{this.props.text}</h2>
+                 <Button onClick={() => this.handleLike(this.props.id)}>讚</Button>
+               </div>
+            );
+        else return <div></div>;
+    }
+}
+
+Pause.propTypes = {
+        style: PropTypes.object,
+        id: PropTypes.string,
+        ifPause: PropTypes.bool,
+        text: PropTypes.string
+};
+
 class Item extends React.Component {
     constructor(props) {
         super(props);
@@ -123,7 +185,9 @@ class Item extends React.Component {
             style: change(this.props.status)
         }
         this.status = this.props.status;
+        this.handle = this.handle.bind(this);
         this.tick = this.tick.bind(this);
+        this.styleHold;
     }
 
     componentDidMount() {
@@ -133,16 +197,26 @@ class Item extends React.Component {
         );
     }
 
+    handle() {
+        this.status = 10;
+        this.styleHold = this.state.style;
+    }
+
     componentWillUnmount() {
         clearInterval(this.change);
     }
 
     tick() {
         const s = this.status;
+        if (this.status !== 10) {
+            this.status = (s + 1) % 6;
+        } else {
+            this.props.pause(this.styleHold, this.props.text, this.props.id);
+            clearInterval(this.change);
+        }
         this.setState({
-            style: change(this.status)
+            style: change(s, this.styleHold)
         });
-        this.status = (s + 1) % 6;
     }
 
     render() {
@@ -165,7 +239,8 @@ class Item extends React.Component {
                             float: 'center',
                             width: '200px',
                             height: "auto",
-                            borderRadius: "10px",
+                            padding: "5px",
+                            borderRadius: "15px",
                             transform: `scale(${data.scale})`,
                             background: data.color,
                             color: data.textcolor,
@@ -174,6 +249,7 @@ class Item extends React.Component {
                             top: data.top
                           }}
                           className="disable"
+                          onClick={() => this.handle()}
                         >
                           <h2>{this.props.text}</h2>
                         </div>
@@ -183,12 +259,25 @@ class Item extends React.Component {
     }
 }
 
-function change(status) {
+Item.propTypes = {
+        text: PropTypes.string.isRequired,
+        status: PropTypes.number.isRequired,
+        id: PropTypes.string.isRequired,
+        pause: PropTypes.func
+};
+
+function change(status, style) {
         let num = Math.random();
-        const color = (num >= 0.75) ? "blue" : (num >= 0.5) ? "white" : (num >= 0.25) ? "yellow" : "black";
-        const textcolor = (num >= 0.75) ? "yellow" : (num >= 0.5) ? "black" : (num >= 0.25) ? "black" : "red";
+        let color = (num >= 0.75) ? "blue" : (num >= 0.5) ? "white" : (num >= 0.25) ? "yellow" : "black";
+        let textcolor = (num >= 0.75) ? "yellow" : (num >= 0.5) ? "black" : (num >= 0.25) ? "black" : "red";
         let scale, left;
+        let top = (200 + Math.random() * (screen.height - 500)) + "px";
         switch (status) {
+            case 10:
+                scale = 0;
+                left = style.left;
+                top = style.top;
+                break;
             case 0:
                 scale = 0.5 + Math.random() * 0.5;
                 left = (200 + Math.random() * (screen.width - 500)) + "px";
@@ -202,7 +291,7 @@ function change(status) {
                 left = (200 + Math.random() * (screen.width - 500)) + "px";
                 break;
             case 3:
-                scale = 1 + Math.random() * 0.4;
+                scale = 0.8 + Math.random() * 0.2;
                 left = (200 + Math.random() * (screen.width - 500)) + "px";
                 break;
             case 4:
@@ -210,11 +299,12 @@ function change(status) {
                 left = (200 + Math.random() * (screen.width - 500)) + "px";
                 break;
             default:
+                color = "black";
+                textcolor = "black";
                 scale = 0.5;
                 left = screen.width + "px";
                 break;
         }
-        const top = (200 + Math.random() * (screen.height - 500)) + "px";
         return {
             color: color,
             textcolor: textcolor,
@@ -223,8 +313,3 @@ function change(status) {
             top: top
         }
 }
-
-Item.propTypes = {
-        text: PropTypes.string.isRequired,
-        status: PropTypes.number.isRequired
-};
