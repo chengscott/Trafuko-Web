@@ -1,9 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
 import { Animate } from 'react-move';
 
-export default class RunText extends React.Component{
+export default class RunText extends React.Component {
 
     constructor(props){
         super(props);
@@ -54,3 +54,7 @@ function makeItem() {
         top: top
     }
 }
+
+RunText.propTypes = {
+        text: PropTypes.string.isRequired
+};
