@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 import {
     BrowserRouter as Router,
@@ -24,8 +23,6 @@ import {
     Button
  } from 'reactstrap';
 
-import MarkdownEditor from 'components/MarkdownEditor.jsx';
-import PictureShow from 'components/PictureShow.jsx';
 import TrafukoPage from 'components/TrafukoPage.jsx';
 import RankPage from 'components/RankPage.jsx';
 import TrashPoolPage from 'components/TrashPoolPage.jsx';
@@ -77,6 +74,9 @@ export default class Main extends React.Component {
                             <NavbarBrand href="/">Trafuko</NavbarBrand>
                             <Collapse isOpen={this.state.collapsed} navbar>
                                 <Nav className="ml-auto" navbar>
+                                    <NavItem>
+                                        <NavLink tag={Link} to='/'>講幹話</NavLink>
+                                    </NavItem>
                                     <NavItem>
                                         <NavLink tag={Link} to='/Rank'>排名榜</NavLink>
                                     </NavItem>

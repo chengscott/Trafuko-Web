@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {FormGroup , Label, Input} from 'reactstrap';
 
 import PostForm from 'components/PostForm.jsx';
@@ -86,7 +85,7 @@ export default class TrafukoPage extends React.Component{
         );
     }
 
-    runtextClick(e) {
+    runtextClick() {
         this.setState({
             runtext: !this.state.runtext
         });
@@ -100,7 +99,7 @@ export default class TrafukoPage extends React.Component{
         }
     }
 
-    handleClick(e){
+    handleClick(){
         this.setState({
             isAgree: !this.state.isAgree
         });

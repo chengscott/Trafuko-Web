@@ -1,12 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+//import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import {FormGroup , Label, Input,Button} from 'reactstrap';
+import {FormGroup , Input,Button} from 'reactstrap';
 
 import './PostForm.css';
 
 
 export default class PostForm extends React.Component{
+
 
     constructor(props){
         super(props);
@@ -61,21 +62,21 @@ export default class PostForm extends React.Component{
         this.setState({
             inputValue: text
         });
-        if (text) console.log("nothing");
-        else console.log("input");
+        //if (text) console.log("nothing");
+        //else console.log("input");
     }
 
-    handleCheckbox(e) {
-        console.log("checkbox");
+    handleCheckbox() {
+        //console.log("checkbox");
     }
 
     handleColorMode(color) {
-        console.log("done");
+        //console.log("done");
         this.setState({
             color:color
         });
     }
-    handlePost(e) {
+    handlePost() {
         if (this.props.agreeCheck) {
             if (!this.state.inputValue) {
                 this.setState({
@@ -86,14 +87,16 @@ export default class PostForm extends React.Component{
             this.setState({
                 inputDanger: false
             });
-            console.log("post");
-        }
-        else {
+            //console.log("post");
+        } else {
             this.setState({
                 inputDanger: true
             });
-            console.log("No Agree");
+            //console.log("No Agree");
             return;
         }
     }
 }
+PostForm.propTypes = {
+    agreeCheck: PropTypes.bool.isRequired
+};
