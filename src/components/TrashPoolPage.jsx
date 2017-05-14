@@ -246,7 +246,8 @@ class Item extends React.Component {
                             color: data.textcolor,
                             position: "absolute",
                             left: data.left,
-                            top: data.top
+                            top: data.top,
+                            cursor: 'pointer'
                           }}
                           className="disable"
                           onClick={() => this.handle()}
