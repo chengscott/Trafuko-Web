@@ -1,6 +1,9 @@
 import React from 'react';
 import {FormGroup , Label, Input} from 'reactstrap';
+import PropTypes from 'prop-types';
 
+import {connect} from 'react-redux';
+import {toggleAgree, toggleRuntext, setRuntextPage} from 'states/trafukoPage-action.js';
 import PostForm from 'components/PostForm.jsx';
 import RunText from 'components/runtext.jsx';
 
@@ -30,16 +33,10 @@ var Data = [{id: "0017", text:"積沙成塔，積少化痰", score: 120, order: 
 
 const runNum = 7;
 
-export default class TrafukoPage extends React.Component{
+class TrafukoPage extends React.Component{
 
     constructor(props){
         super(props);
-
-        this.state = {
-            isAgree: false,
-            runtext: true,
-            runtextPage: 0
-        }
 
         this.tick = this.tick.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -58,16 +55,18 @@ export default class TrafukoPage extends React.Component{
     }
 
     tick() {
-        let nextPage = this.state.runtextPage;
+        let nextPage = this.props.runtextPage;
         nextPage = nextPage + 1;
         if(nextPage >= Math.floor(Data.length / runNum)) nextPage = 0;
-        this.setState({runtextPage: nextPage});
+
+        this.props.dispatch(setRuntextPage(nextPage));
     }
 
     render(){
-        const page = this.state.runtextPage;
+        const page = this.props.runtextPage;
         const data = Data.slice(page * runNum, Math.min((page + 1) * runNum, Data.length - 1));
-        const showList = (this.state.runtext) ? data.map(a => <RunText text={a.text} key={a.id} />) : <div></div>;
+        const showList = (this.props.runtext) ? data.map(a => <RunText text={a.text} key={a.id} />) : <div></div>;
+        console.log(showList);
         return (
             <div className = "trafuko">
                 <FormGroup>
@@ -80,17 +79,16 @@ export default class TrafukoPage extends React.Component{
                         取消彈幕
                     </div>
                 </FormGroup>
-                <PostForm agreeCheck={this.state.isAgree}/>
+                <PostForm agreeCheck={this.props.isAgree}/>
                 {showList}
             </div>
         );
     }
 
     runtextClick() {
-        this.setState({
-            runtext: !this.state.runtext
-        });
-        if (this.state.runtext) {
+
+        this.props.dispatch(toggleRuntext());
+        if (this.props.runtext) {
             this.reRender = setInterval(
                 () => this.tick(),
                 10000
@@ -101,8 +99,16 @@ export default class TrafukoPage extends React.Component{
     }
 
     handleClick(){
-        this.setState({
-            isAgree: !this.state.isAgree
-        });
+        this.props.dispatch(toggleAgree());
     }
 }
+
+TrafukoPage.propTypes = {
+    isAgree: PropTypes.bool.isRequired,
+    runtext: PropTypes.bool.isRequired,
+    runtextPage: PropTypes.number.isRequired,
+    dispatch: PropTypes.func.isRequired
+}
+export default connect(state => ({
+    ...state.trafuko
+}))(TrafukoPage);

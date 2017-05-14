@@ -109,7 +109,7 @@ class Main extends React.Component {
                                 相信幹話能帶給世界美好與歡笑
                         </ModalBody>
                         <ModalFooter>
-                            <Button color="primary" onClick={this.toggleModal_A}>Cancel</Button>
+                            <Button color="primary" onClick={this.toggleModal_A}>確定</Button>
                         </ModalFooter>
                     </Modal>
                     <Modal isOpen={this.props.modal_logs} toggle={this.toggleModal_L} >
