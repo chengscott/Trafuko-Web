@@ -70,17 +70,17 @@ export default class Main extends React.Component {
                     <div id="id_header">
                         <Navbar color="faded" light toggleable>
                             <NavbarToggler  right onClick={this.toggleNavbar} />
-                            <NavbarBrand href="/">Trafuko</NavbarBrand>
+                            <NavbarBrand href="/">Trafuko | 垃圾話</NavbarBrand>
                             <Collapse isOpen={this.state.collapsed} navbar>
                                 <Nav className="ml-auto" navbar>
                                     <NavItem>
                                         <NavLink tag={Link} to='/'>講幹話</NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink tag={Link} to='/Rank'>排名榜</NavLink>
+                                        <NavLink tag={Link} to='/TrashPool'>幹話池</NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink tag={Link} to='/TrashPool'>幹話池</NavLink>
+                                        <NavLink tag={Link} to='/Rank'>排行榜</NavLink>
                                     </NavItem>
                                     <NavItem>
                                         <NavLink tag={Link} to='/Login'>登入</NavLink>
@@ -104,8 +104,8 @@ export default class Main extends React.Component {
 
                     <div id="id_footer">
                         <Breadcrumb className="nomargin">
-                            <BreadcrumbItem>Trafuko</BreadcrumbItem>
-                            <BreadcrumbItem><a href="#" onClick={this.toggleModal_A}>About</a></BreadcrumbItem>
+                            <BreadcrumbItem>Trafuko | 垃圾話</BreadcrumbItem>
+                            <BreadcrumbItem><a href="#" onClick={this.toggleModal_A}>關於我們</a></BreadcrumbItem>
                             <BreadcrumbItem active><a href="#" onClick={this.toggleModal_L}>Log</a></BreadcrumbItem>
                         </Breadcrumb>
                     </div>
@@ -117,7 +117,7 @@ export default class Main extends React.Component {
                                 相信幹話能帶給世界美好與歡笑
                         </ModalBody>
                         <ModalFooter>
-                            <Button color="primary" onClick={this.toggleModal_A}>Cancel</Button>
+                            <Button color="primary" onClick={this.toggleModal_A}>確定</Button>
                         </ModalFooter>
                     </Modal>
                     <Modal isOpen={this.state.modal_logs} toggle={this.toggleModal_L} >
