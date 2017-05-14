@@ -6,10 +6,10 @@
   "scripts": {
     "build": "webpack -p",
     "watch": "webpack -w",
-    "start": "webpack-dev-server",
-    "cloud": "node server.js",
+    "start": "node server.js",
+    "dev": "webpack-dev-server",
+    "dev-history": "webpack-dev-server --inline --content-base . --history-api-fallback",
     "test-server": "node ./server/src/server.js",
-    "start-history": "webpack-dev-server --inline --content-base . --history-api-fallback",
     "lint": "eslint src/components/*.jsx",
     "test": "karma start"
   },

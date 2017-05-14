@@ -18,7 +18,7 @@ app.get('*', function(req, res) {
 });
 app.use(errorHandler);
 
-const port = 80;
+const port = 8080;
 app.listen(port, () => {
     console.log(`Server is up and running on port ${port}...`);
 });

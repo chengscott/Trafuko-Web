@@ -9,13 +9,27 @@
 ## Environment Setup
 
 ```bash
-yarn install # install dependencies
+yarn # install dependencies
 ```
 
-## Run
+## Run in development
 
 ```bash
-yarn run start
+yarn run dev
+```
+
+## Run in production
+
+```bash
+NODE_ENV=production
+yarn run build
+yarn start
+```
+
+## Test
+
+```bash
+yarn run test
 ```
 
 ## Lint
