@@ -33,17 +33,11 @@ export default class PostForm extends React.Component{
         const inputDanger = (this.state.inputDanger == true)?'has-danger':'';
         return (
             <div>
-                <Alert color="danger">
-                    <strong>Oh snap!</strong> Change a few things up and try submitting again.
-                </Alert>
-                <Alert color="danger">
-                    <strong>Oh snap!</strong> Change a few things up and try submitting again.
-                </Alert>
-                <Alert color="danger">
-                    <strong>Oh snap!</strong> Change a few things up and try submitting again.
-                </Alert>
                 <FormGroup className={inputDanger}>
                     <div className="postFormDisplay">
+                        {(this.state.inputDanger && !this.props.agreeCheck)&& <Alert color="danger" className="margin">
+                            <strong>錯誤!</strong> 你需要同意上述規範
+                        </Alert>}
                         <Input style={{color:this.state.color}}className="TextArea" type="textarea" getRef={el => {this.inputEl = el}} onChange={this.handleInputChange} value={this.state.inputValue} placeholder={this.state.text}/>
                         <div className="toolList">
                             <Button className="box hvr-wobble-horizontal" style={{background: 'black'}} onClick={()=>{this.handleColorMode('black')}}></Button>
@@ -68,6 +62,11 @@ export default class PostForm extends React.Component{
 
     handleInputChange(e) {
         const text = e.target.value;
+        if(this.props.agreeCheck && this.state.inputDanger){
+            this.setState({
+                inputDanger: !this.state.inputDanger
+            });
+        }
         this.setState({
             inputValue: text
         });
