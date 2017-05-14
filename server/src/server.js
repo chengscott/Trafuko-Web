@@ -10,7 +10,7 @@ const accessControl = require('./middleware/access-controller.js'); // develop o
 const app = express();
 
 app.use(requestLogger);
-app.use(express.static(__dirname + '../../dist/'));
+app.use(express.static('dist'));
 // app.use(express.static('dist', {
 //     setHeaders: (res, path, stat) => {
 //         res.set('Cache-Control', 'public, s-maxage=86400');
