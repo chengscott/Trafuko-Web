@@ -15,6 +15,7 @@ export default class PostForm extends React.Component{
         this.state = {
             inputValue: '',
             inputDanger: false,
+            agreeToCumba: false,
             text: '你今天都在幹話些什麼？',
             color: 'black'
         };
@@ -61,16 +62,14 @@ export default class PostForm extends React.Component{
         this.setState({
             inputValue: text
         });
-        //if (text) console.log("nothing");
-        //else console.log("input");
     }
 
     handleCheckbox() {
-        //console.log("checkbox");
+        
     }
 
     handleColorMode(color) {
-        //console.log("done");
+        
         this.setState({
             color:color
         });

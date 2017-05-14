@@ -68,7 +68,7 @@ module.exports = {
             }
         ]
     },
-    plugins: [new webpack.optimize.CommonsChunkPlugin({name: 'vendor', filename: 'vendor.bundle.js', minChunks: 2})],
+    plugins: [],
     devServer: {
         contentBase: distPath,
         compress: true,
