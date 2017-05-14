@@ -4,7 +4,6 @@ html body {
 
 #root {
     min-height: 100%;
-    background-color: #97E2F8;
 }
 
 #id_wrapper {
@@ -34,3 +33,11 @@ html body {
 #id_footer .nomargin {
     margin: 0px;
 }
+
+.underwater {
+    background-image: url('../images/underwater.jpg');
+    background-size: 100% 100%;
+     background-repeat: no-repeat;
+}
+
+

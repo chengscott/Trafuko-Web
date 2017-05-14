@@ -66,7 +66,7 @@ export default class Main extends React.Component {
     render() {
         return(
             <Router>
-                <div id="id_wrapper">
+                <div id="id_wrapper" className="underwater">
                     <div id="id_header">
                         <Navbar color="faded" light toggleable>
                             <NavbarToggler  right onClick={this.toggleNavbar} />

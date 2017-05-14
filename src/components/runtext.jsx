@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Animate } from 'react-move';
+import './runtext.css';
 
 export default class RunText extends React.Component {
 
@@ -35,7 +36,7 @@ export default class RunText extends React.Component {
                             left: data.left,
                             top: data.top
                           }}
-                          className="disable"
+                          className="disable hvr-grow"
                         >
                           {this.props.text}
                         </div>
