@@ -19,10 +19,13 @@
     "axios": "^0.15.3",
     "babel-eslint": "^7.2.3",
     "babel-polyfill": "^6.23.0",
+    "body-parser": "^1.17.1",
     "bootstrap": "^4.0.0-alpha.6",
     "eslint": "^3.19.0",
     "eslint-loader": "^1.7.1",
+    "express": "^4.15.2",
     "hover.css": "^2.2.0",
+    "karma-phantomjs-launcher": "^1.0.4",
     "moment": "^2.18.1",
     "prop-types": "^15.5.10",
     "react": "^15.5.3",
@@ -38,9 +41,7 @@
     "redux": "^3.6.0",
     "redux-logger": "^3.0.1",
     "redux-thunk": "^2.2.0",
-    "uuid": "^3.0.1",
-    "body-parser": "^1.17.1",
-    "express": "^4.15.2"
+    "uuid": "^3.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.24.0",

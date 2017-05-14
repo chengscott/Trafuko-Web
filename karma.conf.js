@@ -3,8 +3,12 @@ var webpackConfig = require('./webpack.config.js');
 module.exports = function (config){
   config.set({
     // Which browsers we want to run on
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
     singleRun: true,
+    phantomjsLauncher: {
+      // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)
+      exitOnResourceError: true
+    },
     // Karma test runner will use mocha to run tests
     frameworks: ['mocha'],
     // Need to load common bundle files before the tests
@@ -25,7 +29,5 @@ module.exports = function (config){
     webpackServer: {
       noInfo: true
     }
-
-
   });
 };

@@ -68,7 +68,6 @@ module.exports = {
             }
         ]
     },
-    plugins: [],
     devServer: {
         contentBase: distPath,
         compress: true,
