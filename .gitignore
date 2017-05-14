@@ -2,3 +2,12 @@ node_modules/*
 yarn.lock
 dist/index.bundle.js*
 dist/vendor.bundle.js*
+npm-debug.log
+.tern-project
+data-*.json
+logs.txt
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

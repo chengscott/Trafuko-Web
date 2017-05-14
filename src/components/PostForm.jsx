@@ -2,6 +2,7 @@ import React from 'react';
 //import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import {FormGroup , Input,Button} from 'reactstrap';
+import {createPost as createPostFormApi} from 'api/post';
 
 import './PostForm.css';
 
@@ -16,8 +17,7 @@ export default class PostForm extends React.Component{
             inputValue: '',
             inputDanger: false,
             text: '你今天都在幹話些什麼？',
-            color: 'black',
-            fontstyle: ''
+            color: 'black'
         };
 
         this.inputEl = null;
@@ -35,7 +35,7 @@ export default class PostForm extends React.Component{
             <div>
                 <FormGroup className={inputDanger}>
                     <div className="postFormDisplay">
-                        <Input style={{color:this.state.color}}className="TextArea" type="textarea" getRef={el => {this.inputEl = el}} onChange={this.handleInputChange}  placeholder={this.state.text}/>
+                        <Input style={{color:this.state.color}}className="TextArea" type="textarea" getRef={el => {this.inputEl = el}} onChange={this.handleInputChange} value={this.state.inputValue} placeholder={this.state.text}/>
                         <div className="toolList">
                             <Button className="box" style={{background: 'black'}} onClick={()=>{this.handleColorMode('black')}}></Button>
                             <Button className="box" style={{background: 'red'}} onClick={()=>{this.handleColorMode('red')}}></Button>
@@ -84,8 +84,15 @@ export default class PostForm extends React.Component{
                 });
                 return;
             }
-            this.setState({
-                inputDanger: false
+            createPostFormApi(this.state.color,this.state.inputValue).then(value=>{
+                console.log(this.state.inputValue);
+                this.setState({
+                    inputDanger: false,
+                    inputValue:''
+                });
+                if (value) {
+                    alert("I got it");
+                }
             });
             //console.log("post");
         } else {
