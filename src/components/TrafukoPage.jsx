@@ -73,9 +73,9 @@ export default class TrafukoPage extends React.Component{
                     <Label className="ruleTitle" for="ruleText">規章</Label>
                       <Input type="textarea" name="text" className="ruleText" readOnly="true" defaultValue={RuleText}/>
                       <div className="checkbox">
-                        <input className="checkbox-input" onClick={this.handleClick} type="checkbox"/>
+                        <input className="checkbox-input hvr-bounce-in" onClick={this.handleClick} type="checkbox"/>
                         我同意上述規範
-                        <input className="checkbox-input" onClick={this.runtextClick} type="checkbox"/>
+                        <input className="checkbox-input hvr-bounce-in" onClick={this.runtextClick} type="checkbox"/>
                         取消彈幕
                     </div>
                 </FormGroup>

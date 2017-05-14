@@ -5,7 +5,6 @@ import {FormGroup , Input,Button} from 'reactstrap';
 
 import './PostForm.css';
 
-
 export default class PostForm extends React.Component{
 
 
@@ -37,19 +36,19 @@ export default class PostForm extends React.Component{
                     <div className="postFormDisplay">
                         <Input style={{color:this.state.color}}className="TextArea" type="textarea" getRef={el => {this.inputEl = el}} onChange={this.handleInputChange}  placeholder={this.state.text}/>
                         <div className="toolList">
-                            <Button className="box" style={{background: 'black'}} onClick={()=>{this.handleColorMode('black')}}></Button>
-                            <Button className="box" style={{background: 'red'}} onClick={()=>{this.handleColorMode('red')}}></Button>
-                            <Button className="box" style={{background: 'green'}} onClick={()=>{this.handleColorMode('green')}}></Button>
-                            <Button className="box" style={{background: 'blue'}} onClick={()=>{this.handleColorMode('blue')}}></Button>
-                            <Button className="box" style={{background: 'yellow'}} onClick={()=>{this.handleColorMode('yellow')}}></Button>
+                            <Button className="box hvr-wobble-horizontal" style={{background: 'black'}} onClick={()=>{this.handleColorMode('black')}}></Button>
+                            <Button className="box hvr-wobble-horizontal" style={{background: 'red'}} onClick={()=>{this.handleColorMode('red')}}></Button>
+                            <Button className="box hvr-wobble-horizontal" style={{background: 'green'}} onClick={()=>{this.handleColorMode('green')}}></Button>
+                            <Button className="box hvr-wobble-horizontal" style={{background: 'blue'}} onClick={()=>{this.handleColorMode('blue')}}></Button>
+                            <Button className="box hvr-wobble-horizontal" style={{background: 'yellow'}} onClick={()=>{this.handleColorMode('yellow')}}></Button>
                         </div>
                     </div>
 
                     <div className="postForm">
-                        <Button color="success" onClick={this.handlePost} className="button">我要發文！！</Button>
+                        <Button color="success" onClick={this.handlePost} className="button hvr-buzz">我要發文！！</Button>
                         <div className="checkbox">
-                            <input className="checkbox-input" onClick={this.handleCheckbox} type="checkbox"/>
-                            &nbsp;同時發文在靠北工程師
+                            <input className="checkbox-input hvr-grow" onClick={this.handleCheckbox} type="checkbox" />
+                            同時發文在靠北工程師
                         </div>
                     </div>
                 </FormGroup>

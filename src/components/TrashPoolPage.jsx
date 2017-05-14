@@ -162,9 +162,9 @@ class Pause extends React.Component {
                 background: this.props.style.color,
                 color: this.props.style.textcolor,
                 zIndex: 1
-               }}>
+               }} className="hvr-bounce-in">
                  <h2>{this.props.text}</h2>
-                 <Button onClick={() => this.handleLike(this.props.id)}>讚</Button>
+                 <Button className="hvr-push" onClick={() => this.handleLike(this.props.id)}>讚</Button>
                </div>
             );
         else return <div></div>;
