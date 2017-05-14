@@ -112,8 +112,10 @@ selectNodeVersion
 # 3. Install npm packages
 if [ -e "$DEPLOYMENT_TARGET/package.json" ]; then
   cd "$DEPLOYMENT_TARGET"
+  echo npm install
   eval $NPM_CMD install --production
-  eval ./$DEPLOYMENT_TARGET/node_modules/.bin/webpack -p
+  echo npm build
+  eval ./node_modules/.bin/webpack -p
   exitWithMessageOnError "npm failed"
   cd - > /dev/null
 fi
