@@ -1,7 +1,7 @@
 import React from 'react';
 //import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import {FormGroup , Input,Button} from 'reactstrap';
+import {FormGroup , Input, Button, Alert} from 'reactstrap';
 import {createPost as createPostFormApi} from 'api/post';
 
 import './PostForm.css';
@@ -33,6 +33,15 @@ export default class PostForm extends React.Component{
         const inputDanger = (this.state.inputDanger == true)?'has-danger':'';
         return (
             <div>
+                <Alert color="danger">
+                    <strong>Oh snap!</strong> Change a few things up and try submitting again.
+                </Alert>
+                <Alert color="danger">
+                    <strong>Oh snap!</strong> Change a few things up and try submitting again.
+                </Alert>
+                <Alert color="danger">
+                    <strong>Oh snap!</strong> Change a few things up and try submitting again.
+                </Alert>
                 <FormGroup className={inputDanger}>
                     <div className="postFormDisplay">
                         <Input style={{color:this.state.color}}className="TextArea" type="textarea" getRef={el => {this.inputEl = el}} onChange={this.handleInputChange} value={this.state.inputValue} placeholder={this.state.text}/>

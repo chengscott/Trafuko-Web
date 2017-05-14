@@ -25,9 +25,10 @@ html body {
     margin: 0px;
     height: 36px;
     box-sizing: border-box;
-    position: absolute;
+    position: fixed;
     bottom: 0px;
     width: 100%;
+    clear: both;
 }
 
 #id_footer .nomargin {
