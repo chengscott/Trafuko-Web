@@ -4,6 +4,7 @@ import {FormGroup , Label, Input} from 'reactstrap';
 import PostForm from 'components/PostForm.jsx';
 import RunText from 'components/runtext.jsx';
 
+
 import './TrafukoPage.css';
 
 const RuleText = "0.當你勾選後，即代表您同意遵守 Facebook 社群使用規則.\n\
