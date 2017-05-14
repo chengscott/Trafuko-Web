@@ -1,6 +1,8 @@
 ### Software Studio
 # Trafuko | 垃圾話
 
+[![Build Status](https://travis-ci.com/chengscott/Trafuko-Web.svg?token=6qy6kyyaykPzLdMZwRRn&branch=master)](https://travis-ci.com/chengscott/Trafuko-Web)
+
 ## Prerequisites
 
 * node
