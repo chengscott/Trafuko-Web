@@ -76,3 +76,5 @@ module.exports = {
     },
     devtool: 'cheap-source-map'
 };
+
+//plugins: [new webpack.optimize.CommonsChunkPlugin({name: 'vendor', filename: 'vendor.bundle.js', minChunks: 2})],
