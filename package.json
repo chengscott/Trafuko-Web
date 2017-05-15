@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack -p",
     "watch": "webpack -w",
-    "start": "node server.js",
+    "start": "npm run build && node index.js",
     "dev": "webpack-dev-server",
     "dev-history": "webpack-dev-server --inline --content-base . --history-api-fallback",
     "test-server": "node ./server/src/server.js",
@@ -65,6 +65,7 @@
     "webpack-dev-server": "^2.4.2"
   },
   "engines": {
-    "node": "7.7.4"
+    "node": ">=7.7.4",
+    "npm": ">=4.1.2"
   }
 }

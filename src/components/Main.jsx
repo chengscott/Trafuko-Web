@@ -62,12 +62,11 @@ export default class Main extends React.Component {
             modal_logs: !this.state.modal_logs
         });
     }
-
+//<img src="../images/underwater.jpg" className="bg"/>
     render() {
         return(
             <Router>
                 <div id="id_wrapper" >
-                    <img src="../images/underwater.jpg" className="bg"/>
                     <div id="id_header">
                         <Navbar color="faded" light toggleable>
                             <NavbarToggler  right onClick={this.toggleNavbar} />
