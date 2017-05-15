@@ -1,3 +1,14 @@
 input {
     width: 7rem;
 }
+
+.rankpage {
+    height: 160px;
+    max-width: 730px;
+    margin:auto;
+    margin-bottom: 10px;
+}
+
+.rankpage .clickHand {
+    cursor: pointer;
+}

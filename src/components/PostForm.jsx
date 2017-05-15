@@ -52,7 +52,7 @@ export default class PostForm extends React.Component {
                     </div>
 
                     <div className="postForm">
-                        <Button color="success" onClick={this.handlePost} className="button hvr-buzz">我要發文！！</Button>
+                        <Button color="success" onClick={this.handlePost} className="button hvr-buzz-out">我要發文！！</Button>
                         <div className="checkbox">
                             <input className="checkbox-input hvr-grow" type="checkbox"/>
                             同時發文在靠北工程師
