@@ -22,6 +22,7 @@ import {
     Button
  } from 'reactstrap';
 
+import Background from 'components/Background.jsx';
 import TrafukoPage from 'components/TrafukoPage.jsx';
 import RankPage from 'components/RankPage.jsx';
 import TrashPoolPage from 'components/TrashPoolPage.jsx';
@@ -29,7 +30,6 @@ import TrashPoolPage from 'components/TrashPoolPage.jsx';
 import './Main.css';
 
 export default class Main extends React.Component {
-
 
     constructor(props) {
         super(props);
@@ -67,7 +67,6 @@ export default class Main extends React.Component {
         return(
             <Router>
                 <div id="id_wrapper" >
-                    <img src="../images/underwater.jpg" className="bg"/>
                     <div id="id_header">
                         <Navbar color="faded" light toggleable>
                             <NavbarToggler  right onClick={this.toggleNavbar} />
