@@ -26,10 +26,10 @@ export default class TrafukoPage extends React.Component {
 
     constructor(props) {
         super(props);
-
+        const runtext = (screen.width >= 700) ? true : false;
         this.state = {
             isAgree: false,
-            runtext: true,
+            runtext: runtext,
             runtextPage: 0,
             Data: [{id: "0017", text:"積沙成塔，積少化痰", score: 120, order: 0},{id:"0018", text:"每天少喝一杯珍珠奶茶，一個禮拜後，就能買七杯珍珠奶茶", score: 63, order: 0},
 {id: "0019", text:"我很喜歡你的聲音 特別是你閉嘴的聲音", score: 94, order: 0},{id:"0020", text:"我這個人，不說垃圾話的!!!", score: 174, order: 0},
@@ -73,6 +73,7 @@ export default class TrafukoPage extends React.Component {
     }
 
     render() {
+        const runtext_label = (this.state.runtext === false)? "彈幕" : "取消彈幕";
         const page = this.state.runtextPage;
         const data = this.state.Data.slice(page * runNum, Math.min((page + 1) * runNum, this.state.Data.length - 1));
         const showList = this.state.runtext ? data.map(a => <RunText text={a.text} key={a.id}/>) : <div></div>;
@@ -84,8 +85,8 @@ export default class TrafukoPage extends React.Component {
                       <div className="checkbox">
                         <input className="checkbox-input hvr-bounce-in" onClick={this.handleClick} type="checkbox"/>
                         我同意上述規範
-                        <input className="checkbox-input hvr-bounce-in" onClick={this.runtextClick} type="checkbox"/>
-                        取消彈幕
+                        <input className="checkbox-input hvr-bounce-in" onClick={this.runtextClick} type="checkbox" />
+                        {runtext_label}
                     </div>
                 </FormGroup>
                 <PostForm agreeCheck={this.state.isAgree}/>

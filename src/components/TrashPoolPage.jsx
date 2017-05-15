@@ -7,12 +7,12 @@ import {
 
 import './TrashPoolPage.css';
 
-const showNum = 3;
 
 export default class TrashPoolPage extends React.Component {
 
     constructor(props) {
         super(props);
+        const showNum = (screen.width >= 1024) ? 3 : (screen.width >= 700) ? 2 : 1;
         this.state = {
             a: 0,
             b: 1,
@@ -20,6 +20,7 @@ export default class TrashPoolPage extends React.Component {
             d: 3,
             e: 4,
             f: 5,
+            showNum: showNum,
             style: {},
             ifPause: false,
             ptext: "",
@@ -68,7 +69,7 @@ export default class TrashPoolPage extends React.Component {
 
     tick() {
         this.index = this.index + 1;
-        if (this.index >= Math.floor(this.state.Data.length / showNum)) this.index = 0;
+        if (this.index >= Math.floor(this.state.Data.length / this.state.showNum)) this.index = 0;
         const stop = 1;
         this.s1 = (this.s1 + 1) % 6;
         this.s2 = (this.s2 + 1) % 6;
@@ -102,6 +103,7 @@ export default class TrashPoolPage extends React.Component {
     }
 
     render() {
+        const showNum = this.state.showNum;
         const data1 = this.state.Data.slice( this.state.a * showNum, (this.state.a + 1) * showNum);
         const data2 = this.state.Data.slice( this.state.b * showNum, (this.state.b + 1) * showNum);
         const data3 = this.state.Data.slice( this.state.c * showNum, (this.state.c + 1) * showNum);
@@ -117,7 +119,7 @@ export default class TrashPoolPage extends React.Component {
         const items6 = data6.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s6} pause={this.capture}/>));
         return (
             <div>
-                <Pause style={this.state.style} ifPause={this.state.ifPause} text={this.state.ptext} id={this.state.id}/>
+                <Pause style={this.state.style} ifPause={this.state.ifPause} text={this.state.ptext} id={"p_" + this.state.id}/>
                 {items1}
                 {items2}
                 {items3}
@@ -140,9 +142,6 @@ class Pause extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            style: this.props.style
-        }
     }
 
     handleLike() {
@@ -161,13 +160,12 @@ class Pause extends React.Component {
                 position: "absolute",
                 left: this.props.style.left,
                 top: this.props.style.top,
-                scale: this.props.style.scale,
-                background: this.props.style.color,
-                color: this.props.style.textcolor,
+                background: "black",
+                color: "yellow",
                 zIndex: 1
-               }} className="hvr-bounce-in">
+               }}>
                  <h2>{this.props.text}</h2>
-                 <Button className="hvr-push" onClick={() => this.handleLike(this.props.id)}>讚</Button>
+                 <Button className="hvr-grow" onClick={() => this.handleLike(this.props.id)}>讚</Button>
                </div>
             );
         else return <div></div>;
@@ -186,12 +184,12 @@ class Item extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            style: change(this.props.status)
+            style: change(this.props.status),
+            class: ""
         }
         this.status = this.props.status;
         this.handle = this.handle.bind(this);
         this.tick = this.tick.bind(this);
-        this.styleHold;
     }
 
     componentDidMount() {
@@ -202,8 +200,12 @@ class Item extends React.Component {
     }
 
     handle() {
-        this.status = 10;
-        this.styleHold = this.state.style;
+        let style = document.getElementById("i_" + this.props.id).style;
+        style.color = this.state.style.color;
+        style.textcolor = this.state.style.textcolor;
+        this.props.pause(style, this.props.text, this.props.id);
+        this.setState({class: "disappear", style: style});
+        clearInterval(this.change);
     }
 
     componentWillUnmount() {
@@ -212,14 +214,9 @@ class Item extends React.Component {
 
     tick() {
         const s = this.status;
-        if (this.status !== 10) {
-            this.status = (s + 1) % 6;
-        } else {
-            this.props.pause(this.styleHold, this.props.text, this.props.id);
-            clearInterval(this.change);
-        }
+        this.status = (s + 1) % 6;
         this.setState({
-            style: change(s, this.styleHold)
+            style: change(s)
         });
     }
 
@@ -253,7 +250,8 @@ class Item extends React.Component {
                         top: data.top,
                         cursor: 'pointer'
                       }}
-                      className="disable"
+                      id={"i_" + this.props.id}
+                      className={"disable " + this.state.class}
                       onClick={() => this.handle()}
                     >
                       <h2>{this.props.text}</h2>
@@ -264,18 +262,13 @@ class Item extends React.Component {
     }
 }
 
-function change(status, style) {
+function change(status) {
     let num = Math.random();
     let color = (num >= 0.75) ? "blue" : (num >= 0.5) ? "white" : (num >= 0.25) ? "yellow" : "black";
     let textcolor = (num >= 0.75) ? "yellow" : (num >= 0.5) ? "black" : (num >= 0.25) ? "black" : "red";
     let scale, left;
-    let top = (200 + Math.random() * (screen.height - 500)) + "px";
+    let top = (200 + Math.random() * (screen.height - 400)) + "px";
     switch (status) {
-        case 10:
-            scale = 0;
-            left = style.left;
-            top = style.top;
-            break;
         case 0:
             scale = 0.5 + Math.random() * 0.5;
             left = (200 + Math.random() * (screen.width - 500)) + "px";
@@ -297,8 +290,6 @@ function change(status, style) {
             left = (200 + Math.random() * (screen.width - 500)) + "px";
             break;
         default:
-            color = "black";
-            textcolor = "black";
             scale = 0.5;
             left = screen.width + "px";
             break;
