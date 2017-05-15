@@ -4,7 +4,6 @@ import {
     Route,
     Link
 } from 'react-router-dom';
-
 import {
     Nav,
     Navbar,
@@ -20,7 +19,8 @@ import {
     ModalBody,
     ModalFooter,
     Button
- } from 'reactstrap';
+} from 'reactstrap';
+import * as firebase from "firebase";
 
 import Background from 'components/Background.jsx';
 import TrafukoPage from 'components/TrafukoPage.jsx';
@@ -28,6 +28,13 @@ import RankPage from 'components/RankPage.jsx';
 import TrashPoolPage from 'components/TrashPoolPage.jsx';
 
 import './Main.css';
+
+const config = {
+    apiKey: "AIzaSyDUfoL0DdG_VDo5ijtZRqvVACwXQMARZrc",
+    authDomain: "test-efd03.firebaseapp.com",
+    databaseURL: "https://test-efd03.firebaseio.com",
+    storageBucket: "test-efd03.appspot.com",
+};
 
 export default class Main extends React.Component {
 
@@ -93,7 +100,9 @@ export default class Main extends React.Component {
 
                     <div id="id_content">
                         <Route exact path="/" render={() => (
-                                <TrafukoPage firebase={this.props.firebase} />
+                                <TrafukoPage firebase={
+                                        firebase.initializeApp(config).database().ref()
+                                    } />
                             )}/>
                         <Route exact path="/Rank" render={() => (
                                 <RankPage />

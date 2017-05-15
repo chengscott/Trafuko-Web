@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {FormGroup , Label, Input} from 'reactstrap';
 
 import PostForm from 'components/PostForm.jsx';
@@ -31,6 +32,10 @@ const runNum = 7;
 
 export default class TrafukoPage extends React.Component {
 
+    static propTypes = {
+        firebase: PropTypes.object.isRequired
+    };
+
     constructor(props) {
         super(props);
 
@@ -46,7 +51,7 @@ export default class TrafukoPage extends React.Component {
 
         this.props.firebase.on('value', snapshot => {
             const store = snapshot.val();
-            //console.log(store);
+            console.log(store);
         });
     }
 
