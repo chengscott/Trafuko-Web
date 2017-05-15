@@ -9,10 +9,12 @@ import {
     PaginationLink
 } from 'reactstrap';
 
+import $ from 'jquery';
+
 function compare(a, b) {
-    if (a.score < b.score)
+    if (a.vote < b.vote)
         return 1;
-    if (a.score > b.score)
+    if (a.vote > b.vote)
         return -1;
     return 0;
 }
@@ -38,7 +40,11 @@ export default class RankPage extends React.Component {
 
     componentDidMount() {
         this.props.firebase.ref('posts').on('value', snapshot => {
-            this.setState({Data: snapshot.val()});
+            const val = snapshot.val();
+            const array = $.map(val, (value)=> {
+                return [value];
+            });
+            this.setState({Data: array});
         });
     }
 
@@ -65,7 +71,6 @@ export default class RankPage extends React.Component {
 
     render() {
         const npp = this.state.npp;
-        console.log(typeof(this.state.Data));
         const data = this.state.Data.sort(compare);
         const showList = data.slice((this.state.page - 1) * npp , Math.min(this.state.page * npp, this.state.Data.length - 1));
         const listItems = showList.map((each) => <Box order={data.indexOf(each) + 1} key={each.id} text={each.text}/>);

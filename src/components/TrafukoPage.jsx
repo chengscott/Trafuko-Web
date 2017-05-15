@@ -1,7 +1,9 @@
 import React from 'react';
+
+import {FormGroup , Label, Input} from 'reactstrap';
 import PropTypes from 'prop-types';
+
 import {connect} from 'react-redux';
-import {FormGroup, Label, Input} from 'reactstrap';
 import $ from 'jquery';
 
 import {setAgree, setRuntextPage, receiveData, setRuntext} from 'states/trafukoPage-action.js';
@@ -21,20 +23,14 @@ const RuleText = `0. 當你勾選後，即代表您同意遵守 Facebook 社群�
 
 const runNum = 7;
 
-class TrafukoPage extends React.Component {
+class TrafukoPage extends React.Component{
 
     static propTypes = {
-        firebase: PropTypes.object.isRequired,
-        isAgree: PropTypes.bool.isRequired,
-        runtext: PropTypes.bool.isRequired,
-        runtextPage: PropTypes.number.isRequired,
-        dispatch: PropTypes.func.isRequired,
-        Data: PropTypes.array.isRequired
+        firebase: PropTypes.object.isRequired
     };
 
     constructor(props) {
         super(props);
-      
         this.tick = this.tick.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.runtextClick = this.runtextClick.bind(this);
@@ -64,9 +60,12 @@ class TrafukoPage extends React.Component {
     tick() {
         let nextPage = this.props.runtextPage;
         nextPage = nextPage + 1;
-        if (nextPage >= Math.floor(this.props.Data.length / runNum)) nextPage = 0;
+
+        if(nextPage >= Math.floor(this.props.Data.length / runNum)) nextPage = 0;
+
         this.props.dispatch(setRuntextPage(nextPage));
     }
+
 
     render() {
         const runtext_label = (this.props.runtext === false)? "彈幕" : "取消彈幕";
@@ -92,8 +91,10 @@ class TrafukoPage extends React.Component {
         );
     }
 
+
     runtextClick(e) {
         const flag = e.target.checked;
+        
         this.props.dispatch(setRuntext(flag));
         if (this.props.runtext) {
             this.reRender = setInterval(
@@ -109,6 +110,14 @@ class TrafukoPage extends React.Component {
         const flag = e.target.checked; 
         this.props.dispatch(setAgree(flag));
     }
+}
+
+TrafukoPage.propTypes = {
+    isAgree: PropTypes.bool.isRequired,
+    runtext: PropTypes.bool.isRequired,
+    runtextPage: PropTypes.number.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    Data: PropTypes.array.isRequired
 }
 export default connect(state => ({
     ...state.trafuko
