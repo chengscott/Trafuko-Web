@@ -95,7 +95,7 @@ export default class RankPage extends React.Component {
                         <PaginationLink previous/>
                     </PaginationItem>
                     <PaginationItem active>
-                        <PaginationLink>{this.state.page}</PaginationLink>
+                        <PaginationLink  className="z-index-modify">{this.state.page}</PaginationLink>
                     </PaginationItem>
                     <PaginationItem className="hvr-forward clickHand" onClick={() => this.changePage(this.state.page + 1)}>
                         <PaginationLink next/>
