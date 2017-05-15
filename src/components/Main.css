@@ -3,10 +3,11 @@ html body {
 }
 
 #root {
-    min-height: 100%;
+    min-height: 100%;    
 }
 
 #id_wrapper {
+    min-height: 100%;
     position: relative;
     height: 100vh;
 }
@@ -17,6 +18,7 @@ html body {
 }
 
 #id_content {
+
     padding-top: 36px;
     padding-bottom: 36px;
 }
@@ -25,19 +27,13 @@ html body {
     margin: 0px;
     height: 36px;
     box-sizing: border-box;
-    position: absolute;
+    position: fixed;
     bottom: 0px;
     width: 100%;
+    clear: both;
 }
 
 #id_footer .nomargin {
     margin: 0px;
 }
-
-.underwater {
-    background-image: url('../images/underwater.jpg');
-    background-size: 100% 100%;
-     background-repeat: no-repeat;
-}
-
 

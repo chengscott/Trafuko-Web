@@ -33,7 +33,7 @@ export function inputDanger(danger) {
 
 export function colorChange(color) {
     return {
-        type: 'POST_FORM/COLOR_CHANGE',
+        type: '@POST_FORM/COLOR_CHANGE',
         color: color
     }
 }
