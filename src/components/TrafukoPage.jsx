@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {FormGroup, Label, Input} from 'reactstrap';
 import $ from 'jquery';
 
-import {toggleAgree, toggleRuntext, setRuntextPage, receiveData, setRuntext} from 'states/trafukoPage-action.js';
+import {setAgree, setRuntextPage, receiveData, setRuntext} from 'states/trafukoPage-action.js';
 import PostForm from 'components/PostForm.jsx';
 import RunText from 'components/runtext.jsx';
 
@@ -80,7 +80,7 @@ class TrafukoPage extends React.Component {
                     <Label className="ruleTitle" for="ruleText">規章</Label>
                       <Input type="textarea" name="text" className="ruleText" readOnly="true" defaultValue={RuleText}/>
                       <div className="checkbox">
-                        <input className="checkbox-input hvr-bounce-in" onClick={this.handleClick} type="checkbox" />
+                        <input className="checkbox-input hvr-bounce-in" onClick={this.handleClick} type="checkbox" defaultValue={false} />
                         我同意上述規範
                         <input className="checkbox-input hvr-bounce-in" onClick={this.runtextClick} type="checkbox" defaultChecked={!this.props.runtext}/>
                         {runtext_label}
@@ -92,8 +92,9 @@ class TrafukoPage extends React.Component {
         );
     }
 
-    runtextClick() {
-        this.props.dispatch(toggleRuntext());
+    runtextClick(e) {
+        const flag = e.target.checked;
+        this.props.dispatch(setRuntext(flag));
         if (this.props.runtext) {
             this.reRender = setInterval(
                 () => this.tick(),
@@ -104,8 +105,9 @@ class TrafukoPage extends React.Component {
         }
     }
 
-    handleClick(){
-        this.props.dispatch(toggleAgree());
+    handleClick(e){
+        const flag = e.target.checked; 
+        this.props.dispatch(setAgree(flag));
     }
 }
 export default connect(state => ({

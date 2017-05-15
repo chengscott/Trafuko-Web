@@ -31,12 +31,12 @@ export function trafuko(state = traukoInitState, action){
         case '@TRAFUKO_SET_RUNTEXT':
             return {
                 ...state,
-                isAgree: action.flag
+                runtext: action.flag
             }
         case '@TRAFUKO_SET_AGREE':
             return {
                 ...state,
-                runtext: action.flag
+                isAgree: action.flag
             }
         default:
             return state;
