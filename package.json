@@ -29,6 +29,7 @@
     "bootstrap": "^4.0.0-alpha.6",
     "css-loader": "^0.27.3",
     "express": "^4.15.2",
+    "firebase": "^3.9.0",
     "hover.css": "^2.2.0",
     "karma-phantomjs-launcher": "^1.0.4",
     "moment": "^2.18.1",

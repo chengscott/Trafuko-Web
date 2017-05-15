@@ -43,6 +43,11 @@ export default class TrafukoPage extends React.Component {
         this.tick = this.tick.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.runtextClick = this.runtextClick.bind(this);
+
+        this.props.firebase.on('value', snapshot => {
+            const store = snapshot.val();
+            //console.log(store);
+        });
     }
 
     componentDidMount() {

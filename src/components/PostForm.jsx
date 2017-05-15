@@ -75,7 +75,6 @@ export default class PostForm extends React.Component {
         });
     }
 
-
     handleColorMode(color) {
         this.setState({
             color:color

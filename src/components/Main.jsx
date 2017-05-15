@@ -93,7 +93,7 @@ export default class Main extends React.Component {
 
                     <div id="id_content">
                         <Route exact path="/" render={() => (
-                                <TrafukoPage />
+                                <TrafukoPage firebase={this.props.firebase} />
                             )}/>
                         <Route exact path="/Rank" render={() => (
                                 <RankPage />
