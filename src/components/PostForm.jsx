@@ -1,26 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {FormGroup , Input, Button, Alert} from 'reactstrap';
-import {createPost as createPostFormApi} from 'api/post';
+import {input, inputDanger, colorChange, createPost} from 'states/post-action.js';
+import {connect} from 'react-redux';
 
 import './PostForm.css';
 
-export default class PostForm extends React.Component {
-
-    static propTypes = {
-        agreeCheck: PropTypes.bool.isRequired
-    };
+const defultText = '你今天都在幹話些什麼？';
+class PostForm extends React.Component{
 
     constructor(props) {
         super(props);
 
-        this.state = {
-            inputValue: '',
-            inputDanger: false,
-            agreeToCumba: false,
-            text: '你今天都在幹話些什麼？',
-            color: 'black'
-        };
 
         this.inputEl = null;
 
@@ -29,19 +20,21 @@ export default class PostForm extends React.Component {
         this.handleColorMode = this.handleColorMode.bind(this);
     }
 
-    render() {
-        const inputDanger = this.state.inputDanger ? 'has-danger' : '';
+
+    render(){
+
+        const inputDanger = (this.props.inputDanger == true)?'has-danger':'';
         return (
             <div>
                 <FormGroup className={inputDanger}>
                     <div className="postFormDisplay">
-                        {
-                            (this.state.inputDanger && !this.props.agreeCheck) &&
+                         {
+                            (this.props.inputDanger && !this.props.agreeCheck) &&
                             <Alert color="danger" className="margin">
                                 <strong>錯誤!</strong> 你需要同意上述規範
                             </Alert>
                         }
-                        <Input style={{color: this.state.color}} className="TextArea" type="textarea" getRef={el => {this.inputEl = el}} onChange={this.handleInputChange} value={this.state.inputValue} placeholder={this.state.text}/>
+                        <Input style={{color:this.props.color}}className="TextArea" type="textarea" getRef={el => {this.inputEl = el}} onChange={this.handleInputChange} value={this.props.inputValue} placeholder={defultText}/>
                         <div className="toolList">
                             <Button className="box hvr-wobble-horizontal" style={{background: 'black'}} onClick={()=>{this.handleColorMode('black')}}></Button>
                             <Button className="box hvr-wobble-horizontal" style={{background: 'red'}} onClick={()=>{this.handleColorMode('red')}}></Button>
@@ -65,47 +58,44 @@ export default class PostForm extends React.Component {
 
     handleInputChange(e) {
         const text = e.target.value;
-        if (this.props.agreeCheck && this.state.inputDanger) {
-            this.setState({
-                inputDanger: !this.state.inputDanger
-            });
+        if(this.props.agreeCheck && this.props.inputDanger){
+            this.props.dispatch(inputDanger(false));
         }
-        this.setState({
-            inputValue: text
-        });
+        this.props.dispatch(input(text));
+    }
+
+    handleCheckbox() {
+        console.log("checkbox");
     }
 
     handleColorMode(color) {
-        this.setState({
-            color:color
-        });
+        this.props.dispatch(colorChange(color));
+    
     }
 
     handlePost() {
         if (this.props.agreeCheck) {
-            if (!this.state.inputValue) {
-                this.setState({
-                    inputDanger: true
-                });
+            if (!this.props.inputValue) {
+                this.props.dispatch(inputDanger(true))
                 return;
             }
-            createPostFormApi(this.state.color, this.state.inputValue).then(value => {
-                console.log(this.state.inputValue);
-                this.setState({
-                    inputDanger: false,
-                    inputValue:''
-                });
-                if (value) {
-                    alert("I got it");
-                }
-            });
-            //console.log("post");
+            this.props.dispatch(createPost(this.props.color,this.props.inputValue));
         } else {
-            this.setState({
-                inputDanger: true
-            });
-            //console.log("No Agree");
+            this.props.dispatch(inputDanger(true))
             return;
         }
     }
 }
+
+PostForm.propTypes = {
+    agreeCheck: PropTypes.bool.isRequired,
+    inputValue: PropTypes.string,
+    inputDanger: PropTypes.bool,
+    color: PropTypes.string.isRequired,
+    dispatch: PropTypes.func
+};
+
+export default connect(state => ({
+    ...state.postForm
+}))(PostForm);
+

@@ -1,24 +1,27 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {FormGroup , Label, Input} from 'reactstrap';
 
+import {FormGroup , Label, Input} from 'reactstrap';
+import PropTypes from 'prop-types';
+
+import {connect} from 'react-redux';
+import {toggleAgree, toggleRuntext, setRuntextPage, receiveData} from 'states/trafukoPage-action.js';
 import PostForm from 'components/PostForm.jsx';
 import RunText from 'components/runtext.jsx';
 
 import './TrafukoPage.css';
 
-const RuleText = "0.當你勾選後，即代表您同意遵守 Facebook 社群使用規則.\n\
-1.嚴禁發表任何霸凌內容、或有相關意圖之內容，違反將被刪除\n\
-2.靠北勿指名道姓、透漏任何個資或隱私資訊，或在文中直接提到任何公司、機構、學校名稱，違反者一律刪文\n\
-3.嚴禁發表任何情色、暴力之相關內容，或有相關意圖之內容，違反將被刪除\n\
-4.與本版主題無關、或發文內容明顯為測試意圖、或無關之推薦文、廣告文、職缺文，將被刪除\n\
-5.轉載他人原創發文時，一律需經過原作者同意並註明出處\n\
-6.因應臉書政策，涉及種族歧視之發文格殺勿論\n\
-7.請善用「███」取代敏感字詞" ;
+const RuleText = `0. 當你勾選後，即代表您同意遵守 Facebook 社群使用規則.
+1. 嚴禁發表任何霸凌內容、或有相關意圖之內容，違反將被刪除
+2. 靠北勿指名道姓、透漏任何個資或隱私資訊，或在文中直接提到任何公司、機構、學校名稱，違反者一律刪文
+3. 嚴禁發表任何情色、暴力之相關內容，或有相關意圖之內容，違反將被刪除
+4. 與本版主題無關、或發文內容明顯為測試意圖、或無關之推薦文、廣告文、職缺文，將被刪除
+5. 轉載他人原創發文時，一律需經過原作者同意並註明出處
+6. 因應臉書政策，涉及種族歧視之發文格殺勿論
+7. 請善用「███」取代敏感字詞`;
 
 const runNum = 7;
 
-export default class TrafukoPage extends React.Component {
+class TrafukoPage extends React.Component{
 
     static propTypes = {
         firebase: PropTypes.object.isRequired
@@ -43,15 +46,9 @@ export default class TrafukoPage extends React.Component {
 {id: "0035", text:"每個成功的男人背後，都有一條脊椎", score: 84, order: 0},{id:"0036", text:"積沙成塔，積少化痰", score: 79, order: 0},
 ]
         };
-
         this.tick = this.tick.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.runtextClick = this.runtextClick.bind(this);
-
-        this.props.firebase.on('value', snapshot => {
-            const store = snapshot.val();
-            console.log(store);
-        });
     }
 
     componentDidMount() {
@@ -59,6 +56,10 @@ export default class TrafukoPage extends React.Component {
             () => this.tick(),
             15000
         );
+        this.props.firebase.on('value', snapshot => {
+            //this.setState({Data: snapshot.val().posts});
+            this.props.dispatch(receiveData(snapshot.val().posts));
+        });
     }
 
     componentWillUnmount() {
@@ -66,10 +67,12 @@ export default class TrafukoPage extends React.Component {
     }
 
     tick() {
-        let nextPage = this.state.runtextPage;
+        let nextPage = this.props.runtextPage;
         nextPage = nextPage + 1;
-        if(nextPage >= Math.floor(this.state.Data.length / runNum)) nextPage = 0;
-        this.setState({runtextPage: nextPage});
+
+        if(nextPage >= Math.floor(this.props.Data.length / runNum)) nextPage = 0;
+
+        this.props.dispatch(setRuntextPage(nextPage));
     }
 
     render() {
@@ -89,17 +92,16 @@ export default class TrafukoPage extends React.Component {
                         {runtext_label}
                     </div>
                 </FormGroup>
-                <PostForm agreeCheck={this.state.isAgree}/>
+                <PostForm agreeCheck={this.props.isAgree}/>
                 {showList}
             </div>
         );
     }
 
     runtextClick() {
-        this.setState({
-            runtext: !this.state.runtext
-        });
-        if (this.state.runtext) {
+
+        this.props.dispatch(toggleRuntext());
+        if (this.props.runtext) {
             this.reRender = setInterval(
                 () => this.tick(),
                 10000
@@ -109,9 +111,18 @@ export default class TrafukoPage extends React.Component {
         }
     }
 
-    handleClick() {
-        this.setState({
-            isAgree: !this.state.isAgree
-        });
+    handleClick(){
+        this.props.dispatch(toggleAgree());
     }
 }
+
+TrafukoPage.propTypes = {
+    isAgree: PropTypes.bool.isRequired,
+    runtext: PropTypes.bool.isRequired,
+    runtextPage: PropTypes.number.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    Data: PropTypes.array.isRequired
+}
+export default connect(state => ({
+    ...state.trafuko
+}))(TrafukoPage);
