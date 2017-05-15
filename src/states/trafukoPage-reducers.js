@@ -28,6 +28,16 @@ export function trafuko(state = traukoInitState, action){
                 ...state,
                 Data: action.data
             }
+        case '@TRAFUKO_SET_RUNTEXT':
+            return {
+                ...state,
+                isAgree: action.flag
+            }
+        case '@TRAFUKO_SET_AGREE':
+            return {
+                ...state,
+                runtext: action.flag
+            }
         default:
             return state;
     }

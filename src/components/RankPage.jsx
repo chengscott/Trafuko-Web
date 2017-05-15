@@ -9,10 +9,12 @@ import {
     PaginationLink
 } from 'reactstrap';
 
+import $ from 'jquery';
+
 function compare(a, b) {
-    if (a.score < b.score)
+    if (a.vote < b.vote)
         return 1;
-    if (a.score > b.score)
+    if (a.vote > b.vote)
         return -1;
     return 0;
 }
@@ -38,7 +40,11 @@ export default class RankPage extends React.Component {
 
     componentDidMount() {
         this.props.firebase.ref('posts').on('value', snapshot => {
-            this.setState({Data: objToarr(snapshot.val())});
+            const val = snapshot.val();
+            const array = $.map(val, (value)=> {
+                return [value];
+            });
+            this.setState({Data: array});
         });
     }
 
@@ -94,7 +100,7 @@ export default class RankPage extends React.Component {
                         <PaginationLink previous/>
                     </PaginationItem>
                     <PaginationItem active>
-                        <PaginationLink>{this.state.page}</PaginationLink>
+                        <PaginationLink  className="z-index-modify">{this.state.page}</PaginationLink>
                     </PaginationItem>
                     <PaginationItem className="hvr-forward clickHand" onClick={() => this.changePage(this.state.page + 1)}>
                         <PaginationLink next/>
@@ -124,12 +130,3 @@ Box.propTypes = {
     order: PropTypes.number.isRequired,
     text: PropTypes.string.isRequired
 };
-
-
-function objToarr(obj) {
-    let arr = [];
-    for(let x in obj) {
-        arr.push(obj[x]);
-    }
-    return arr;
-}

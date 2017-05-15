@@ -24,3 +24,17 @@ export function receiveData(data){
         data: data
     }
 }
+
+export function setRuntext(flag){
+    return {
+        type: '@TRAFUKO_SET_RUNTEXT',
+        flag:flag
+    }
+}
+
+export function setAgree(flag){
+    return {
+        type: '@TRAFUKO_SET_AGREE',
+        flag:flag
+    }
+}

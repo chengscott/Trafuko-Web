@@ -12,3 +12,7 @@ input {
 .rankpage .clickHand {
     cursor: pointer;
 }
+
+#id_content .z-index-modify{
+    z-index: -1;
+}
