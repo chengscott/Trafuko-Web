@@ -67,6 +67,7 @@ export default class Main extends React.Component {
         return(
             <Router>
                 <div id="id_wrapper" >
+                    <Background />
                     <div id="id_header">
                         <Navbar color="faded" light toggleable>
                             <NavbarToggler  right onClick={this.toggleNavbar} />

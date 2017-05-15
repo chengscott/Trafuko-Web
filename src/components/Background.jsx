@@ -1,5 +1,7 @@
 import React from 'react';
-import {Parallax} from 'react-parallax';
+import Parallax from 'parallax-js';
+
+import './Background.css';
 
 export default class Background extends React.Component {
 
@@ -7,15 +9,20 @@ export default class Background extends React.Component {
         super(props);
     }
 
+    componentDidMount() {
+        const scene = document.getElementById('scene');
+        new Parallax(scene);
+    }
+
     render() {
         return (
-            <div id="container" class="container">
-                <div data-depth="0.00"><img class="bg" src="images/bg.jpg"/></div>
-                <div id="scene" class="scene bg">
-                    <div class="layer bg" data-depth="0.10"><img class="big" src="images/object1.png"/></div>
-                    <div class="layer bg" data-depth="0.30"><img class="big" src="images/object5.png"/></div>
-                    <div class="layer bg" data-depth="0.70"><img class="bgg" src="images/fish4.png"/></div>
-                    <div class="layer bg" data-depth="0.90"><img class="bgg" src="images/fish3.png"/></div>
+            <div id="container" className="container">
+                <div data-depth="0.00"><img className="bg" src="images/bg.jpg"/></div>
+                <div id="scene" className="scene bg">
+                    <div className="layer bg" data-depth="0.10"><img className="big" src="images/object1.png"/></div>
+                    <div className="layer bg" data-depth="0.30"><img className="big" src="images/object5.png"/></div>
+                    <div className="layer bg" data-depth="0.70"><img className="bgg" src="images/fish4.png"/></div>
+                    <div className="layer bg" data-depth="0.90"><img className="bgg" src="images/fish3.png"/></div>
                 </div>
             </div>
         );
