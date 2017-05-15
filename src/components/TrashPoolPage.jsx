@@ -11,6 +11,10 @@ const showNum = 3;
 
 export default class TrashPoolPage extends React.Component {
 
+    static propTypes = {
+        firebase: PropTypes.object.isRequired
+    };
+
     constructor(props) {
         super(props);
         this.state = {
@@ -24,26 +28,10 @@ export default class TrashPoolPage extends React.Component {
             ifPause: false,
             ptext: "",
             id: "",
-            Data: [{id: "0001", text:"11111", score: 23, order: 0},{id:"0002", text:"22222", score: 107, order: 0},
-{id: "0003", text:"33333", score: 23, order: 0},{id:"0004", text:"444444", score: 213, order: 0},
-{id: "0005", text:"5555555", score: 79, order: 0},{id:"0006", text:"66666666", score: 49, order: 0},
-{id: "0007", text:"77777777", score: 12, order: 0},{id:"0008", text:"8888888", score: 47, order: 0},
-{id: "0009", text:"我寫的不是Code，是寂寞", score: 3, order: 0},{id:"0010", text:"台灣競爭力低落，在美國就連小學生都會說流利的英語", score: 186, order: 0},
-{id: "0011", text:"在非洲，每60秒就有1分鐘過去", score: 46, order: 0},{id:"0012", text:"我這個人，不說垃圾話的!!!", score: 200, order: 0},
-{id: "0013", text:"麻雀雖小，五臟 小次郎", score: 89, order: 0},{id:"0014", text:"每個成功的男人背後，都有一條脊椎", score: 140, order: 0},
-{id: "0015", text:"研究顯示，過越多生日的人越長壽", score: 167, order: 0},{id:"0016", text:"我這個人，不說垃圾話的!!!", score: 7, order: 0},
-{id: "0017", text:"積沙成塔，積少化痰", score: 120, order: 0},{id:"0018", text:"每天少喝一杯珍珠奶茶，一個禮拜後，就能買七杯珍珠奶茶", score: 63, order: 0},
-{id: "0019", text:"我很喜歡你的聲音 特別是你閉嘴的聲音", score: 94, order: 0},{id:"0020", text:"我這個人，不說垃圾話的!!!", score: 174, order: 0},
-{id: "0021", text:"你知道你媽跟你爸同一天結婚嗎?", score: 23, order: 0},{id:"0022", text:"一山還有一山高  蘿蔔還有蘿蔔糕", score: 26, order: 0},
-{id: "0023", text:"在非洲，不用電腦也能玩踩地雷", score: 84, order: 0},{id:"0024", text:"每個成功的男人背後，都有一條脊椎", score: 79, order: 0},
-{id: "0025", text:"柏穎啊~~~", score: 84, order: 0},{id:"0026", text:"我不是胖，我只是瘦的不明顯而已", score: 79, order: 0},
-{id: "0027", text:"在非洲，不用電腦也能玩踩地雷", score: 84, order: 0},{id:"0028", text:"我不是胖，我只是瘦的不明顯而已", score: 79, order: 0},
-{id: "0029", text:"每個成功的男人背後，都有一條脊椎", score: 84, order: 0},{id:"0030", text:"積沙成塔，積少化痰", score: 79, order: 0},
-{id: "0031", text:"積沙成塔，積少化痰", score: 84, order: 0},{id:"0032", text:"每個成功的男人背後，都有一條脊椎", score: 79, order: 0},
-{id: "0033", text:"在非洲，不用電腦也能玩踩地雷", score: 84, order: 0},{id:"0034", text:"我不是胖，我只是瘦的不明顯而已", score: 79, order: 0},
-{id: "0035", text:"每個成功的男人背後，都有一條脊椎", score: 84, order: 0},{id:"0036", text:"積沙成塔，積少化痰", score: 79, order: 0},
-]
-        }
+            Data: []
+        };
+        this.tick = this.tick.bind(this);
+        this.capture = this.capture.bind(this);
         this.s1 = 0;
         this.s2 = 1;
         this.s3 = 2;
@@ -51,8 +39,6 @@ export default class TrashPoolPage extends React.Component {
         this.s5 = 4;
         this.s6 = 5;
         this.index = 5;
-        this.tick = this.tick.bind(this);
-        this.capture = this.capture.bind(this);
     }
 
     componentDidMount() {
@@ -60,6 +46,9 @@ export default class TrashPoolPage extends React.Component {
             () => this.tick(),
             5000
         );
+        this.props.firebase.on('value', snapshot => {
+            this.setState({Data: snapshot.val().posts});
+        });
     }
 
     componentWillUnmount() {
@@ -102,12 +91,12 @@ export default class TrashPoolPage extends React.Component {
     }
 
     render() {
-        const data1 = this.state.Data.slice( this.state.a * showNum, (this.state.a + 1) * showNum);
-        const data2 = this.state.Data.slice( this.state.b * showNum, (this.state.b + 1) * showNum);
-        const data3 = this.state.Data.slice( this.state.c * showNum, (this.state.c + 1) * showNum);
-        const data4 = this.state.Data.slice( this.state.d * showNum, (this.state.d + 1) * showNum);
-        const data5 = this.state.Data.slice( this.state.e * showNum, (this.state.e + 1) * showNum);
-        const data6 = this.state.Data.slice( this.state.f * showNum, (this.state.f + 1) * showNum);
+        const data1 = this.state.Data.slice(this.state.a * showNum, (this.state.a + 1) * showNum);
+        const data2 = this.state.Data.slice(this.state.b * showNum, (this.state.b + 1) * showNum);
+        const data3 = this.state.Data.slice(this.state.c * showNum, (this.state.c + 1) * showNum);
+        const data4 = this.state.Data.slice(this.state.d * showNum, (this.state.d + 1) * showNum);
+        const data5 = this.state.Data.slice(this.state.e * showNum, (this.state.e + 1) * showNum);
+        const data6 = this.state.Data.slice(this.state.f * showNum, (this.state.f + 1) * showNum);
 
         const items1 = data1.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s1} pause={this.capture}/>));
         const items2 = data2.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s2} pause={this.capture}/>));
@@ -142,7 +131,7 @@ class Pause extends React.Component {
         super(props);
         this.state = {
             style: this.props.style
-        }
+        };
     }
 
     handleLike() {
@@ -150,25 +139,25 @@ class Pause extends React.Component {
     }
 
     render() {
-        if(this.props.ifPause)
+        if (this.props.ifPause)
         return (
-               <div style={{
-                float: 'center',
-                width: '200px',
-                height: "auto",
-                padding: "10px",
-                borderRadius: "10px",
-                position: "absolute",
-                left: this.props.style.left,
-                top: this.props.style.top,
-                scale: this.props.style.scale,
-                background: this.props.style.color,
-                color: this.props.style.textcolor,
-                zIndex: 1
-               }} className="hvr-bounce-in">
-                 <h2>{this.props.text}</h2>
-                 <Button className="hvr-push" onClick={() => this.handleLike(this.props.id)}>讚</Button>
-               </div>
+            <div style={{
+                    float: 'center',
+                    width: '200px',
+                    height: "auto",
+                    padding: "10px",
+                    borderRadius: "10px",
+                    position: "absolute",
+                    left: this.props.style.left,
+                    top: this.props.style.top,
+                    scale: this.props.style.scale,
+                    background: this.props.style.color,
+                    color: this.props.style.textcolor,
+                    zIndex: 1
+                }} className="hvr-bounce-in">
+                <h2>{this.props.text}</h2>
+                <Button className="hvr-push" onClick={() => this.handleLike(this.props.id)}>讚</Button>
+            </div>
             );
         else return <div></div>;
     }
@@ -187,10 +176,10 @@ class Item extends React.Component {
         super(props);
         this.state = {
             style: change(this.props.status)
-        }
-        this.status = this.props.status;
+        };
         this.handle = this.handle.bind(this);
         this.tick = this.tick.bind(this);
+        this.status = this.props.status;
         this.styleHold;
     }
 
@@ -226,39 +215,39 @@ class Item extends React.Component {
     render() {
         return (
             <Animate
-                  default={{
+                default={{
                     scale: 0.3,
                     color: 'black',
                     left: "-300px"
-                  }}
-                  data={
+                }}
+                data={
                     this.state.style
-                  }
-                  duration={5000}
-                  easing='easeQuadInOut'
-                >
-                  {data => (
+                }
+                duration={5000}
+                easing='easeQuadInOut'
+            >
+                {data => (
                     <div
-                      style={{
-                        float: 'center',
-                        width: '200px',
-                        height: "auto",
-                        padding: "5px",
-                        borderRadius: "15px",
-                        transform: `scale(${data.scale})`,
-                        background: data.color,
-                        color: data.textcolor,
-                        position: "absolute",
-                        left: data.left,
-                        top: data.top,
-                        cursor: 'pointer'
-                      }}
-                      className="disable"
-                      onClick={() => this.handle()}
-                    >
-                      <h2>{this.props.text}</h2>
+                        style={{
+                            float: 'center',
+                            width: '200px',
+                            height: "auto",
+                            padding: "5px",
+                            borderRadius: "15px",
+                            transform: `scale(${data.scale})`,
+                            background: data.color,
+                            color: data.textcolor,
+                            position: "absolute",
+                            left: data.left,
+                            top: data.top,
+                            cursor: 'pointer'
+                        }}
+                        className="disable"
+                        onClick={() => this.handle()}
+                        >
+                        <h2>{this.props.text}</h2>
                     </div>
-                  )}
+                )}
             </Animate>
         );
     }
