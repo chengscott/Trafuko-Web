@@ -1,7 +1,8 @@
 const traukoInitState = {
     isAgree: false,
     runtext: true,
-    runtextPage: 0
+    runtextPage: 0,
+    Data: []
 }
 
 
@@ -21,6 +22,11 @@ export function trafuko(state = traukoInitState, action){
             return {
                 ...state,
                 runtextPage: action.page
+            }
+        case '@TRAFUKO_RECEIVE_DATA':
+            return {
+                ...state,
+                Data: action.data
             }
         default:
             return state;

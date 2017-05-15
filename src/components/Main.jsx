@@ -59,12 +59,10 @@ class Main extends React.Component {
     }
 
     toggleModal_A() {
-        console.log('hello???');
         this.props.dispatch(toggleModal_a());
     }
 
     toggleModal_L() {
-        console.log('hello');
         this.props.dispatch(toggleModal_l());
     }
 

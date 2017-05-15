@@ -58,6 +58,9 @@ class PostForm extends React.Component{
 
     handleInputChange(e) {
         const text = e.target.value;
+        if(this.props.agreeCheck && this.props.inputDanger){
+            this.props.dispatch(inputDanger(false));
+        }
         this.props.dispatch(input(text));
     }
 

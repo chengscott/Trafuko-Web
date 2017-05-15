@@ -4,7 +4,7 @@ import {FormGroup , Label, Input} from 'reactstrap';
 import PropTypes from 'prop-types';
 
 import {connect} from 'react-redux';
-import {toggleAgree, toggleRuntext, setRuntextPage} from 'states/trafukoPage-action.js';
+import {toggleAgree, toggleRuntext, setRuntextPage, receiveData} from 'states/trafukoPage-action.js';
 import PostForm from 'components/PostForm.jsx';
 import RunText from 'components/runtext.jsx';
 
@@ -30,9 +30,6 @@ class TrafukoPage extends React.Component{
     constructor(props) {
         super(props);
        
-        this.state = {
-            Data: []
-        }
         this.tick = this.tick.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.runtextClick = this.runtextClick.bind(this);
@@ -44,7 +41,8 @@ class TrafukoPage extends React.Component{
             15000
         );
         this.props.firebase.on('value', snapshot => {
-            this.setState({Data: snapshot.val().posts});
+            //this.setState({Data: snapshot.val().posts});
+            this.props.dispatch(receiveData(snapshot.val().posts));
         });
     }
 
@@ -56,14 +54,14 @@ class TrafukoPage extends React.Component{
         let nextPage = this.props.runtextPage;
         nextPage = nextPage + 1;
 
-        if(nextPage >= Math.floor(this.state.Data.length / runNum)) nextPage = 0;
+        if(nextPage >= Math.floor(this.props.Data.length / runNum)) nextPage = 0;
 
         this.props.dispatch(setRuntextPage(nextPage));
     }
 
     render(){
         const page = this.props.runtextPage;
-        const data = this.state.Data.slice(page * runNum, Math.min((page + 1) * runNum, this.state.Data.length - 1));
+        const data = this.props.Data.slice(page * runNum, Math.min((page + 1) * runNum, this.props.Data.length - 1));
         const showList = (this.props.runtext) ? data.map(a => <RunText text={a.text} key={a.id} />) : <div></div>;
         console.log(showList);
 
@@ -107,7 +105,8 @@ TrafukoPage.propTypes = {
     isAgree: PropTypes.bool.isRequired,
     runtext: PropTypes.bool.isRequired,
     runtextPage: PropTypes.number.isRequired,
-    dispatch: PropTypes.func.isRequired
+    dispatch: PropTypes.func.isRequired,
+    Data: PropTypes.array.isRequired
 }
 export default connect(state => ({
     ...state.trafuko
