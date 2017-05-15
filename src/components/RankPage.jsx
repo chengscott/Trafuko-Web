@@ -37,9 +37,8 @@ export default class RankPage extends React.Component {
     }
 
     componentDidMount() {
-
-        this.props.firebase.on('value', snapshot => {
-            this.setState({Data: snapshot.val().posts});
+        this.props.firebase.ref('posts').on('value', snapshot => {
+            this.setState({Data: snapshot.val()});
         });
     }
 

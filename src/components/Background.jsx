@@ -10,7 +10,7 @@ export default class Background extends React.Component {
     }
 
     componentDidMount() {
-        if(screen.width >= 1024) {
+        if (screen.width >= 1024) {
             const scene = document.getElementById('scene');
             new Parallax(scene);
         }
@@ -19,7 +19,7 @@ export default class Background extends React.Component {
     render() {
         return (
             <div id="container" className="container">
-                <div data-depth="0.00"><img className="bg" src="images/bg.jpg"/></div>
+                <div data-depth="0.01"><img className="bg" src="images/bg.jpg"/></div>
                 <div id="scene" className="scene bg obj">
                     <div className="layer bg obj" data-depth="0.10"><img className="big" src="images/object1.png"/></div>
                     <div className="layer bg obj" data-depth="0.30"><img className="big" src="images/object5.png"/></div>
