@@ -16,18 +16,6 @@ const RuleText = "0.當你勾選後，即代表您同意遵守 Facebook 社群�
 6.因應臉書政策，涉及種族歧視之發文格殺勿論\n\
 7.請善用「███」取代敏感字詞" ;
 
-var Data = [{id: "0017", text:"積沙成塔，積少化痰", score: 120, order: 0},{id:"0018", text:"每天少喝一杯珍珠奶茶，一個禮拜後，就能買七杯珍珠奶茶", score: 63, order: 0},
-{id: "0019", text:"我很喜歡你的聲音 特別是你閉嘴的聲音", score: 94, order: 0},{id:"0020", text:"我這個人，不說垃圾話的!!!", score: 174, order: 0},
-{id: "0021", text:"你知道你媽跟你爸同一天結婚嗎?", score: 23, order: 0},{id:"0022", text:"一山還有一山高  蘿蔔還有蘿蔔糕", score: 26, order: 0},
-{id: "0023", text:"在非洲，不用電腦也能玩踩地雷", score: 84, order: 0},{id:"0024", text:"每個成功的男人背後，都有一條脊椎", score: 79, order: 0},
-{id: "0025", text:"柏穎啊~~~", score: 84, order: 0},{id:"0026", text:"我不是胖，我只是瘦的不明顯而已", score: 79, order: 0},
-{id: "0027", text:"在非洲，不用電腦也能玩踩地雷", score: 84, order: 0},{id:"0028", text:"我不是胖，我只是瘦的不明顯而已", score: 79, order: 0},
-{id: "0029", text:"每個成功的男人背後，都有一條脊椎", score: 84, order: 0},{id:"0030", text:"積沙成塔，積少化痰", score: 79, order: 0},
-{id: "0031", text:"積沙成塔，積少化痰", score: 84, order: 0},{id:"0032", text:"每個成功的男人背後，都有一條脊椎", score: 79, order: 0},
-{id: "0033", text:"在非洲，不用電腦也能玩踩地雷", score: 84, order: 0},{id:"0034", text:"我不是胖，我只是瘦的不明顯而已", score: 79, order: 0},
-{id: "0035", text:"每個成功的男人背後，都有一條脊椎", score: 84, order: 0},{id:"0036", text:"積沙成塔，積少化痰", score: 79, order: 0},
-];
-
 const runNum = 7;
 
 export default class TrafukoPage extends React.Component {
@@ -42,8 +30,19 @@ export default class TrafukoPage extends React.Component {
         this.state = {
             isAgree: false,
             runtext: true,
-            runtextPage: 0
-        }
+            runtextPage: 0,
+            Data: [{id: "0017", text:"積沙成塔，積少化痰", score: 120, order: 0},{id:"0018", text:"每天少喝一杯珍珠奶茶，一個禮拜後，就能買七杯珍珠奶茶", score: 63, order: 0},
+{id: "0019", text:"我很喜歡你的聲音 特別是你閉嘴的聲音", score: 94, order: 0},{id:"0020", text:"我這個人，不說垃圾話的!!!", score: 174, order: 0},
+{id: "0021", text:"你知道你媽跟你爸同一天結婚嗎?", score: 23, order: 0},{id:"0022", text:"一山還有一山高  蘿蔔還有蘿蔔糕", score: 26, order: 0},
+{id: "0023", text:"在非洲，不用電腦也能玩踩地雷", score: 84, order: 0},{id:"0024", text:"每個成功的男人背後，都有一條脊椎", score: 79, order: 0},
+{id: "0025", text:"柏穎啊~~~", score: 84, order: 0},{id:"0026", text:"我不是胖，我只是瘦的不明顯而已", score: 79, order: 0},
+{id: "0027", text:"在非洲，不用電腦也能玩踩地雷", score: 84, order: 0},{id:"0028", text:"我不是胖，我只是瘦的不明顯而已", score: 79, order: 0},
+{id: "0029", text:"每個成功的男人背後，都有一條脊椎", score: 84, order: 0},{id:"0030", text:"積沙成塔，積少化痰", score: 79, order: 0},
+{id: "0031", text:"積沙成塔，積少化痰", score: 84, order: 0},{id:"0032", text:"每個成功的男人背後，都有一條脊椎", score: 79, order: 0},
+{id: "0033", text:"在非洲，不用電腦也能玩踩地雷", score: 84, order: 0},{id:"0034", text:"我不是胖，我只是瘦的不明顯而已", score: 79, order: 0},
+{id: "0035", text:"每個成功的男人背後，都有一條脊椎", score: 84, order: 0},{id:"0036", text:"積沙成塔，積少化痰", score: 79, order: 0},
+]
+        };
 
         this.tick = this.tick.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -69,13 +68,13 @@ export default class TrafukoPage extends React.Component {
     tick() {
         let nextPage = this.state.runtextPage;
         nextPage = nextPage + 1;
-        if(nextPage >= Math.floor(Data.length / runNum)) nextPage = 0;
+        if(nextPage >= Math.floor(this.state.Data.length / runNum)) nextPage = 0;
         this.setState({runtextPage: nextPage});
     }
 
     render() {
         const page = this.state.runtextPage;
-        const data = Data.slice(page * runNum, Math.min((page + 1) * runNum, Data.length - 1));
+        const data = this.state.Data.slice(page * runNum, Math.min((page + 1) * runNum, this.state.Data.length - 1));
         const showList = this.state.runtext ? data.map(a => <RunText text={a.text} key={a.id}/>) : <div></div>;
         return (
             <div className = "trafuko">

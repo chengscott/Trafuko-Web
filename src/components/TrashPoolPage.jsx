@@ -7,7 +7,24 @@ import {
 
 import './TrashPoolPage.css';
 
-var Data = [{id: "0001", text:"11111", score: 23, order: 0},{id:"0002", text:"22222", score: 107, order: 0},
+const showNum = 3;
+
+export default class TrashPoolPage extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            a: 0,
+            b: 1,
+            c: 2,
+            d: 3,
+            e: 4,
+            f: 5,
+            style: {},
+            ifPause: false,
+            ptext: "",
+            id: "",
+            Data: [{id: "0001", text:"11111", score: 23, order: 0},{id:"0002", text:"22222", score: 107, order: 0},
 {id: "0003", text:"33333", score: 23, order: 0},{id:"0004", text:"444444", score: 213, order: 0},
 {id: "0005", text:"5555555", score: 79, order: 0},{id:"0006", text:"66666666", score: 49, order: 0},
 {id: "0007", text:"77777777", score: 12, order: 0},{id:"0008", text:"8888888", score: 47, order: 0},
@@ -25,25 +42,7 @@ var Data = [{id: "0001", text:"11111", score: 23, order: 0},{id:"0002", text:"22
 {id: "0031", text:"積沙成塔，積少化痰", score: 84, order: 0},{id:"0032", text:"每個成功的男人背後，都有一條脊椎", score: 79, order: 0},
 {id: "0033", text:"在非洲，不用電腦也能玩踩地雷", score: 84, order: 0},{id:"0034", text:"我不是胖，我只是瘦的不明顯而已", score: 79, order: 0},
 {id: "0035", text:"每個成功的男人背後，都有一條脊椎", score: 84, order: 0},{id:"0036", text:"積沙成塔，積少化痰", score: 79, order: 0},
-];
-
-const showNum = 3;
-
-export default class TrashPoolPage extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            a: 0,
-            b: 1,
-            c: 2,
-            d: 3,
-            e: 4,
-            f: 5,
-            style: {},
-            ifPause: false,
-            ptext: "",
-            id: ""
+]
         }
         this.s1 = 0;
         this.s2 = 1;
@@ -68,9 +67,8 @@ export default class TrashPoolPage extends React.Component {
     }
 
     tick() {
-        //const page_num = Math.ceil(Data.length/showNum);
         this.index = this.index + 1;
-        if (this.index >= Math.floor(Data.length / showNum)) this.index = 0;
+        if (this.index >= Math.floor(this.state.Data.length / showNum)) this.index = 0;
         const stop = 1;
         this.s1 = (this.s1 + 1) % 6;
         this.s2 = (this.s2 + 1) % 6;
@@ -104,12 +102,12 @@ export default class TrashPoolPage extends React.Component {
     }
 
     render() {
-        const data1 = Data.slice( this.state.a * showNum, (this.state.a + 1) * showNum);
-        const data2 = Data.slice( this.state.b * showNum, (this.state.b + 1) * showNum);
-        const data3 = Data.slice( this.state.c * showNum, (this.state.c + 1) * showNum);
-        const data4 = Data.slice( this.state.d * showNum, (this.state.d + 1) * showNum);
-        const data5 = Data.slice( this.state.e * showNum, (this.state.e + 1) * showNum);
-        const data6 = Data.slice( this.state.f * showNum, (this.state.f + 1) * showNum);
+        const data1 = this.state.Data.slice( this.state.a * showNum, (this.state.a + 1) * showNum);
+        const data2 = this.state.Data.slice( this.state.b * showNum, (this.state.b + 1) * showNum);
+        const data3 = this.state.Data.slice( this.state.c * showNum, (this.state.c + 1) * showNum);
+        const data4 = this.state.Data.slice( this.state.d * showNum, (this.state.d + 1) * showNum);
+        const data5 = this.state.Data.slice( this.state.e * showNum, (this.state.e + 1) * showNum);
+        const data6 = this.state.Data.slice( this.state.f * showNum, (this.state.f + 1) * showNum);
 
         const items1 = data1.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s1} pause={this.capture}/>));
         const items2 = data2.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s2} pause={this.capture}/>));
