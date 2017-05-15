@@ -38,7 +38,7 @@ export default class RankPage extends React.Component {
 
     componentDidMount() {
         this.props.firebase.ref('posts').on('value', snapshot => {
-            this.setState({Data: snapshot.val()});
+            this.setState({Data: objToarr(snapshot.val())});
         });
     }
 
@@ -124,3 +124,12 @@ Box.propTypes = {
     order: PropTypes.number.isRequired,
     text: PropTypes.string.isRequired
 };
+
+
+function objToarr(obj) {
+    let arr = [];
+    for(let x in obj) {
+        arr.push(obj[x]);
+    }
+    return arr;
+}
