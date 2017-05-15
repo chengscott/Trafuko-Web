@@ -72,6 +72,7 @@ export default class Main extends React.Component {
     }
 
     render() {
+        const fb = firebase.initializeApp(config).database().ref();
         return(
             <Router>
                 <div id="id_wrapper" >
@@ -83,7 +84,7 @@ export default class Main extends React.Component {
                             <Collapse isOpen={this.state.collapsed} navbar>
                                 <Nav className="ml-auto" navbar>
                                     <NavItem>
-                                        <NavLink tag={Link} to='/'>講幹話</NavLink>
+                                        <NavLink tag={Link} to='/#'>講幹話</NavLink>
                                     </NavItem>
                                     <NavItem>
                                         <NavLink tag={Link} to='/TrashPool'>幹話池</NavLink>
@@ -101,15 +102,13 @@ export default class Main extends React.Component {
 
                     <div id="id_content">
                         <Route exact path="/" render={() => (
-                                <TrafukoPage firebase={
-                                        firebase.initializeApp(config).database().ref()
-                                    } />
+                                <TrafukoPage firebase={fb} />
                             )}/>
                         <Route exact path="/Rank" render={() => (
-                                <RankPage />
+                                <RankPage firebase={fb} />
                             )}/>
                         <Route exact path="/TrashPool" render={() => (
-                                <TrashPoolPage />
+                                <TrashPoolPage firebase={fb} />
                             )}/>
                     </div>
 
