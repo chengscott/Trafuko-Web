@@ -10,7 +10,7 @@ export default class Background extends React.Component {
     }
 
     componentDidMount() {
-        if(screen.width >= 1024) {
+        if (screen.width >= 1024) {
             const scene = document.getElementById('scene');
             new Parallax(scene);
         }

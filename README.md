@@ -2,7 +2,8 @@
 # Trafuko | 垃圾話
 
 [![Build Status](https://travis-ci.com/chengscott/Trafuko-Web.svg?token=6qy6kyyaykPzLdMZwRRn&branch=master)](https://travis-ci.com/chengscott/Trafuko-Web)
-
+[![Dependency Status](https://david-dm.org/chengscott/Trafuko-Web.svg)](https://david-dm.org/chengscott/Trafuko-Web)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ## Prerequisites
 
 * node

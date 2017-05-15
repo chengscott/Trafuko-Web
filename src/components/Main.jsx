@@ -1,15 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    HashRouter  as Router,
-    //HashRouter 
+    HashRouter as Router,
     Route,
     Link
 } from 'react-router-dom';
-
 import {connect} from 'react-redux';
-import {toggleNav, toggleModal_a, toggleModal_l} from 'states/main-action.js';
-
 import {
     Nav,
     Navbar,
@@ -33,8 +29,9 @@ import TrafukoPage from 'components/TrafukoPage.jsx';
 import RankPage from 'components/RankPage.jsx';
 import TrashPoolPage from 'components/TrashPoolPage.jsx';
 
-import './Main.css';
+import {toggleNav, toggleModal_a, toggleModal_l} from 'states/main-action.js';
 
+import './Main.css';
 
 const config = {
     apiKey: "AIzaSyDUfoL0DdG_VDo5ijtZRqvVACwXQMARZrc",
@@ -45,6 +42,13 @@ const config = {
 const fb = firebase.initializeApp(config).database().ref();
 
 class Main extends React.Component {
+
+    static propTypes = {
+        collapsed: PropTypes.bool.isRequired,
+        modal_about: PropTypes.bool.isRequired,
+        modal_logs:PropTypes.bool.isRequired,
+        dispatch: PropTypes.func.isRequired
+    };
 
     constructor(props) {
         super(props);
@@ -67,7 +71,6 @@ class Main extends React.Component {
     }
 
     render() {
-
         return(
             <Router>
                 <div id="id_wrapper" >
@@ -140,13 +143,6 @@ class Main extends React.Component {
             </Router>
         );
     }
-}
-
-Main.propTypes = {
-    collapsed: PropTypes.bool.isRequired,
-    modal_about: PropTypes.bool.isRequired,
-    modal_logs:PropTypes.bool.isRequired,
-    dispatch: PropTypes.func.isRequired
 }
 
 export default connect(state => ({
