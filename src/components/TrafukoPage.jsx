@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {FormGroup, Label, Input} from 'reactstrap';
+import $ from 'jquery';
 
-import {toggleAgree, toggleRuntext, setRuntextPage, receiveData} from 'states/trafukoPage-action.js';
+import {toggleAgree, toggleRuntext, setRuntextPage, receiveData, setRuntext} from 'states/trafukoPage-action.js';
 import PostForm from 'components/PostForm.jsx';
 import RunText from 'components/runtext.jsx';
 
@@ -33,35 +34,26 @@ class TrafukoPage extends React.Component {
 
     constructor(props) {
         super(props);
-        const runtext = (screen.width >= 700) ? true : false;
-        this.state = {
-            isAgree: false,
-            runtext: runtext,
-            runtextPage: 0,
-            Data: [{id: "0017", text:"積沙成塔，積少化痰", score: 120, order: 0},{id:"0018", text:"每天少喝一杯珍珠奶茶，一個禮拜後，就能買七杯珍珠奶茶", score: 63, order: 0},
-{id: "0019", text:"我很喜歡你的聲音 特別是你閉嘴的聲音", score: 94, order: 0},{id:"0020", text:"我這個人，不說垃圾話的!!!", score: 174, order: 0},
-{id: "0021", text:"你知道你媽跟你爸同一天結婚嗎?", score: 23, order: 0},{id:"0022", text:"一山還有一山高  蘿蔔還有蘿蔔糕", score: 26, order: 0},
-{id: "0023", text:"在非洲，不用電腦也能玩踩地雷", score: 84, order: 0},{id:"0024", text:"每個成功的男人背後，都有一條脊椎", score: 79, order: 0},
-{id: "0025", text:"柏穎啊~~~", score: 84, order: 0},{id:"0026", text:"我不是胖，我只是瘦的不明顯而已", score: 79, order: 0},
-{id: "0027", text:"在非洲，不用電腦也能玩踩地雷", score: 84, order: 0},{id:"0028", text:"我不是胖，我只是瘦的不明顯而已", score: 79, order: 0},
-{id: "0029", text:"每個成功的男人背後，都有一條脊椎", score: 84, order: 0},{id:"0030", text:"積沙成塔，積少化痰", score: 79, order: 0},
-{id: "0031", text:"積沙成塔，積少化痰", score: 84, order: 0},{id:"0032", text:"每個成功的男人背後，都有一條脊椎", score: 79, order: 0},
-{id: "0033", text:"在非洲，不用電腦也能玩踩地雷", score: 84, order: 0},{id:"0034", text:"我不是胖，我只是瘦的不明顯而已", score: 79, order: 0},
-{id: "0035", text:"每個成功的男人背後，都有一條脊椎", score: 84, order: 0},{id:"0036", text:"積沙成塔，積少化痰", score: 79, order: 0},
-]
-        };
+      
         this.tick = this.tick.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.runtextClick = this.runtextClick.bind(this);
     }
 
     componentDidMount() {
+        const runtext = (screen.width >= 700) ? true : false;
+        this.props.dispatch(setRuntext(runtext));
         this.reRender = setInterval(
             () => this.tick(),
             15000
         );
         this.props.firebase.ref('posts').on('value', snapshot => {
-            this.props.dispatch(receiveData(snapshot.val()));
+
+            const val = snapshot.val();
+            const array = $.map(val, (value)=> {
+                return [value];
+            });
+            this.props.dispatch(receiveData(array));
         });
     }
 
@@ -77,19 +69,20 @@ class TrafukoPage extends React.Component {
     }
 
     render() {
-        const runtext_label = (this.state.runtext === false)? "彈幕" : "取消彈幕";
-        const page = this.state.runtextPage;
-        const data = this.state.Data.slice(page * runNum, Math.min((page + 1) * runNum, this.state.Data.length - 1));
-        const showList = this.state.runtext ? data.map(a => <RunText text={a.text} key={a.id}/>) : <div></div>;
+        const runtext_label = (this.props.runtext === false)? "彈幕" : "取消彈幕";
+        const page = this.props.runtextPage;
+        const data = this.props.Data.slice(page * runNum, Math.min((page + 1) * runNum, this.props.Data.length - 1));
+        const showList = this.props.runtext ? data.map(a => <RunText text={a.text} key={a.id}/>) : <div></div>;
+        
         return (
             <div className = "trafuko">
                 <FormGroup>
                     <Label className="ruleTitle" for="ruleText">規章</Label>
                       <Input type="textarea" name="text" className="ruleText" readOnly="true" defaultValue={RuleText}/>
                       <div className="checkbox">
-                        <input className="checkbox-input hvr-bounce-in" onClick={this.handleClick} type="checkbox"/>
+                        <input className="checkbox-input hvr-bounce-in" onClick={this.handleClick} type="checkbox" />
                         我同意上述規範
-                        <input className="checkbox-input hvr-bounce-in" onClick={this.runtextClick} type="checkbox" />
+                        <input className="checkbox-input hvr-bounce-in" onClick={this.runtextClick} type="checkbox" defaultChecked={!this.props.runtext}/>
                         {runtext_label}
                     </div>
                 </FormGroup>

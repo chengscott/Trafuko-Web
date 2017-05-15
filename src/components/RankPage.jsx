@@ -65,6 +65,7 @@ export default class RankPage extends React.Component {
 
     render() {
         const npp = this.state.npp;
+        console.log(typeof(this.state.Data));
         const data = this.state.Data.sort(compare);
         const showList = data.slice((this.state.page - 1) * npp , Math.min(this.state.page * npp, this.state.Data.length - 1));
         const listItems = showList.map((each) => <Box order={data.indexOf(each) + 1} key={each.id} text={each.text}/>);
