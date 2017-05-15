@@ -4,7 +4,6 @@ import {FormGroup , Label, Input} from 'reactstrap';
 import PostForm from 'components/PostForm.jsx';
 import RunText from 'components/runtext.jsx';
 
-
 import './TrafukoPage.css';
 
 const RuleText = "0.當你勾選後，即代表您同意遵守 Facebook 社群使用規則.\n\
@@ -30,9 +29,9 @@ var Data = [{id: "0017", text:"積沙成塔，積少化痰", score: 120, order: 
 
 const runNum = 7;
 
-export default class TrafukoPage extends React.Component{
+export default class TrafukoPage extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -52,7 +51,7 @@ export default class TrafukoPage extends React.Component{
             15000
         );
     }
-    
+
     componentWillUnmount() {
         clearInterval(this.reRender);
     }
@@ -64,10 +63,10 @@ export default class TrafukoPage extends React.Component{
         this.setState({runtextPage: nextPage});
     }
 
-    render(){
+    render() {
         const page = this.state.runtextPage;
         const data = Data.slice(page * runNum, Math.min((page + 1) * runNum, Data.length - 1));
-        const showList = (this.state.runtext) ? data.map(a => <RunText text={a.text} key={a.id} />) : <div></div>;
+        const showList = this.state.runtext ? data.map(a => <RunText text={a.text} key={a.id}/>) : <div></div>;
         return (
             <div className = "trafuko">
                 <FormGroup>
@@ -100,7 +99,7 @@ export default class TrafukoPage extends React.Component{
         }
     }
 
-    handleClick(){
+    handleClick() {
         this.setState({
             isAgree: !this.state.isAgree
         });

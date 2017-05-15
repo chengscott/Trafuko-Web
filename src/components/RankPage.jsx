@@ -32,6 +32,7 @@ function compare(a, b) {
 }
 
 export default class RankPage extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -87,17 +88,15 @@ export default class RankPage extends React.Component {
     }
 }
 
-function Box(props) {
-    return (
-        <tr>
-            <th>{props.order}</th>
-            <td>{props.text}</td>
-            <td><Button color="success">讚</Button></td>
-        </tr>
-    );
-}
+const Box = (props) => (
+    <tr>
+        <th>{props.order}</th>
+        <td>{props.text}</td>
+        <td><Button color="success">讚</Button></td>
+    </tr>
+);
 
 Box.propTypes = {
-        order: PropTypes.number.isRequired,
-        text: PropTypes.string.isRequired
+    order: PropTypes.number.isRequired,
+    text: PropTypes.string.isRequired
 };

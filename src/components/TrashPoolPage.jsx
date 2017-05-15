@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import { Animate } from 'react-move';
-
+import {Animate} from 'react-move';
 import {
     Button
 } from 'reactstrap';
@@ -64,15 +62,15 @@ export default class TrashPoolPage extends React.Component {
             5000
         );
     }
-    
+
     componentWillUnmount() {
         clearInterval(this.reRender);
     }
-    
+
     tick() {
         //const page_num = Math.ceil(Data.length/showNum);
         this.index = this.index + 1;
-        if(this.index >= Math.floor(Data.length / showNum)) this.index = 0;
+        if (this.index >= Math.floor(Data.length / showNum)) this.index = 0;
         const stop = 1;
         this.s1 = (this.s1 + 1) % 6;
         this.s2 = (this.s2 + 1) % 6;
@@ -98,15 +96,14 @@ export default class TrashPoolPage extends React.Component {
 
     capture(style, text, id) {
         this.setState({
-                style: style,
-                ifPause: true,
-                ptext: text,
-                id: id
-            });
+            style: style,
+            ifPause: true,
+            ptext: text,
+            id: id
+        });
     }
 
     render() {
-
         const data1 = Data.slice( this.state.a * showNum, (this.state.a + 1) * showNum);
         const data2 = Data.slice( this.state.b * showNum, (this.state.b + 1) * showNum);
         const data3 = Data.slice( this.state.c * showNum, (this.state.c + 1) * showNum);
@@ -135,6 +132,14 @@ export default class TrashPoolPage extends React.Component {
 }
 
 class Pause extends React.Component {
+
+    static propTypes = {
+            style: PropTypes.object,
+            id: PropTypes.string,
+            ifPause: PropTypes.bool,
+            text: PropTypes.string
+    };
+
     constructor(props) {
         super(props);
         this.state = {
@@ -171,14 +176,15 @@ class Pause extends React.Component {
     }
 }
 
-Pause.propTypes = {
-        style: PropTypes.object,
-        id: PropTypes.string,
-        ifPause: PropTypes.bool,
-        text: PropTypes.string
-};
-
 class Item extends React.Component {
+
+    static propTypes = {
+        text: PropTypes.string.isRequired,
+        status: PropTypes.number.isRequired,
+        id: PropTypes.string.isRequired,
+        pause: PropTypes.func
+    };
+
     constructor(props) {
         super(props);
         this.state = {
@@ -221,96 +227,89 @@ class Item extends React.Component {
 
     render() {
         return (
-                <Animate
-                      default={{
-                        scale: 0.3,
-                        color: 'black',
-                        left: "-300px"
+            <Animate
+                  default={{
+                    scale: 0.3,
+                    color: 'black',
+                    left: "-300px"
+                  }}
+                  data={
+                    this.state.style
+                  }
+                  duration={5000}
+                  easing='easeQuadInOut'
+                >
+                  {data => (
+                    <div
+                      style={{
+                        float: 'center',
+                        width: '200px',
+                        height: "auto",
+                        padding: "5px",
+                        borderRadius: "15px",
+                        transform: `scale(${data.scale})`,
+                        background: data.color,
+                        color: data.textcolor,
+                        position: "absolute",
+                        left: data.left,
+                        top: data.top,
+                        cursor: 'pointer'
                       }}
-                      data={
-                        this.state.style
-                      }
-                      duration={5000}
-                      easing='easeQuadInOut'
+                      className="disable"
+                      onClick={() => this.handle()}
                     >
-                      {data => (
-                        <div
-                          style={{
-                            float: 'center',
-                            width: '200px',
-                            height: "auto",
-                            padding: "5px",
-                            borderRadius: "15px",
-                            transform: `scale(${data.scale})`,
-                            background: data.color,
-                            color: data.textcolor,
-                            position: "absolute",
-                            left: data.left,
-                            top: data.top,
-                            cursor: 'pointer'
-                          }}
-                          className="disable"
-                          onClick={() => this.handle()}
-                        >
-                          <h2>{this.props.text}</h2>
-                        </div>
-                      )}
-                </Animate>
-            );
+                      <h2>{this.props.text}</h2>
+                    </div>
+                  )}
+            </Animate>
+        );
     }
 }
 
-Item.propTypes = {
-        text: PropTypes.string.isRequired,
-        status: PropTypes.number.isRequired,
-        id: PropTypes.string.isRequired,
-        pause: PropTypes.func
-};
-
 function change(status, style) {
-        let num = Math.random();
-        let color = (num >= 0.75) ? "blue" : (num >= 0.5) ? "white" : (num >= 0.25) ? "yellow" : "black";
-        let textcolor = (num >= 0.75) ? "yellow" : (num >= 0.5) ? "black" : (num >= 0.25) ? "black" : "red";
-        let scale, left;
-        let top = (200 + Math.random() * (screen.height - 500)) + "px";
-        switch (status) {
-            case 10:
-                scale = 0;
-                left = style.left;
-                top = style.top;
-                break;
-            case 0:
-                scale = 0.5 + Math.random() * 0.5;
-                left = (200 + Math.random() * (screen.width - 500)) + "px";
-                break;
-            case 1:
-                scale = 0.5 + Math.random() * 0.5;
-                left = (200 + Math.random() * (screen.width - 500)) + "px";
-                break;
-            case 2:
-                scale = 0.6 + Math.random() * 0.4;
-                left = (200 + Math.random() * (screen.width - 500)) + "px";
-                break;
-            case 3:
-                scale = 0.8 + Math.random() * 0.2;
-                left = (200 + Math.random() * (screen.width - 500)) + "px";
-                break;
-            case 4:
-                scale = 0.6 + Math.random() * 0.4;
-                left = (200 + Math.random() * (screen.width - 500)) + "px";
-                break;
-            default:
-                color = "black";
-                textcolor = "black";
-                scale = 0.5;
-                left = screen.width + "px";
-                break;
-        }
-        return {
-            color: color,
-            textcolor: textcolor,
-            scale: scale,
-            left: left,
-            top: top
-        }
+    let num = Math.random();
+    let color = (num >= 0.75) ? "blue" : (num >= 0.5) ? "white" : (num >= 0.25) ? "yellow" : "black";
+    let textcolor = (num >= 0.75) ? "yellow" : (num >= 0.5) ? "black" : (num >= 0.25) ? "black" : "red";
+    let scale, left;
+    let top = (200 + Math.random() * (screen.height - 500)) + "px";
+    switch (status) {
+        case 10:
+            scale = 0;
+            left = style.left;
+            top = style.top;
+            break;
+        case 0:
+            scale = 0.5 + Math.random() * 0.5;
+            left = (200 + Math.random() * (screen.width - 500)) + "px";
+            break;
+        case 1:
+            scale = 0.5 + Math.random() * 0.5;
+            left = (200 + Math.random() * (screen.width - 500)) + "px";
+            break;
+        case 2:
+            scale = 0.6 + Math.random() * 0.4;
+            left = (200 + Math.random() * (screen.width - 500)) + "px";
+            break;
+        case 3:
+            scale = 0.8 + Math.random() * 0.2;
+            left = (200 + Math.random() * (screen.width - 500)) + "px";
+            break;
+        case 4:
+            scale = 0.6 + Math.random() * 0.4;
+            left = (200 + Math.random() * (screen.width - 500)) + "px";
+            break;
+        default:
+            color = "black";
+            textcolor = "black";
+            scale = 0.5;
+            left = screen.width + "px";
+            break;
+    }
+    return {
+        color: color,
+        textcolor: textcolor,
+        scale: scale,
+        left: left,
+        top: top
+    }
 }
