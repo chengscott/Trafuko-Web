@@ -1,9 +1,8 @@
 import React from 'react';
-
-import {FormGroup , Label, Input} from 'reactstrap';
 import PropTypes from 'prop-types';
-
 import {connect} from 'react-redux';
+import {FormGroup , Label, Input} from 'reactstrap';
+
 import {toggleAgree, toggleRuntext, setRuntextPage, receiveData} from 'states/trafukoPage-action.js';
 import PostForm from 'components/PostForm.jsx';
 import RunText from 'components/runtext.jsx';
@@ -21,10 +20,15 @@ const RuleText = `0. 當你勾選後，即代表您同意遵守 Facebook 社群�
 
 const runNum = 7;
 
-class TrafukoPage extends React.Component{
+class TrafukoPage extends React.Component {
 
     static propTypes = {
-        firebase: PropTypes.object.isRequired
+        firebase: PropTypes.object.isRequired,
+        isAgree: PropTypes.bool.isRequired,
+        runtext: PropTypes.bool.isRequired,
+        runtextPage: PropTypes.number.isRequired,
+        dispatch: PropTypes.func.isRequired,
+        Data: PropTypes.array.isRequired
     };
 
     constructor(props) {
@@ -69,9 +73,7 @@ class TrafukoPage extends React.Component{
     tick() {
         let nextPage = this.props.runtextPage;
         nextPage = nextPage + 1;
-
-        if(nextPage >= Math.floor(this.props.Data.length / runNum)) nextPage = 0;
-
+        if (nextPage >= Math.floor(this.props.Data.length / runNum)) nextPage = 0;
         this.props.dispatch(setRuntextPage(nextPage));
     }
 
@@ -99,7 +101,6 @@ class TrafukoPage extends React.Component{
     }
 
     runtextClick() {
-
         this.props.dispatch(toggleRuntext());
         if (this.props.runtext) {
             this.reRender = setInterval(
@@ -114,14 +115,6 @@ class TrafukoPage extends React.Component{
     handleClick(){
         this.props.dispatch(toggleAgree());
     }
-}
-
-TrafukoPage.propTypes = {
-    isAgree: PropTypes.bool.isRequired,
-    runtext: PropTypes.bool.isRequired,
-    runtextPage: PropTypes.number.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    Data: PropTypes.array.isRequired
 }
 export default connect(state => ({
     ...state.trafuko
