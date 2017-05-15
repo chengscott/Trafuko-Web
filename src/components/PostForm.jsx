@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {FormGroup, Input, Button, Alert} from 'reactstrap';
 import {connect} from 'react-redux';
+import uuidV4 from 'uuid/v4';
 
-import {input, inputDanger, colorChange, createPost} from 'states/post-action.js';
+import {input, inputDanger, colorChange} from 'states/post-action.js';
 
 import './PostForm.css';
 
@@ -12,6 +13,7 @@ const defultText = '你今天都在幹話些什麼？';
 class PostForm extends React.Component {
 
     static propTypes = {
+        firebase: PropTypes.object.isRequired,
         agreeCheck: PropTypes.bool.isRequired,
         inputValue: PropTypes.string,
         inputDanger: PropTypes.bool,
@@ -62,7 +64,7 @@ class PostForm extends React.Component {
 
     handleInputChange(e) {
         const text = e.target.value;
-        if(this.props.agreeCheck && this.props.inputDanger){
+        if (this.props.agreeCheck && this.props.inputDanger) {
             this.props.dispatch(inputDanger(false));
         }
         this.props.dispatch(input(text));
@@ -77,16 +79,19 @@ class PostForm extends React.Component {
     }
 
     handlePost() {
-        if (this.props.agreeCheck) {
-            if (!this.props.inputValue) {
-                this.props.dispatch(inputDanger(true))
-                return;
-            }
-            this.props.dispatch(createPost(this.props.color,this.props.inputValue));
-        } else {
-            this.props.dispatch(inputDanger(true))
+        if (!this.props.agreeCheck || !this.props.inputValue) {
+            this.props.dispatch(inputDanger(true));
             return;
         }
+        const postId = uuidV4();
+        this.props.firebase.ref('posts/' + postId).set({
+            id: postId,
+            text: this.props.inputValue,
+            color: this.props.color,
+            vote: 0
+        });
+        this.props.dispatch(inputDanger(false));
+        this.props.dispatch(input(''));
     }
 }
 

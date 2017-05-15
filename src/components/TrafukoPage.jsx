@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {FormGroup , Label, Input} from 'reactstrap';
+import {FormGroup, Label, Input} from 'reactstrap';
 
 import {toggleAgree, toggleRuntext, setRuntextPage, receiveData} from 'states/trafukoPage-action.js';
 import PostForm from 'components/PostForm.jsx';
@@ -43,9 +43,8 @@ class TrafukoPage extends React.Component {
             () => this.tick(),
             15000
         );
-        this.props.firebase.on('value', snapshot => {
-            //this.setState({Data: snapshot.val().posts});
-            this.props.dispatch(receiveData(snapshot.val().posts));
+        this.props.firebase.ref('posts').on('value', snapshot => {
+            this.props.dispatch(receiveData(snapshot.val()));
         });
     }
 
@@ -76,7 +75,7 @@ class TrafukoPage extends React.Component {
                         取消彈幕
                     </div>
                 </FormGroup>
-                <PostForm agreeCheck={this.props.isAgree}/>
+                <PostForm agreeCheck={this.props.isAgree} firebase={this.props.firebase}/>
                 {showList}
             </div>
         );

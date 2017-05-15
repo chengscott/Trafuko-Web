@@ -46,8 +46,8 @@ export default class TrashPoolPage extends React.Component {
             () => this.tick(),
             5000
         );
-        this.props.firebase.on('value', snapshot => {
-            this.setState({Data: snapshot.val().posts});
+        this.props.firebase.ref('posts').on('value', snapshot => {
+            this.setState({Data: snapshot.val()});
         });
     }
 

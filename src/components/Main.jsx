@@ -39,7 +39,7 @@ const config = {
     databaseURL: "https://test-efd03.firebaseio.com",
     storageBucket: "test-efd03.appspot.com",
 };
-const fb = firebase.initializeApp(config).database().ref();
+const fb = firebase.initializeApp(config).database();
 
 class Main extends React.Component {
 
