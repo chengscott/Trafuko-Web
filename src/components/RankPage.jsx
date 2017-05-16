@@ -8,7 +8,6 @@ import {
     PaginationItem,
     PaginationLink
 } from 'reactstrap';
-
 import $ from 'jquery';
 
 function compare(a, b) {

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {Animate} from 'react-move';
-import './runtext.css';
 
 export default class RunText extends React.Component {
 

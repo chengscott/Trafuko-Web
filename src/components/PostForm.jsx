@@ -41,13 +41,13 @@ class PostForm extends React.Component {
                                 <strong>錯誤!</strong> 你需要同意上述規範
                             </Alert>
                         }
-                        <Input style={{color:this.props.color}}className="TextArea" type="textarea" getRef={el => {this.inputEl = el}} onChange={this.handleInputChange} value={this.props.inputValue} placeholder={defultText}/>
+                        <Input style={{color:this.props.color}}className="TextArea" type="textarea" getRef={el => {this.inputEl = el;}} onChange={this.handleInputChange} value={this.props.inputValue} placeholder={defultText}/>
                         <div className="toolList">
-                            <Button className="box hvr-wobble-horizontal" style={{background: 'black'}} onClick={()=>{this.handleColorMode('black')}}></Button>
-                            <Button className="box hvr-wobble-horizontal" style={{background: 'red'}} onClick={()=>{this.handleColorMode('red')}}></Button>
-                            <Button className="box hvr-wobble-horizontal" style={{background: 'green'}} onClick={()=>{this.handleColorMode('green')}}></Button>
-                            <Button className="box hvr-wobble-horizontal" style={{background: 'blue'}} onClick={()=>{this.handleColorMode('blue')}}></Button>
-                            <Button className="box hvr-wobble-horizontal" style={{background: 'yellow'}} onClick={()=>{this.handleColorMode('yellow')}}></Button>
+                            <Button className="box hvr-wobble-horizontal" style={{background: 'black'}} onClick={()=>{this.handleColorMode('black');}}></Button>
+                            <Button className="box hvr-wobble-horizontal" style={{background: 'red'}} onClick={()=>{this.handleColorMode('red');}}></Button>
+                            <Button className="box hvr-wobble-horizontal" style={{background: 'green'}} onClick={()=>{this.handleColorMode('green');}}></Button>
+                            <Button className="box hvr-wobble-horizontal" style={{background: 'blue'}} onClick={()=>{this.handleColorMode('blue');}}></Button>
+                            <Button className="box hvr-wobble-horizontal" style={{background: 'yellow'}} onClick={()=>{this.handleColorMode('yellow');}}></Button>
                         </div>
                     </div>
                     <div className="postForm">
@@ -71,7 +71,7 @@ class PostForm extends React.Component {
     }
 
     handleCheckbox() {
-        console.log("checkbox");
+        //console.log("checkbox");
     }
 
     handleColorMode(color) {

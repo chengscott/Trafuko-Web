@@ -2,10 +2,10 @@ const initPostFormState = {
     inputValue: '',
     inputDanger: false,
     color: 'black'
-}
+};
 
-export function postForm(state = initPostFormState,action){
-    switch(action.type) {
+export function postForm(state = initPostFormState, action) {
+    switch (action.type) {
         case '@POST_FORM/INPUT':
             return {
                 ...state,
@@ -20,7 +20,7 @@ export function postForm(state = initPostFormState,action){
             return {
                 ...state,
                 color: action.color
-            }
+            };
         default:
             return state;
     }

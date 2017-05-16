@@ -1,10 +1,10 @@
-var expect = require(('expect'));
+var expect = require('expect');
 
 import TrashPoolPage from 'components/TrashPoolPage.jsx';
 
-describe('TrashPoolPage', ()=>{
+describe('TrashPoolPage', () => {
     // Basic Test
-    it('component exists', ()=>{
+    it('component exists', () => {
         expect(TrashPoolPage).toExist();
     });
-})
+});

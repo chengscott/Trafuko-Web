@@ -14,11 +14,12 @@
         }
     },
     rules: {
-        "no-console":0,
+        "no-console": 1,
         "react/jsx-uses-react": 2,
         "react/jsx-uses-vars": 2,
         "react/react-in-jsx-scope": 2,
-        brace-style: [2, "1tbs", { "allowSingleLine": true }]
+        brace-style: [2, "1tbs", { "allowSingleLine": true }],
+        semi: [2, "always"]
     },
     extends: [
         "eslint:recommended",

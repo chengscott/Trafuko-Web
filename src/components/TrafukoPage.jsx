@@ -1,8 +1,6 @@
 import React from 'react';
-
-import {FormGroup , Label, Input} from 'reactstrap';
 import PropTypes from 'prop-types';
-
+import {FormGroup , Label, Input} from 'reactstrap';
 import {connect} from 'react-redux';
 import $ from 'jquery';
 
@@ -23,10 +21,15 @@ const RuleText = `0. 當你勾選後，即代表您同意遵守 Facebook 社群�
 
 const runNum = 7;
 
-class TrafukoPage extends React.Component{
+class TrafukoPage extends React.Component {
 
     static propTypes = {
-        firebase: PropTypes.object.isRequired
+        firebase: PropTypes.object.isRequired,
+        isAgree: PropTypes.bool.isRequired,
+        runtext: PropTypes.bool.isRequired,
+        runtextPage: PropTypes.number.isRequired,
+        dispatch: PropTypes.func.isRequired,
+        Data: PropTypes.array.isRequired
     };
 
     constructor(props) {
@@ -44,7 +47,6 @@ class TrafukoPage extends React.Component{
             15000
         );
         this.props.firebase.ref('posts').on('value', snapshot => {
-
             const val = snapshot.val();
             const array = $.map(val, (value)=> {
                 return [value];
@@ -58,20 +60,17 @@ class TrafukoPage extends React.Component{
     }
 
     tick() {
-        let nextPage = this.props.runtextPage;
-        nextPage = nextPage + 1;
-
-        if(nextPage >= Math.floor(this.props.Data.length / runNum)) nextPage = 0;
-
+        let nextPage = this.props.runtextPage + 1;
+        if (nextPage >= Math.floor(this.props.Data.length / runNum))
+            nextPage = 0;
         this.props.dispatch(setRuntextPage(nextPage));
     }
-
 
     render() {
         const page = this.props.runtextPage;
         const data = this.props.Data.slice(page * runNum, Math.min((page + 1) * runNum, this.props.Data.length - 1));
         const showList = this.props.runtext ? data.map(a => <RunText text={a.text} key={a.id}/>) : <div></div>;
-        
+
         return (
             <div className = "trafuko">
                 <FormGroup>
@@ -90,11 +89,9 @@ class TrafukoPage extends React.Component{
         );
     }
 
-
     runtextClick(e) {
-        const flag = e.target.checked;
-        
-        this.props.dispatch(setRuntext(flag));
+        const isRunning = e.target.checked;
+        this.props.dispatch(setRuntext(isRunning));
         if (this.props.runtext) {
             this.reRender = setInterval(
                 () => this.tick(),
@@ -105,19 +102,12 @@ class TrafukoPage extends React.Component{
         }
     }
 
-    handleClick(e){
-        const flag = e.target.checked; 
-        this.props.dispatch(setAgree(flag));
+    handleClick(e) {
+        const isAgree = e.target.checked;
+        this.props.dispatch(setAgree(isAgree));
     }
 }
 
-TrafukoPage.propTypes = {
-    isAgree: PropTypes.bool.isRequired,
-    runtext: PropTypes.bool.isRequired,
-    runtextPage: PropTypes.number.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    Data: PropTypes.array.isRequired
-}
 export default connect(state => ({
     ...state.trafuko
 }))(TrafukoPage);

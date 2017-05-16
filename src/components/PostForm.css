@@ -1,16 +1,15 @@
 .postFormDisplay {
     height: 160px;
     max-width: 730px;
-    margin:auto;
+    margin: auto;
     margin-bottom: 10px;
-
 }
 
 .postFormDisplay .TextArea {
     display: inline-block;
     min-width: 160px;
     width: 90%;
-    float:left;
+    float: left;
     margin-bottom: 10px;
     overflow-y: visible;
     height: 160px;
@@ -21,8 +20,7 @@
     padding-left: 4px;
     height: 30px;
     width: 10%;
-    float:left;
-
+    float: left;
 }
 
 .postFormDisplay .toolList .box {
@@ -35,36 +33,37 @@
     cursor: pointer;
 }
 
-@media  screen and (max-width: 480px) {
+@media screen and (max-width: 480px) {
+
     .postFormDisplay .TextArea {
         width: 100%;
     }
+
     .postFormDisplay .toolList {
         width: 100%;
         margin-top: 4px;
         margin-bottom: 8px;
     }
+
     .postFormDisplay .toolList .box {
         margin-right: 4px;
     }
-
 }
 
 .postForm {
     height: 36px;
     max-width: 720px;
-    margin:auto;
+    margin: auto;
 }
 
 .postForm .checkbox input[type="checkbox"] {
-    width:16px;
-    height:16px;
+    width: 16px;
+    height: 16px;
 }
 
 .postForm .checkbox {
     display: block;
     padding-bottom: 120px;
-
 }
 
 .postForm .button {

@@ -52,7 +52,6 @@ class Main extends React.Component {
 
     constructor(props) {
         super(props);
-
         this.toggleNavbar = this.toggleNavbar.bind(this);
         this.toggleModal_A = this.toggleModal_A.bind(this);
         this.toggleModal_L = this.toggleModal_L.bind(this);
@@ -77,7 +76,7 @@ class Main extends React.Component {
                     <Background />
                     <div id="id_header">
                         <Navbar color="faded" light toggleable>
-                            <NavbarToggler  right onClick={this.toggleNavbar} />
+                            <NavbarToggler right onClick={this.toggleNavbar} />
                             <NavbarBrand href="/">Trafuko | 垃圾話</NavbarBrand>
                             <Collapse isOpen={this.props.collapsed} navbar>
                                 <Nav className="ml-auto" navbar>

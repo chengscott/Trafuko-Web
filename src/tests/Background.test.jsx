@@ -1,10 +1,10 @@
-var expect = require(('expect'));
+var expect = require('expect');
 
 import Background from 'components/Background.jsx';
 
-describe('Background', ()=>{
+describe('Background', () => {
     // Basic Test
-    it('component exists', ()=>{
+    it('component exists', () => {
         expect(Background).toExist();
     });
-})
+});
