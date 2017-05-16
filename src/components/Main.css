@@ -1,7 +1,6 @@
-html body {
+html ,body {
     height: 100%;
 }
-
 #root {
     min-height: 100%;
 }
@@ -9,7 +8,13 @@ html body {
 #id_wrapper {
     min-height: 100%;
     position: relative;
-    height: 110vh;
+    /*height: 110vh;*/
+    height: 810px;
+}
+@media screen and (max-width: 480px) {
+    #id_wrapper{
+        height: 700px;
+    }    
 }
 
 .hidden {
@@ -21,6 +26,9 @@ html body {
     box-sizing: border-box;
 }
 
+#id_header .z-index-add{
+    z-index: 1;
+}
 #id_content {
     padding-top: 36px;
     padding-bottom: 36px;
