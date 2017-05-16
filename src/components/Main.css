@@ -32,6 +32,7 @@ html ,body {
 #id_content {
     padding-top: 36px;
     padding-bottom: 36px;
+    box-sizing: inherit;
 }
 
 #id_footer {
