@@ -31,8 +31,7 @@ export default class RankPage extends React.Component {
             npp: npp,
             dropdownOpen: false,
             status: "top",
-            Data: [],
-            page_num: 0
+            Data: []
         };
         this.handleSChange = this.handleSChange.bind(this);
         this.toggle = this.toggle.bind(this);
@@ -42,8 +41,6 @@ export default class RankPage extends React.Component {
         this.props.firebase.ref('posts').on('value', snapshot => {
             this.setState({Data: objToarr(snapshot.val())});
         });
-        const page_num = Math.ceil(this.state.Data.length/this.state.npp);
-        this.setState({page_num: page_num});
     }
 
     toggle() {
@@ -53,16 +50,17 @@ export default class RankPage extends React.Component {
     }
 
     changePage(page) {
-        if (page > 0 && page <= this.state.page_num) this.setState({page: page});
+        const page_num = Math.ceil(this.state.Data.length/this.state.npp);
+        if (page > 0 && page <= page_num) this.setState({page: page});
     }
 
     changeNumPerPage(npp) {
-        if (npp >= 3 && npp <= 15) this.setState({npp: npp});
+        if (npp >= 3 && npp <= 15) this.setState({npp: npp, page: 1});
     }
 
     handleSChange(status) {
         if(status !== this.state.status) {
-            this.setState({status: status});
+            this.setState({status: status, page: 1});
         }
     }
 
@@ -73,12 +71,12 @@ export default class RankPage extends React.Component {
         const listItems = showList.map((each) => <Box order={data.indexOf(each) + 1} key={each.id} text={each.text}/>);
         return(
             <div className="rankpage">
-                <Table bordered><tbody>
+                <Table bordered inverse responsive><tbody>
                     <tr>
-                        <th width="25%"><Button className="hvr-pulse-grow" onClick={() => this.handleSChange("top")} color={(this.state.status === "top") ? "primary" : "default"}><h2>&nbsp;top100&nbsp;</h2></Button></th>
-                        <th width="25%"><Button className="hvr-pulse-grow" onClick={() => this.handleSChange("day")} color={(this.state.status === "day") ? "primary" : "default"}><h2>每日前十</h2></Button></th>
-                        <th width="25%"><Button className="hvr-pulse-grow" onClick={() => this.handleSChange("week")} color={(this.state.status === "week") ? "primary" : "default"}><h2>每週前百</h2></Button></th>
-                        <th width="25%"><Button className="hvr-pulse-grow" onClick={() => this.handleSChange("mon")} color={(this.state.status === "mon") ? "primary" : "default"}><h2>每月前百</h2></Button></th>
+                        <th width="25%"><Button className="hvr-wobble-vertical" onClick={() => this.handleSChange("top")} color={(this.state.status === "top") ? "warning" : "default"}><h2>&nbsp;top100&nbsp;</h2></Button></th>
+                        <th width="25%"><Button className="hvr-wobble-vertical" onClick={() => this.handleSChange("day")} color={(this.state.status === "day") ? "warning" : "default"}><h2>每日前十</h2></Button></th>
+                        <th width="25%"><Button className="hvr-wobble-vertical" onClick={() => this.handleSChange("week")} color={(this.state.status === "week") ? "warning" : "default"}><h2>每週前百</h2></Button></th>
+                        <th width="25%"><Button className="hvr-wobble-vertical" onClick={() => this.handleSChange("mon")} color={(this.state.status === "mon") ? "warning" : "default"}><h2>每月前百</h2></Button></th>
                     </tr>
                 </tbody></Table>
 
@@ -117,7 +115,7 @@ export default class RankPage extends React.Component {
 const Box = (props) => (
     <tr>
         <th>{props.order}</th>
-        <td>{props.text}</td>
+        <td className="font">{props.text}</td>
         <td><Button className="hvr-bounce-in" color="success">收藏</Button></td>
     </tr>
 );

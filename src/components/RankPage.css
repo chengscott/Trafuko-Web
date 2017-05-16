@@ -16,3 +16,8 @@ input {
 #id_content .z-index-modify {
     z-index: -1;
 }
+
+.rankpage h2 {
+    font-family: font;
+    cursor: pointer;
+}
