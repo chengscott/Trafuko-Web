@@ -112,7 +112,7 @@ export default class TrashPoolPage extends React.Component {
         const items5 = data5.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s5} pause={this.capture}/>));
         const items6 = data6.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s6} pause={this.capture}/>));
         return (
-            <div>
+            <div className="trashPool">
                 <Pause style={this.state.style} ifPause={this.state.ifPause} text={this.state.ptext} id={"p_" + this.state.id}/>
                 {items1}
                 {items2}
@@ -261,7 +261,7 @@ function change(status) {
     let color = (num >= 0.75) ? "blue" : (num >= 0.5) ? "white" : (num >= 0.25) ? "yellow" : "black";
     let textcolor = (num >= 0.75) ? "yellow" : (num >= 0.5) ? "black" : (num >= 0.25) ? "black" : "red";
     let scale, left;
-    let top = (200 + Math.random() * (screen.height - 400)) + "px";
+    let top = (50 + Math.random() * (screen.height - 200)) + "px";
     switch (status) {
         case 0:
             scale = 0.5 + Math.random() * 0.5;

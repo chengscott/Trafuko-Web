@@ -73,7 +73,7 @@ class Main extends React.Component {
     render() {
         return(
             <Router>
-                <div id="id_wrapper" >
+                <div id="id_wrapper" className={(location == "/Rank") ? "" : "hidden"}>
                     <Background />
                     <div id="id_header">
                         <Navbar color="faded" light toggleable>

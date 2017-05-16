@@ -29,7 +29,7 @@ export default class RankPage extends React.Component {
         super(props);
         this.state = {
             page: 1,
-            npp: 6,
+            npp: 4,
             dropdownOpen: false,
             status: "top100",
             Data: []

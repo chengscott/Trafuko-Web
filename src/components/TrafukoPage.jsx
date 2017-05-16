@@ -68,7 +68,6 @@ class TrafukoPage extends React.Component{
 
 
     render() {
-        const runtext_label = (this.props.runtext === false)? "彈幕" : "取消彈幕";
         const page = this.props.runtextPage;
         const data = this.props.Data.slice(page * runNum, Math.min((page + 1) * runNum, this.props.Data.length - 1));
         const showList = this.props.runtext ? data.map(a => <RunText text={a.text} key={a.id}/>) : <div></div>;
@@ -81,8 +80,8 @@ class TrafukoPage extends React.Component{
                       <div className="checkbox">
                         <input className="checkbox-input hvr-bounce-in" onClick={this.handleClick} type="checkbox" defaultValue={false} />
                         我同意上述規範
-                        <input className="checkbox-input hvr-bounce-in" onClick={this.runtextClick} type="checkbox" defaultChecked={!this.props.runtext}/>
-                        {runtext_label}
+                        <input className="checkbox-input hvr-bounce-in" onClick={this.runtextClick} type="checkbox" defaultChecked={(screen.width >= 700) ? true : false}/>
+                        顯示彈幕
                     </div>
                 </FormGroup>
                 <PostForm agreeCheck={this.props.isAgree} firebase={this.props.firebase}/>
