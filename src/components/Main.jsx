@@ -75,7 +75,7 @@ class Main extends React.Component {
                 <div id="id_wrapper" className={"hidden"}>
                     <Background />
                     <div id="id_header">
-                        <Navbar color="faded" light toggleable>
+                        <Navbar className='z-index-add' color="faded" light toggleable>
                             <NavbarToggler right onClick={this.toggleNavbar} />
                             <NavbarBrand href="/">Trafuko | 垃圾話</NavbarBrand>
                             <Collapse isOpen={this.props.collapsed} navbar>
