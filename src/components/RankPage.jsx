@@ -8,7 +8,6 @@ import {
     PaginationItem,
     PaginationLink
 } from 'reactstrap';
-import $ from 'jquery';
 
 function compare(a, b) {
     if (a.vote < b.vote)
@@ -26,12 +25,14 @@ export default class RankPage extends React.Component {
 
     constructor(props) {
         super(props);
+        const npp = (screen.width >= 700) ? 7 : 4;
         this.state = {
             page: 1,
-            npp: 4,
+            npp: npp,
             dropdownOpen: false,
-            status: "top100",
-            Data: []
+            status: "top",
+            Data: [],
+            page_num: 0
         };
         this.handleSChange = this.handleSChange.bind(this);
         this.toggle = this.toggle.bind(this);
@@ -39,12 +40,10 @@ export default class RankPage extends React.Component {
 
     componentDidMount() {
         this.props.firebase.ref('posts').on('value', snapshot => {
-            const val = snapshot.val();
-            const array = $.map(val, (value)=> {
-                return [value];
-            });
-            this.setState({Data: array});
+            this.setState({Data: objToarr(snapshot.val())});
         });
+        const page_num = Math.ceil(this.state.Data.length/this.state.npp);
+        this.setState({page_num: page_num});
     }
 
     toggle() {
@@ -54,8 +53,7 @@ export default class RankPage extends React.Component {
     }
 
     changePage(page) {
-        const page_num = Math.ceil(this.state.Data.length/this.state.npp);
-        if (page > 0 && page <= page_num) this.setState({page: page});
+        if (page > 0 && page <= this.state.page_num) this.setState({page: page});
     }
 
     changeNumPerPage(npp) {
@@ -75,14 +73,13 @@ export default class RankPage extends React.Component {
         const listItems = showList.map((each) => <Box order={data.indexOf(each) + 1} key={each.id} text={each.text}/>);
         return(
             <div className="rankpage">
-                <Table responsive><tbody>
+                <Table bordered><tbody>
                     <tr>
-                        <th width="25%"><Button><h2>&nbsp;top100&nbsp;</h2></Button></th>
-                        <th width="25%"><Button><h2>每日前十</h2></Button></th>
-                        <th width="25%"><Button><h2>每週前百</h2></Button></th>
-                        <th width="25%"><Button><h2>每月前百</h2></Button></th>
+                        <th width="25%"><Button className="hvr-pulse-grow" onClick={() => this.handleSChange("top")} color={(this.state.status === "top") ? "primary" : "default"}><h2>&nbsp;top100&nbsp;</h2></Button></th>
+                        <th width="25%"><Button className="hvr-pulse-grow" onClick={() => this.handleSChange("day")} color={(this.state.status === "day") ? "primary" : "default"}><h2>每日前十</h2></Button></th>
+                        <th width="25%"><Button className="hvr-pulse-grow" onClick={() => this.handleSChange("week")} color={(this.state.status === "week") ? "primary" : "default"}><h2>每週前百</h2></Button></th>
+                        <th width="25%"><Button className="hvr-pulse-grow" onClick={() => this.handleSChange("mon")} color={(this.state.status === "mon") ? "primary" : "default"}><h2>每月前百</h2></Button></th>
                     </tr>
-                    <tr></tr>
                 </tbody></Table>
 
                 <Table bordered inverse className="table"><tbody>
@@ -129,3 +126,13 @@ Box.propTypes = {
     order: PropTypes.number.isRequired,
     text: PropTypes.string.isRequired
 };
+
+
+
+function objToarr(obj) {
+    let arr = [];
+    for (let x in obj) {
+        arr.push(obj[x]);
+    }
+    return arr;
+}

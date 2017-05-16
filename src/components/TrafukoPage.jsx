@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {FormGroup , Label, Input} from 'reactstrap';
 import {connect} from 'react-redux';
-import $ from 'jquery';
 
 import {setAgree, setRuntextPage, receiveData, setRuntext} from 'states/trafukoPage-action.js';
 import PostForm from 'components/PostForm.jsx';
@@ -47,11 +46,7 @@ class TrafukoPage extends React.Component {
             15000
         );
         this.props.firebase.ref('posts').on('value', snapshot => {
-            const val = snapshot.val();
-            const array = $.map(val, (value)=> {
-                return [value];
-            });
-            this.props.dispatch(receiveData(array));
+            this.props.dispatch(receiveData(objToarr(snapshot.val())));
         });
     }
 
@@ -111,3 +106,11 @@ class TrafukoPage extends React.Component {
 export default connect(state => ({
     ...state.trafuko
 }))(TrafukoPage);
+
+function objToarr(obj) {
+    let arr = [];
+    for (let x in obj) {
+        arr.push(obj[x]);
+    }
+    return arr;
+}

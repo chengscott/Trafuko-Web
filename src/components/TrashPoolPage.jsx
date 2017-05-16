@@ -4,7 +4,6 @@ import {Animate} from 'react-move';
 import {
     Button
 } from 'reactstrap';
-import $ from 'jquery';
 
 import './TrashPoolPage.css';
 
@@ -48,11 +47,7 @@ export default class TrashPoolPage extends React.Component {
             5000
         );
         this.props.firebase.ref('posts').on('value', snapshot => {
-            const val = snapshot.val();
-            const array = $.map(val, (value)=> {
-                return [value];
-            });
-            this.setState({Data: array});
+            this.setState({Data: objToarr(snapshot.val())});
         });
     }
 
@@ -294,4 +289,12 @@ function change(status) {
         left: left,
         top: top
     };
+}
+
+function objToarr(obj) {
+    let arr = [];
+    for (let x in obj) {
+        arr.push(obj[x]);
+    }
+    return arr;
 }
