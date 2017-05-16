@@ -1,9 +1,8 @@
 .trafuko {
-    padding : 1rem;
+    padding: 1rem;
 }
 
 .trafuko .ruleTitle {
-
     text-align: center;
     font-weight: bold;
     color: red;
@@ -14,7 +13,7 @@
     height: 160px;
     min-width: 160px;
     max-width: 720px;
-    margin:auto;
+    margin: auto;
     cursor: not-allowed;
 }
 
@@ -23,13 +22,13 @@
     padding-top: 1px;
     height: 24px;
     max-width: 720px;
-    margin:auto;
+    margin: auto;
     font-weight: bold;
     cursor: pointer;
 }
 
 .trafuko .checkbox .checkbox-input {
-    width:24px;
+    width: 24px;
 }
 
 .trafuko .label-css {

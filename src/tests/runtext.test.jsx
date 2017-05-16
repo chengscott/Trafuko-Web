@@ -1,10 +1,10 @@
-var expect = require(('expect'));
+var expect = require('expect');
 
 import Runtext from 'components/runtext.jsx';
 
-describe('Runtext', ()=>{
+describe('Runtext', () => {
     // Basic Test
-    it('component exists', ()=>{
+    it('component exists', () => {
         expect(Runtext).toExist();
     });
-})
+});

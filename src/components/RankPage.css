@@ -5,7 +5,7 @@ input {
 .rankpage {
     height: 160px;
     max-width: 730px;
-    margin:auto;
+    margin: auto;
     margin-bottom: 10px;
 }
 
@@ -13,6 +13,6 @@ input {
     cursor: pointer;
 }
 
-#id_content .z-index-modify{
+#id_content .z-index-modify {
     z-index: -1;
 }

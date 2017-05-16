@@ -16,5 +16,5 @@ export function colorChange(color) {
     return {
         type: '@POST_FORM/COLOR_CHANGE',
         color: color
-    }
+    };
 }

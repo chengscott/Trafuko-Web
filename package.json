@@ -10,11 +10,20 @@
     "dev": "webpack-dev-server",
     "dev-history": "webpack-dev-server --inline --content-base . --history-api-fallback",
     "test-server": "node ./server/src/server.js",
-    "lint": "eslint src/components/*.jsx",
+    "lint": "eslint --ext .jsx,.js src/** && stylelint src/**/*.css",
     "test": "karma start"
   },
-  "author": "Trafuko",
+  "authors": [
+    "chengscott",
+    "litteant",
+    "adamatuno"
+  ],
   "license": "MIT",
+  "homepage": "http://trafuko.nthu.com.tw",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chengscott/Trafuko-Web.git"
+  },
   "dependencies": {
     "axios": "^0.15.3",
     "babel-core": "^6.24.0",
@@ -50,6 +59,8 @@
     "redux-logger": "^3.0.1",
     "redux-thunk": "^2.2.0",
     "style-loader": "^0.14.1",
+    "stylelint": "^7.10.1",
+    "stylelint-config-standard": "^16.0.0",
     "uuid": "^3.0.1",
     "webpack": "^2.3.1"
   },

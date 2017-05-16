@@ -1,10 +1,10 @@
-var expect = require(('expect'));
+var expect = require('expect');
 
 import TrafukoPage from 'components/TrafukoPage.jsx';
 
-describe('TrafukoPage', ()=>{
+describe('TrafukoPage', () => {
     // Basic Test
-    it('component exists', ()=>{
+    it('component exists', () => {
         expect(TrafukoPage).toExist();
     });
-})
+});

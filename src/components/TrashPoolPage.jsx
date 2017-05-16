@@ -4,10 +4,9 @@ import {Animate} from 'react-move';
 import {
     Button
 } from 'reactstrap';
+import $ from 'jquery';
 
 import './TrashPoolPage.css';
-
-import $ from 'jquery';
 
 export default class TrashPoolPage extends React.Component {
 
@@ -180,7 +179,7 @@ class Item extends React.Component {
         this.state = {
             style: change(this.props.status),
             class: ""
-        }
+        };
         this.status = this.props.status;
         this.handle = this.handle.bind(this);
         this.tick = this.tick.bind(this);
@@ -294,5 +293,5 @@ function change(status) {
         scale: scale,
         left: left,
         top: top
-    }
+    };
 }
