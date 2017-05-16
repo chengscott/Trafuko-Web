@@ -25,7 +25,7 @@ export default class RankPage extends React.Component {
 
     constructor(props) {
         super(props);
-        const npp = (screen.width >= 700) ? 7 : 4;
+        const npp = (screen.width >= 700) ? 8 : 4;
         this.state = {
             page: 1,
             npp: npp,
@@ -65,18 +65,34 @@ export default class RankPage extends React.Component {
     }
 
     render() {
+        const page_num = Math.ceil(this.state.Data.length/this.state.npp);
+        let i = 1;
+        let btnlist = [];
+        while (i <= page_num && i <= 10) {
+            btnlist.push(i);
+            ++i;
+        }
+        const Btnlist = btnlist.map(j => 
+            (j === this.state.page) ?
+            (<PaginationItem active key={"pagebtn_" + j} onClick={() => this.changePage(j)} >
+                <PaginationLink>{j}</PaginationLink>
+            </PaginationItem>) :
+            (<PaginationItem className="clickHand" key={"pagebtn_" + j} onClick={() => this.changePage(j)} >
+                <PaginationLink>{j}</PaginationLink>
+            </PaginationItem>)
+            );
         const npp = this.state.npp;
         const data = this.state.Data.sort(compare);
         const showList = data.slice((this.state.page - 1) * npp , Math.min(this.state.page * npp, this.state.Data.length - 1));
         const listItems = showList.map((each) => <Box order={data.indexOf(each) + 1} key={each.id} text={each.text}/>);
         return(
             <div className="rankpage">
-                <Table bordered inverse responsive><tbody>
+                <Table responsive><tbody>
                     <tr>
-                        <th width="25%"><Button className="hvr-wobble-vertical" onClick={() => this.handleSChange("top")} color={(this.state.status === "top") ? "warning" : "default"}><h2>&nbsp;top100&nbsp;</h2></Button></th>
-                        <th width="25%"><Button className="hvr-wobble-vertical" onClick={() => this.handleSChange("day")} color={(this.state.status === "day") ? "warning" : "default"}><h2>每日前十</h2></Button></th>
-                        <th width="25%"><Button className="hvr-wobble-vertical" onClick={() => this.handleSChange("week")} color={(this.state.status === "week") ? "warning" : "default"}><h2>每週前百</h2></Button></th>
-                        <th width="25%"><Button className="hvr-wobble-vertical" onClick={() => this.handleSChange("mon")} color={(this.state.status === "mon") ? "warning" : "default"}><h2>每月前百</h2></Button></th>
+                        <th width="25%"><Button onClick={() => this.handleSChange("top")} color={(this.state.status === "top") ? "warning" : "default"}>&nbsp;top100&nbsp;</Button></th>
+                        <th width="25%"><Button onClick={() => this.handleSChange("day")} color={(this.state.status === "day") ? "warning" : "default"}>每日前十</Button></th>
+                        <th width="25%"><Button onClick={() => this.handleSChange("week")} color={(this.state.status === "week") ? "warning" : "default"}>每週前百</Button></th>
+                        <th width="25%"><Button onClick={() => this.handleSChange("mon")} color={(this.state.status === "mon") ? "warning" : "default"}>每月前百</Button></th>
                     </tr>
                 </tbody></Table>
 
@@ -90,27 +106,32 @@ export default class RankPage extends React.Component {
                 </tbody></Table>
 
                 <Pagination>
+                    {(this.state.page != 1) &&
                     <PaginationItem className="hvr-backward clickHand" onClick={() => this.changePage(this.state.page - 1)}>
                         <PaginationLink previous/>
-                    </PaginationItem>
-                    <PaginationItem active>
-                        <PaginationLink  className="z-index-modify">{this.state.page}</PaginationLink>
-                    </PaginationItem>
+                    </PaginationItem>}
+                    {Btnlist}
+                    {(this.state.page != page_num) &&
                     <PaginationItem className="hvr-forward clickHand" onClick={() => this.changePage(this.state.page + 1)}>
                         <PaginationLink next/>
-                    </PaginationItem>
-                    <PaginationItem>
-                        &nbsp;<input id="npp_input" placeholder="每頁顯示數量"></input>&nbsp;
-                    </PaginationItem>
-                    <PaginationItem>
-                        <Button className="hvr-wobble-vertical" color="danger" onClick={() => this.changeNumPerPage(document.getElementById("npp_input").value)}>確認</Button>&nbsp;
-                    </PaginationItem>
+                    </PaginationItem>}
                 </Pagination>
 
             </div>
         );
     }
 }
+/*
+                    <PaginationItem active>
+                        <PaginationLink  className="z-index-modify">{this.state.page}</PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                        &nbsp;<input id="npp_input" placeholder="每頁顯示數量"></input>&nbsp;
+                    </PaginationItem>
+                    <PaginationItem>
+                        <Button color="danger" onClick={() => this.changeNumPerPage(document.getElementById("npp_input").value)}>確認</Button>&nbsp;
+                    </PaginationItem>
+*/
 
 const Box = (props) => (
     <tr>
