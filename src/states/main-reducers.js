@@ -1,7 +1,8 @@
 const mainInitState = {
     collapsed: false,
     modal_about: false,
-    modal_logs:false
+    modal_logs:false,
+    wrapenable: true
 };
 
 export function main(state = mainInitState, action) {
@@ -20,6 +21,11 @@ export function main(state = mainInitState, action) {
             return {
                 ...state,
                 modal_logs: !state.modal_logs
+            };
+        case '@MAIN_SET_WRAP':
+            return {
+                ...state,
+                wrapenable: action.flag
             };
         default:
             return state;

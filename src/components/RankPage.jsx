@@ -20,7 +20,8 @@ function compare(a, b) {
 export default class RankPage extends React.Component {
 
     static propTypes = {
-        firebase: PropTypes.object.isRequired
+        firebase: PropTypes.object.isRequired,
+        wrap: PropTypes.func.isRequired
     };
 
     constructor(props) {
@@ -38,6 +39,7 @@ export default class RankPage extends React.Component {
     }
 
     componentDidMount() {
+        this.props.wrap(false); // overflow: auto
         this.props.firebase.ref('posts').on('value', snapshot => {
             this.setState({Data: objToarr(snapshot.val())});
         });
@@ -105,7 +107,7 @@ export default class RankPage extends React.Component {
                     {listItems}
                 </tbody></Table>
 
-                <Pagination>
+                <Pagination style={{'marginBottom':'72px'}}>
                     {(this.state.page != 1) &&
                     <PaginationItem className="hvr-backward clickHand" onClick={() => this.changePage(this.state.page - 1)}>
                         <PaginationLink previous/>

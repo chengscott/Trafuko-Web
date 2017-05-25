@@ -10,7 +10,8 @@ import './TrashPoolPage.css';
 export default class TrashPoolPage extends React.Component {
 
     static propTypes = {
-        firebase: PropTypes.object.isRequired
+        firebase: PropTypes.object.isRequired,
+        wrap: PropTypes.func.isRequired
     };
 
     constructor(props) {
@@ -42,6 +43,7 @@ export default class TrashPoolPage extends React.Component {
     }
 
     componentDidMount() {
+        this.props.wrap(true); // overflow:hidden
         this.reRender = setInterval(
             () => this.tick(),
             5000

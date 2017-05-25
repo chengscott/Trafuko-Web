@@ -28,6 +28,7 @@ class TrafukoPage extends React.Component {
         runtext: PropTypes.bool.isRequired,
         runtextPage: PropTypes.number.isRequired,
         dispatch: PropTypes.func.isRequired,
+        wrap:PropTypes.func.isRequired,
         Data: PropTypes.array.isRequired
     };
 
@@ -38,7 +39,8 @@ class TrafukoPage extends React.Component {
         this.runtextClick = this.runtextClick.bind(this);
     }
 
-    componentDidMount() {
+    componentDidMount() {   
+        this.props.wrap(true); // set overflow:hidden
         const runtext = (screen.width >= 700) ? true : false;
         this.props.dispatch(setRuntext(runtext));
         this.reRender = setInterval(

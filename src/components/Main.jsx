@@ -29,7 +29,7 @@ import TrafukoPage from 'components/TrafukoPage.jsx';
 import RankPage from 'components/RankPage.jsx';
 import TrashPoolPage from 'components/TrashPoolPage.jsx';
 
-import {toggleNav, toggleModal_a, toggleModal_l} from 'states/main-action.js';
+import {toggleNav, toggleModal_a, toggleModal_l, setwrap} from 'states/main-action.js';
 
 import './Main.css';
 
@@ -47,6 +47,7 @@ class Main extends React.Component {
         collapsed: PropTypes.bool.isRequired,
         modal_about: PropTypes.bool.isRequired,
         modal_logs:PropTypes.bool.isRequired,
+        wrapenable: PropTypes.bool.isRequired,
         dispatch: PropTypes.func.isRequired
     };
 
@@ -55,24 +56,33 @@ class Main extends React.Component {
         this.toggleNavbar = this.toggleNavbar.bind(this);
         this.toggleModal_A = this.toggleModal_A.bind(this);
         this.toggleModal_L = this.toggleModal_L.bind(this);
+        this.setwrapEnable = this.setwrapEnable.bind(this);
     }
 
     toggleNavbar() {
         this.props.dispatch(toggleNav());
     }
 
-    toggleModal_A() {
-        this.props.dispatch(toggleModal_a());
+    toggleModal_A(e) {
+        e.preventDefault();
+        this.props.dispatch(toggleModal_a());        
     }
 
-    toggleModal_L() {
+    toggleModal_L(e) {
+        e.preventDefault();
         this.props.dispatch(toggleModal_l());
     }
 
+    setwrapEnable(flag){
+        this.props.dispatch(setwrap(flag));
+    }
+
     render() {
+
+        const wrapEnable = (this.props.wrapenable == 1)?'hidden':'hidden-x';
         return(
             <Router>
-                <div id="id_wrapper" className={"hidden"}>
+                <div id="id_wrapper" className={wrapEnable}>
                     <Background />
                     <div id="id_header">
                         <Navbar className='z-index-add' color="faded" light toggleable>
@@ -81,7 +91,7 @@ class Main extends React.Component {
                             <Collapse isOpen={this.props.collapsed} navbar>
                                 <Nav className="ml-auto" navbar>
                                     <NavItem>
-                                        <NavLink tag={Link} to='/#'>講幹話</NavLink>
+                                        <NavLink tag={Link} to='/'>講幹話</NavLink>
                                     </NavItem>
                                     <NavItem>
                                         <NavLink tag={Link} to='/TrashPool'>幹話池</NavLink>
@@ -99,13 +109,13 @@ class Main extends React.Component {
 
                     <div id="id_content">
                         <Route exact path="/" render={() => (
-                                <TrafukoPage firebase={fb} />
+                                <TrafukoPage firebase={fb} wrap={this.setwrapEnable}/>
                             )}/>
                         <Route exact path="/Rank" render={() => (
-                                <RankPage firebase={fb} />
+                                <RankPage firebase={fb} wrap={this.setwrapEnable}/>
                             )}/>
                         <Route exact path="/TrashPool" render={() => (
-                                <TrashPoolPage firebase={fb} />
+                                <TrashPoolPage firebase={fb} wrap={this.setwrapEnable}/>
                             )}/>
                     </div>
 
@@ -113,7 +123,7 @@ class Main extends React.Component {
                         <Breadcrumb className="nomargin">
                             <BreadcrumbItem>Trafuko | 垃圾話</BreadcrumbItem>
                             <BreadcrumbItem><a href="#" onClick={this.toggleModal_A}>關於我們</a></BreadcrumbItem>
-                            <BreadcrumbItem active><a href="#" onClick={this.toggleModal_L}>Log</a></BreadcrumbItem>
+                            <BreadcrumbItem active><a  href="#" onClick={this.toggleModal_L}>Log</a></BreadcrumbItem>
                         </Breadcrumb>
                     </div>
                     <Modal isOpen={this.props.modal_about} toggle={this.toggleModal_A} >
