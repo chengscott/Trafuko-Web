@@ -124,10 +124,10 @@ export default class TrashPoolPage extends React.Component {
 class Pause extends React.Component {
 
     static propTypes = {
-            style: PropTypes.object,
-            id: PropTypes.string,
-            ifPause: PropTypes.bool,
-            text: PropTypes.string
+        style: PropTypes.object,
+        id: PropTypes.string,
+        ifPause: PropTypes.bool,
+        text: PropTypes.string
     };
 
     constructor(props) {
@@ -140,23 +140,23 @@ class Pause extends React.Component {
 
     render() {
         if (this.props.ifPause)
-        return (
-               <div style={{
-                float: 'center',
-                width: '200px',
-                height: "auto",
-                padding: "10px",
-                borderRadius: "10px",
-                position: "absolute",
-                left: this.props.style.left,
-                top: this.props.style.top,
-                background: "black",
-                color: "yellow",
-                zIndex: 1
-               }}>
-                 <h2>{this.props.text}</h2>
-                 <Button className="hvr-grow" onClick={() => this.handleLike(this.props.id)}>讚</Button>
-               </div>
+            return (
+                <div style={{
+                    float: 'center',
+                    width: '200px',
+                    height: "auto",
+                    padding: "10px",
+                    borderRadius: "10px",
+                    position: "absolute",
+                    left: this.props.style.left,
+                    top: this.props.style.top,
+                    background: "black",
+                    color: "yellow",
+                    zIndex: 1
+                }}>
+                <h2>{this.props.text}</h2>
+                <Button className="hvr-grow" onClick={() => this.handleLike(this.props.id)}>讚</Button>
+                </div>
             );
         else return <div></div>;
     }
@@ -226,20 +226,20 @@ class Item extends React.Component {
             >
                 {data => (
                     <div
-                      style={{
-                        float: 'center',
-                        width: '200px',
-                        height: "auto",
-                        padding: "5px",
-                        borderRadius: "15px",
-                        transform: `scale(${data.scale})`,
-                        background: data.color,
-                        color: data.textcolor,
-                        position: "absolute",
-                        left: data.left,
-                        top: data.top,
-                        cursor: 'pointer'
-                      }}
+                        style={{
+                            float: 'center',
+                            width: '200px',
+                            height: "auto",
+                            padding: "5px",
+                            borderRadius: "15px",
+                            transform: `scale(${data.scale})`,
+                            background: data.color,
+                            color: data.textcolor,
+                            position: "absolute",
+                            left: data.left,
+                            top: data.top,
+                            cursor: 'pointer'
+                        }}
                       id={"i_" + this.props.id}
                       className={"disable " + this.state.class}
                       onClick={() => this.handle()}

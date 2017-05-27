@@ -1,6 +1,7 @@
-html ,body {
+html,
+body {
     height: 100%;
-    clear:both;
+    clear: both;
 }
 
 #root {
@@ -10,42 +11,41 @@ html ,body {
 #id_wrapper {
     min-height: 100%;
     position: relative;
-    /*height: 110vh;*/
-    height: 810px;    
+    height: 810px;
 }
 
-.hidden-x{
-    overflow-x:hidden;
-    overflow-y:auto;
+.hidden-x {
+    overflow-x: hidden;
+    overflow-y: auto;
 }
-.hidden{
+
+.hidden {
     overflow: hidden;
 }
 
 @media screen and (max-width: 480px) {
-    #id_wrapper{
-        height: 700px;
-    }    
-}
 
+    #id_wrapper {
+        height: 700px;
+    }
+}
 
 #id_header {
     height: 36px;
     box-sizing: border-box;
 }
 
-#id_header .z-index-add{
+#id_header .z-index-add {
     z-index: 1;
 }
-#id_content {
 
+#id_content {
     padding-top: 36px;
     padding-bottom: 36px;
     box-sizing: inherit;
 }
 
 #id_footer {
-
     margin: 0;
     height: 40px;
     box-sizing: border-box;
@@ -59,7 +59,6 @@ html ,body {
     margin: 0;
 }
 
-
-a{
-    color:#0275d8;
+a {
+    color: #0275d8;
 }

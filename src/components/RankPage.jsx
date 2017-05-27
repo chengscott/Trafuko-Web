@@ -47,7 +47,7 @@ export default class RankPage extends React.Component {
 
     toggle() {
         this.setState({
-          dropdownOpen: !this.state.dropdownOpen
+            dropdownOpen: !this.state.dropdownOpen
         });
     }
 
@@ -74,7 +74,7 @@ export default class RankPage extends React.Component {
             btnlist.push(i);
             ++i;
         }
-        const Btnlist = btnlist.map(j => 
+        const Btnlist = btnlist.map(j =>
             (j === this.state.page) ?
             (<PaginationItem className="z-index-modify" active key={"pagebtn_" + j} onClick={() => this.changePage(j)} >
                 <PaginationLink>{j}</PaginationLink>

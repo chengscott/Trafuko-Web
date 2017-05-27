@@ -39,7 +39,7 @@ class TrafukoPage extends React.Component {
         this.runtextClick = this.runtextClick.bind(this);
     }
 
-    componentDidMount() {   
+    componentDidMount() {
         this.props.wrap(true); // set overflow:hidden
         const runtext = (screen.width >= 700) ? true : false;
         this.props.dispatch(setRuntext(runtext));

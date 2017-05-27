@@ -19,31 +19,31 @@ export default class RunText extends React.Component {
     render() {
         return (
             <Animate
-                  default={{
+                default={{
                     color: 'black',
                     left: `${(screen.width - 400 + Math.random() * 700 ) + "px"}`
-                  }}
-                  data={
+                }}
+                data={
                     this.state.style
-                  }
-                  duration={10000}
-                  easing='easeLinear'
+                }
+                duration={10000}
+                easing='easeLinear'
                 >
-                  {data => (
+                {data => (
                     <div
-                      style={{
-                        float: 'center',
-                        width: '200px',
-                        height: "auto",
-                        position: "absolute",
-                        left: data.left,
-                        top: data.top
-                      }}
-                      className="disable hvr-grow"
-                    >
-                      {this.props.text}
+                        style={{
+                            float: 'center',
+                            width: '200px',
+                            height: "auto",
+                            position: "absolute",
+                            left: data.left,
+                            top: data.top
+                        }}
+                        className="disable hvr-grow"
+                        >
+                        {this.props.text}
                     </div>
-                  )}
+                )}
             </Animate>
         );
     }

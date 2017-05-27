@@ -65,7 +65,7 @@ class Main extends React.Component {
 
     toggleModal_A(e) {
         e.preventDefault();
-        this.props.dispatch(toggleModal_a());        
+        this.props.dispatch(toggleModal_a());
     }
 
     toggleModal_L(e) {
