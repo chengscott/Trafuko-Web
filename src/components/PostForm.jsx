@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {FormGroup, Input, Button, Alert} from 'reactstrap';
 import {connect} from 'react-redux';
+import moment from 'moment';
 import uuidV4 from 'uuid/v4';
 
 import {input, inputDanger, colorChange} from 'states/post-action.js';
@@ -52,10 +53,6 @@ class PostForm extends React.Component {
                     </div>
                     <div className="postForm">
                         <Button color="success" onClick={this.handlePost} className="button hvr-buzz-out">我要發文！！</Button>
-                        <div className="checkbox">
-                            <input className="checkbox-input hvr-grow" type="checkbox"/>
-                            同時發文在靠北工程師
-                        </div>
                     </div>
                 </FormGroup>
             </div>
@@ -83,12 +80,14 @@ class PostForm extends React.Component {
             this.props.dispatch(inputDanger(true));
             return;
         }
-        const postId = uuidV4();
+        const now = moment();
+        const postId = now.format("YYYY-MM-DD") + '-' + uuidV4();
         this.props.firebase.ref('posts/' + postId).set({
             id: postId,
             text: this.props.inputValue,
             color: this.props.color,
-            vote: 0
+            vote: 0,
+            ts: now.toString()
         });
         this.props.dispatch(inputDanger(false));
         this.props.dispatch(input(''));

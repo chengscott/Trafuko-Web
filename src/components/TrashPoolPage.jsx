@@ -155,7 +155,7 @@ class Pause extends React.Component {
                     zIndex: 1
                 }}>
                 <h2>{this.props.text}</h2>
-                <Button className="hvr-grow" onClick={() => this.handleLike(this.props.id)}>讚</Button>
+                <Button className="hvr-grow" onClick={() => this.handleLike(this.props.id)}>收藏</Button>
                 </div>
             );
         else return <div></div>;
