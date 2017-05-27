@@ -29,10 +29,12 @@ export default class TrashPoolPage extends React.Component {
             ifPause: false,
             ptext: "",
             id: "",
+            clicked: false,
             Data: []
         };
         this.tick = this.tick.bind(this);
         this.capture = this.capture.bind(this);
+        this.handleClickout = this.handleClickout.bind(this);
         this.s1 = 0;
         this.s2 = 1;
         this.s3 = 2;
@@ -55,6 +57,16 @@ export default class TrashPoolPage extends React.Component {
 
     componentWillUnmount() {
         clearInterval(this.reRender);
+    }
+
+    handleClickout(e) {
+        if (!document.getElementById('PauseBox').contains(e.target)) {
+            if (!this.state.clicked) {
+                window.removeEventListener('click', this.handleClickout);
+                this.setState({ifPause: false});
+            }
+            this.setState({clicked: false});
+        }
     }
 
     tick() {
@@ -88,8 +100,10 @@ export default class TrashPoolPage extends React.Component {
             style: style,
             ifPause: true,
             ptext: text,
-            id: id
+            id: id,
+            clicked: true
         });
+        window.addEventListener('click', this.handleClickout);
     }
 
     render() {
@@ -139,26 +153,28 @@ class Pause extends React.Component {
     }
 
     render() {
-        if (this.props.ifPause)
+        if (this.props.ifPause) {
             return (
-                <div style={{
-                    float: 'center',
-                    width: '200px',
-                    height: "auto",
-                    padding: "10px",
-                    borderRadius: "10px",
-                    position: "absolute",
-                    left: this.props.style.left,
-                    top: this.props.style.top,
-                    background: "black",
-                    color: "yellow",
-                    zIndex: 1
-                }}>
+                <div id="PauseBox"
+                     style={{
+                         float: 'center',
+                         width: '200px',
+                         height: "auto",
+                         padding: "10px",
+                         borderRadius: "10px",
+                         position: "absolute",
+                         left: this.props.style.left,
+                         top: this.props.style.top,
+                         background: "black",
+                         color: "yellow",
+                         zIndex: 1,
+                         display: this.props.ifPause ? "" : "none"
+                     }}>
                 <h2>{this.props.text}</h2>
                 <Button className="hvr-grow" onClick={() => this.handleLike(this.props.id)}>收藏</Button>
                 </div>
             );
-        else return <div></div>;
+        } else return <div id="PauseBox"></div>;
     }
 }
 

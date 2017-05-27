@@ -12,7 +12,8 @@ export default class RunText extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            style: makeItem()
+            style: makeItem(),
+            text: (this.props.text.length < 30) ? this.props.text : ""
         };
     }
 
@@ -41,7 +42,7 @@ export default class RunText extends React.Component {
                         }}
                         className="disable hvr-grow"
                         >
-                        {this.props.text}
+                        {this.state.text}
                     </div>
                 )}
             </Animate>
