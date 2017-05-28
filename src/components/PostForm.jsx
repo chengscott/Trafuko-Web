@@ -9,7 +9,7 @@ import {input, inputDanger, colorChange} from 'states/post-action.js';
 
 import './PostForm.css';
 
-const defultText = '你今天都在幹話些什麼？';
+const defultText = '你今天都在幹話些什麼？(126字以內)';
 
 class PostForm extends React.Component {
 
@@ -24,6 +24,13 @@ class PostForm extends React.Component {
 
     constructor(props) {
         super(props);
+
+
+        this.state = {
+            len: 0,
+            lenDanger: false,
+            posted: false
+        };
         this.inputEl = null;
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handlePost = this.handlePost.bind(this);
@@ -40,6 +47,18 @@ class PostForm extends React.Component {
                             (this.props.inputDanger && !this.props.agreeCheck) &&
                             <Alert color="danger" className="margin">
                                 <strong>錯誤!</strong> 你需要同意上述規範
+                            </Alert>
+                        }
+                        {
+                            (this.state.lenDanger) &&
+                            <Alert color="danger" className="margin">
+                                <strong>錯誤!</strong> 自數超過126字 ({this.state.len})
+                            </Alert>
+                        }
+                        {
+                            (this.state.posted) &&
+                            <Alert color="success" className="margin fade-out">
+                                <strong>送出成功</strong>
                             </Alert>
                         }
                         <Input style={{color:this.props.color}}className="TextArea" type="textarea" getRef={el => {this.inputEl = el;}} onChange={this.handleInputChange} value={this.props.inputValue} placeholder={defultText}/>
@@ -61,14 +80,22 @@ class PostForm extends React.Component {
 
     handleInputChange(e) {
         const text = e.target.value;
+
+        if(text.length > 126) {
+            this.setState({
+                lenDanger: true,
+                len: text.length
+            });
+        }
+        if(text.length <= 126 && this.state.lenDanger == true){
+            this.setState({
+                lenDanger: false
+            });
+        }
         if (this.props.agreeCheck && this.props.inputDanger) {
             this.props.dispatch(inputDanger(false));
         }
         this.props.dispatch(input(text));
-    }
-
-    handleCheckbox() {
-        //console.log("checkbox");
     }
 
     handleColorMode(color) {
@@ -76,7 +103,7 @@ class PostForm extends React.Component {
     }
 
     handlePost() {
-        if (!this.props.agreeCheck || !this.props.inputValue) {
+        if (!this.props.agreeCheck || !this.props.inputValue || this.state.lenDanger) {
             this.props.dispatch(inputDanger(true));
             return;
         }
@@ -89,6 +116,16 @@ class PostForm extends React.Component {
             vote: 0,
             ts: now.toString()
         });
+
+        this.setState({
+            posted: true
+        });
+        setTimeout(()=>{
+            this.setState({
+                posted: false
+            });
+        },1000);
+
         this.props.dispatch(inputDanger(false));
         this.props.dispatch(input(''));
     }

@@ -60,6 +60,7 @@ export default class TrashPoolPage extends React.Component {
     }
 
     handleClickout(e) {
+
         if (!document.getElementById('PauseBox').contains(e.target)) {
             if (!this.state.clicked) {
                 window.removeEventListener('click', this.handleClickout);
