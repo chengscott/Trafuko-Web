@@ -2,7 +2,8 @@ const mainInitState = {
     collapsed: false,
     modal_about: false,
     modal_logs:false,
-    wrapenable: true
+    wrapenable: true,
+    logtxt: "登入"
 };
 
 export function main(state = mainInitState, action) {
@@ -26,6 +27,11 @@ export function main(state = mainInitState, action) {
             return {
                 ...state,
                 wrapenable: action.flag
+            };
+        case '@MAIN_SET_LOGTXT':
+            return {
+                ...state,
+                logtxt: action.str
             };
         default:
             return state;

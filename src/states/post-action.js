@@ -18,3 +18,27 @@ export function colorChange(color) {
         color: color
     };
 }
+
+export function lenDanger(flag){
+    return{
+        type: '@POST_FORM/LEN_DANGER',
+        flag: flag
+    };
+
+}
+
+export function setPosted(flag){
+    return {
+        type: '@POST_FORM/SET_POSTED',
+        flag: flag
+    };
+
+}
+
+export function changeLen(len){
+    return {
+        type: '@POST_FORM/CHANGE_LEN',
+        len: len
+    };
+
+}

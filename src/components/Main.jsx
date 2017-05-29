@@ -28,8 +28,8 @@ import Background from 'components/Background.jsx';
 import TrafukoPage from 'components/TrafukoPage.jsx';
 import RankPage from 'components/RankPage.jsx';
 import TrashPoolPage from 'components/TrashPoolPage.jsx';
-
-import {toggleNav, toggleModal_a, toggleModal_l, setwrap} from 'states/main-action.js';
+import {toggleNav, toggleModal_a, toggleModal_l, setwrap/*, setLogTxt*/} from 'states/main-action.js';
+import FB from 'utilities/FacebookSDK.jsx';
 
 import './Main.css';
 
@@ -40,6 +40,7 @@ const config = {
     storageBucket: "test-efd03.appspot.com",
 };
 const fb = firebase.initializeApp(config).database();
+const fbsdk = new FB();
 
 class Main extends React.Component {
 
@@ -48,17 +49,23 @@ class Main extends React.Component {
         modal_about: PropTypes.bool.isRequired,
         modal_logs:PropTypes.bool.isRequired,
         wrapenable: PropTypes.bool.isRequired,
+        logtxt: PropTypes.string.isRequired,
         dispatch: PropTypes.func.isRequired
     };
 
     constructor(props) {
         super(props);
+
         this.toggleNavbar = this.toggleNavbar.bind(this);
         this.toggleModal_A = this.toggleModal_A.bind(this);
         this.toggleModal_L = this.toggleModal_L.bind(this);
         this.setwrapEnable = this.setwrapEnable.bind(this);
+        this.AccountInfo = this.AccountInfo.bind(this);
     }
 
+    componentDidMount(){
+        fbsdk.init();
+    }
     toggleNavbar() {
         this.props.dispatch(toggleNav());
     }
@@ -75,6 +82,27 @@ class Main extends React.Component {
 
     setwrapEnable(flag){
         this.props.dispatch(setwrap(flag));
+    }
+
+    AccountInfo(){
+
+        /*if(this.state.logtxt == "登入"){
+
+            fbsdk.login().then( info=>{
+                alert("login success");
+                this.props.dispatch(setLogTxt("登出"));
+            }).catch( err=>{
+                console.error(err);
+            });
+
+        } else {
+            fbsdk.logout().then( status=>{
+                alert("logout success");
+                this.props.dispatch(setLogTxt("登入"));
+            }).catch( err=>{
+                console.error(err);
+            });
+        }*/
     }
 
     render() {
@@ -100,7 +128,7 @@ class Main extends React.Component {
                                         <NavLink tag={Link} to='/Rank'>排行榜</NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink tag={Link} to='/Login'>登入</NavLink>
+                                        <NavLink style={{cursor:"pointer"}} onClick={()=>this.AccountInfo()}>{this.props.logtxt}</NavLink>
                                     </NavItem>
                                 </Nav>
                             </Collapse>

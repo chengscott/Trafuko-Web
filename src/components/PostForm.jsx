@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import fecha from 'fecha';
 import uuidV4 from 'uuid/v4';
 
-import {input, inputDanger, colorChange} from 'states/post-action.js';
+import {input, inputDanger, colorChange, lenDanger, setPosted, changeLen} from 'states/post-action.js';
 
 import './PostForm.css';
 
@@ -19,17 +19,15 @@ class PostForm extends React.Component {
         inputValue: PropTypes.string,
         inputDanger: PropTypes.bool,
         color: PropTypes.string.isRequired,
+        len: PropTypes.number.isRequired,
+        lenDanger: PropTypes.bool.isRequired,
+        posted: PropTypes.bool.isRequired,
         dispatch: PropTypes.func
     };
 
     constructor(props) {
         super(props);
 
-        this.state = {
-            len: 0,
-            lenDanger: false,
-            posted: false
-        };
         this.inputEl = null;
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handlePost = this.handlePost.bind(this);
@@ -49,13 +47,13 @@ class PostForm extends React.Component {
                             </Alert>
                         }
                         {
-                            (this.state.lenDanger) &&
+                            (this.props.lenDanger) &&
                             <Alert color="danger" className="margin">
                                 <strong>錯誤!</strong> 超過 140 字 ({this.state.len})
                             </Alert>
                         }
                         {
-                            (this.state.posted) &&
+                            (this.props.posted) &&
                             <Alert color="success" className="margin fade-out">
                                 <strong>送出成功</strong>
                             </Alert>
@@ -90,15 +88,10 @@ class PostForm extends React.Component {
         const text = e.target.value;
 
         if (text.length > 140) {
-            this.setState({
-                lenDanger: true,
-                len: text.length
-            });
-        }
-        if (text.length <= 140 && this.state.lenDanger == true) {
-            this.setState({
-                lenDanger: false
-            });
+            this.props.dispatch(lenDanger(true));
+            this.props.dispatch(changeLen(text.length));
+        } else if (this.props.lenDanger) {
+            this.props.dispatch(lenDanger(false));
         }
         if (this.props.agreeCheck && this.props.inputDanger) {
             this.props.dispatch(inputDanger(false));
@@ -111,7 +104,7 @@ class PostForm extends React.Component {
     }
 
     handlePost() {
-        if (!this.props.agreeCheck || !this.props.inputValue || this.state.lenDanger) {
+        if (!this.props.agreeCheck || !this.props.inputValue || this.props.lenDanger) {
             this.props.dispatch(inputDanger(true));
             return;
         }
@@ -125,13 +118,9 @@ class PostForm extends React.Component {
             ts: now.toString()
         });
 
-        this.setState({
-            posted: true
-        });
+        this.props.dispatch(setPosted(true));
         setTimeout(()=>{
-            this.setState({
-                posted: false
-            });
+            this.props.dispatch(setPosted(false));
         },1000);
 
         this.props.dispatch(inputDanger(false));

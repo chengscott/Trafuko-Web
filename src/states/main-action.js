@@ -22,3 +22,10 @@ export function setwrap(flag){
         flag:flag
     };
 }
+
+export function setLogTxt(str){
+    return {
+        type: '@MAIN_SET_LOGTXT',
+        str:str
+    };
+}
