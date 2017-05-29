@@ -1,7 +1,10 @@
 const initPostFormState = {
     inputValue: '',
     inputDanger: false,
-    color: 'black'
+    color: 'black',
+    len: 0,
+    lenDanger: false,
+    posted: false
 };
 
 export function postForm(state = initPostFormState, action) {
@@ -20,6 +23,21 @@ export function postForm(state = initPostFormState, action) {
             return {
                 ...state,
                 color: action.color
+            };
+        case '@POST_FORM/LEN_DANGER':
+            return{
+                ...state,
+                lenDanger: action.flag
+            };
+        case '@POST_FORM/SET_POSTED':
+            return{
+                ...state,
+                posted: action.flag
+            };
+        case '@POST_FORM/CHANGE_LEN':
+            return{
+                ...state,
+                len: action.len
             };
         default:
             return state;

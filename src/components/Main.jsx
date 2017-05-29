@@ -28,7 +28,7 @@ import Background from 'components/Background.jsx';
 import TrafukoPage from 'components/TrafukoPage.jsx';
 import RankPage from 'components/RankPage.jsx';
 import TrashPoolPage from 'components/TrashPoolPage.jsx';
-import {toggleNav, toggleModal_a, toggleModal_l, setwrap} from 'states/main-action.js';
+import {toggleNav, toggleModal_a, toggleModal_l, setwrap/*, setLogTxt*/} from 'states/main-action.js';
 import FB from 'utilities/FacebookSDK.jsx';
 
 import './Main.css';
@@ -49,15 +49,13 @@ class Main extends React.Component {
         modal_about: PropTypes.bool.isRequired,
         modal_logs:PropTypes.bool.isRequired,
         wrapenable: PropTypes.bool.isRequired,
+        logtxt: PropTypes.string.isRequired,
         dispatch: PropTypes.func.isRequired
     };
 
     constructor(props) {
         super(props);
 
-        this.state = {
-            logtxt:"登入"
-        };
         this.toggleNavbar = this.toggleNavbar.bind(this);
         this.toggleModal_A = this.toggleModal_A.bind(this);
         this.toggleModal_L = this.toggleModal_L.bind(this);
@@ -92,9 +90,7 @@ class Main extends React.Component {
 
             fbsdk.login().then( info=>{
                 alert("login success");
-                this.setState({
-                    logtxt: "登出"
-                });
+                this.props.dispatch(setLogTxt("登出"));
             }).catch( err=>{
                 console.error(err);
             });
@@ -102,9 +98,7 @@ class Main extends React.Component {
         } else {
             fbsdk.logout().then( status=>{
                 alert("logout success");
-                this.setState({
-                    logtxt: "登入"
-                });
+                this.props.dispatch(setLogTxt("登入"));
             }).catch( err=>{
                 console.error(err);
             });
@@ -134,7 +128,7 @@ class Main extends React.Component {
                                         <NavLink tag={Link} to='/Rank'>排行榜</NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink style={{cursor:"pointer"}} onClick={()=>this.AccountInfo()}>{this.state.logtxt}</NavLink>
+                                        <NavLink style={{cursor:"pointer"}} onClick={()=>this.AccountInfo()}>{this.props.logtxt}</NavLink>
                                     </NavItem>
                                 </Nav>
                             </Collapse>
