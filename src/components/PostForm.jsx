@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {FormGroup, Input, Button, Alert} from 'reactstrap';
 import {connect} from 'react-redux';
-import moment from 'moment';
+import fecha from 'fecha';
 import uuidV4 from 'uuid/v4';
 
 import {input, inputDanger, colorChange} from 'states/post-action.js';
 
 import './PostForm.css';
 
-const defultText = '你今天都在幹話些什麼？(126字以內)';
+const defaultText = '你今天都在幹話些什麼？(140 字以內)';
 
 class PostForm extends React.Component {
 
@@ -24,7 +24,6 @@ class PostForm extends React.Component {
 
     constructor(props) {
         super(props);
-
 
         this.state = {
             len: 0,
@@ -52,7 +51,7 @@ class PostForm extends React.Component {
                         {
                             (this.state.lenDanger) &&
                             <Alert color="danger" className="margin">
-                                <strong>錯誤!</strong> 自數超過126字 ({this.state.len})
+                                <strong>錯誤!</strong> 超過 140 字 ({this.state.len})
                             </Alert>
                         }
                         {
@@ -61,7 +60,16 @@ class PostForm extends React.Component {
                                 <strong>送出成功</strong>
                             </Alert>
                         }
-                        <Input style={{color:this.props.color}}className="TextArea" type="textarea" getRef={el => {this.inputEl = el;}} onChange={this.handleInputChange} value={this.props.inputValue} placeholder={defultText}/>
+                        <Input
+                            style={{color:this.props.color}}
+                            className="TextArea"
+                            type="textarea"
+                            getRef={el => {this.inputEl = el;}}
+                            onChange={this.handleInputChange}
+                            value={this.props.inputValue}
+                            placeholder={defaultText}
+                            maxLength="140"
+                        />
                         <div className="toolList">
                             <Button className="box hvr-wobble-horizontal" style={{background: 'black'}} onClick={()=>{this.handleColorMode('black');}}></Button>
                             <Button className="box hvr-wobble-horizontal" style={{background: 'red'}} onClick={()=>{this.handleColorMode('red');}}></Button>
@@ -81,13 +89,13 @@ class PostForm extends React.Component {
     handleInputChange(e) {
         const text = e.target.value;
 
-        if(text.length > 126) {
+        if (text.length > 140) {
             this.setState({
                 lenDanger: true,
                 len: text.length
             });
         }
-        if(text.length <= 126 && this.state.lenDanger == true){
+        if (text.length <= 140 && this.state.lenDanger == true) {
             this.setState({
                 lenDanger: false
             });
@@ -107,8 +115,8 @@ class PostForm extends React.Component {
             this.props.dispatch(inputDanger(true));
             return;
         }
-        const now = moment();
-        const postId = now.format("YYYY-MM-DD") + '-' + uuidV4();
+        const now = new Date();
+        const postId = fecha.format(now, "YYYY-MM-DD") + '-' + uuidV4();
         this.props.firebase.ref('posts/' + postId).set({
             id: postId,
             text: this.props.inputValue,

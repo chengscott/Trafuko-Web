@@ -16,7 +16,7 @@ module.exports = {
     },
     entry: {
         index: './index.jsx',
-        vendor: ['react', 'react-dom', 'reactstrap', 'firebase']
+        vendor: ['react', 'react-dom', 'react-move', 'reactstrap', 'firebase']
     },
     output: {
         path: distPath,
