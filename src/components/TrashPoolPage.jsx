@@ -164,7 +164,7 @@ class Pause extends React.Component {
                          position: "absolute",
                          left: this.props.style.left,
                          top: this.props.style.top,
-                         background: "black",
+                         background: "linear-gradient(to right, #0575E6, #021B79)",
                          color: "yellow",
                          zIndex: 1,
                          display: this.props.ifPause ? "" : "none"
@@ -248,7 +248,7 @@ class Item extends React.Component {
                             padding: "5px",
                             borderRadius: "15px",
                             transform: `scale(${data.scale})`,
-                            background: data.color,
+                            background: getGradient(data.color1, data.color2),
                             color: data.textcolor,
                             position: "absolute",
                             left: data.left,
@@ -269,8 +269,9 @@ class Item extends React.Component {
 
 function change(status) {
     let num = Math.random();
-    let color = (num >= 0.75) ? "blue" : (num >= 0.5) ? "white" : (num >= 0.25) ? "yellow" : "black";
-    let textcolor = (num >= 0.75) ? "yellow" : (num >= 0.5) ? "black" : (num >= 0.25) ? "black" : "red";
+    let color1 = (num >= 0.75) ? "#fffc00" : (num >= 0.5) ? "#A1FFCE" : (num >= 0.25) ? "#4b6cb7" : "#FDFC47";
+    let color2 = (num >= 0.75) ? "#ffffff" : (num >= 0.5) ? "#FAFFD1" : (num >= 0.25) ? "#182848" : "#24FE41";
+    let textcolor = (num >= 0.75) ? "blue" : (num >= 0.5) ? "black" : (num >= 0.25) ? "yellow" : "black";
     let scale, left;
     let top = (50 + Math.random() * (screen.height - 200)) + "px";
     switch (status) {
@@ -300,7 +301,8 @@ function change(status) {
             break;
     }
     return {
-        color: color,
+        color1: color1,
+        color2: color2,
         textcolor: textcolor,
         scale: scale,
         left: left,
@@ -314,4 +316,8 @@ function objToarr(obj) {
         arr.push(obj[x]);
     }
     return arr;
+}
+
+function getGradient(color1, color2) {
+    return "linear-gradient(to right, " + color1 + "," + color2 + ")";
 }
