@@ -5,7 +5,14 @@ import {connect} from 'react-redux';
 import fecha from 'fecha';
 import uuidV4 from 'uuid/v4';
 
-import {input, inputDanger, colorChange, lenDanger, setPosted, changeLen} from 'states/post-action.js';
+import {
+    input,
+    inputDanger,
+    colorChange,
+    lenDanger,
+    setPosted,
+    changeLen
+} from 'states/post-action.js';
 
 import './PostForm.css';
 

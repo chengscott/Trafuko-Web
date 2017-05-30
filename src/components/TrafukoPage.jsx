@@ -3,9 +3,15 @@ import PropTypes from 'prop-types';
 import {FormGroup , Label, Input} from 'reactstrap';
 import {connect} from 'react-redux';
 
-import {setAgree, setRuntextPage, receiveData, setRuntext} from 'states/trafukoPage-action.js';
 import PostForm from 'components/PostForm.jsx';
-import RunText from 'components/runtext.jsx';
+import RunText from 'components/RunText.jsx';
+
+import {
+    setAgree,
+    setRuntextPage,
+    receiveData,
+    setRuntext
+} from 'states/trafukoPage-action.js';
 
 import './TrafukoPage.css';
 
@@ -43,10 +49,7 @@ class TrafukoPage extends React.Component {
         this.props.wrap(true); // set overflow:hidden
         const runtext = (screen.width >= 700) ? true : false;
         this.props.dispatch(setRuntext(runtext));
-        this.reRender = setInterval(
-            () => this.tick(),
-            15000
-        );
+        this.reRender = setInterval(() => this.tick(), 15000);
         this.props.firebase.ref('posts').on('value', snapshot => {
             this.props.dispatch(receiveData(objToarr(snapshot.val())));
         });

@@ -28,8 +28,15 @@ import Background from 'components/Background.jsx';
 import TrafukoPage from 'components/TrafukoPage.jsx';
 import RankPage from 'components/RankPage.jsx';
 import TrashPoolPage from 'components/TrashPoolPage.jsx';
-import {toggleNav, toggleModal_a, toggleModal_l, setwrap/*, setLogTxt*/} from 'states/main-action.js';
 import FB from 'utilities/FacebookSDK.jsx';
+
+import {
+    toggleNav,
+    toggleModal_a,
+    toggleModal_l,
+    setwrap,
+    /*setLogTxt*/
+} from 'states/main-action.js';
 
 import './Main.css';
 
@@ -63,9 +70,10 @@ class Main extends React.Component {
         this.AccountInfo = this.AccountInfo.bind(this);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         fbsdk.init();
     }
+
     toggleNavbar() {
         this.props.dispatch(toggleNav());
     }
@@ -84,8 +92,7 @@ class Main extends React.Component {
         this.props.dispatch(setwrap(flag));
     }
 
-    AccountInfo(){
-
+    AccountInfo() {
         /*if(this.state.logtxt == "登入"){
 
             fbsdk.login().then( info=>{
@@ -106,8 +113,7 @@ class Main extends React.Component {
     }
 
     render() {
-
-        const wrapEnable = (this.props.wrapenable == 1)?'hidden':'hidden-x';
+        const wrapEnable = (this.props.wrapenable == 1) ? 'hidden' : 'hidden-x';
         return(
             <Router>
                 <div id="id_wrapper" className={wrapEnable}>
@@ -128,7 +134,7 @@ class Main extends React.Component {
                                         <NavLink tag={Link} to='/Rank'>排行榜</NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink style={{cursor:"pointer"}} onClick={()=>this.AccountInfo()}>{this.props.logtxt}</NavLink>
+                                        <NavLink style={{cursor:"pointer"}} onClick={() => this.AccountInfo()}>{this.props.logtxt}</NavLink>
                                     </NavItem>
                                 </Nav>
                             </Collapse>

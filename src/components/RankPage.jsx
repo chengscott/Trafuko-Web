@@ -9,14 +9,6 @@ import {
     PaginationLink
 } from 'reactstrap';
 
-function compare(a, b) {
-    if (a.vote < b.vote)
-        return 1;
-    if (a.vote > b.vote)
-        return -1;
-    return 0;
-}
-
 export default class RankPage extends React.Component {
 
     static propTypes = {
@@ -82,7 +74,7 @@ export default class RankPage extends React.Component {
             (<PaginationItem className="clickHand" key={"pagebtn_" + j} onClick={() => this.changePage(j)} >
                 <PaginationLink>{j}</PaginationLink>
             </PaginationItem>)
-            );
+        );
         const npp = this.state.npp;
         const data = this.state.Data.sort(compare);
         const showList = data.slice((this.state.page - 1) * npp , Math.min(this.state.page * npp, this.state.Data.length - 1));
@@ -123,17 +115,6 @@ export default class RankPage extends React.Component {
         );
     }
 }
-/*
-                    <PaginationItem active>
-                        <PaginationLink  className="z-index-modify">{this.state.page}</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                        &nbsp;<input id="npp_input" placeholder="每頁顯示數量"></input>&nbsp;
-                    </PaginationItem>
-                    <PaginationItem>
-                        <Button color="danger" onClick={() => this.changeNumPerPage(document.getElementById("npp_input").value)}>確認</Button>&nbsp;
-                    </PaginationItem>
-*/
 
 const Box = (props) => (
     <tr>
@@ -148,7 +129,13 @@ Box.propTypes = {
     text: PropTypes.string.isRequired
 };
 
-
+function compare(a, b) {
+    if (a.vote < b.vote)
+        return 1;
+    if (a.vote > b.vote)
+        return -1;
+    return 0;
+}
 
 function objToarr(obj) {
     let arr = [];

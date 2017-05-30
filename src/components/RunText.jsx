@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import {Animate} from 'react-move';
 
 export default class RunText extends React.Component {
