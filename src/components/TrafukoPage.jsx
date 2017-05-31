@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {FormGroup , Label, Input} from 'reactstrap';
+import {FormGroup, Input, Collapse, Alert} from 'reactstrap';
 import {connect} from 'react-redux';
 
 import PostForm from 'components/PostForm.jsx';
@@ -10,7 +10,8 @@ import {
     setAgree,
     setRuntextPage,
     receiveData,
-    setRuntext
+    setRuntext,
+    setCollapse
 } from 'states/trafukoPage-action.js';
 
 import './TrafukoPage.css';
@@ -34,8 +35,11 @@ class TrafukoPage extends React.Component {
         runtext: PropTypes.bool.isRequired,
         runtextPage: PropTypes.number.isRequired,
         dispatch: PropTypes.func.isRequired,
-        wrap:PropTypes.func.isRequired,
-        Data: PropTypes.array.isRequired
+        wrap: PropTypes.func.isRequired,
+        Data: PropTypes.array.isRequired,
+        collapse: PropTypes.bool,
+        inputDanger: PropTypes.bool,
+        agreeCheck: PropTypes.bool
     };
 
     constructor(props) {
@@ -43,6 +47,7 @@ class TrafukoPage extends React.Component {
         this.tick = this.tick.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.runtextClick = this.runtextClick.bind(this);
+        this.toggle = this.toggle.bind(this);
     }
 
     componentDidMount() {
@@ -59,6 +64,10 @@ class TrafukoPage extends React.Component {
         clearInterval(this.reRender);
     }
 
+    toggle() {
+        this.props.dispatch(setCollapse());
+    }
+
     tick() {
         let nextPage = this.props.runtextPage + 1;
         if (nextPage >= Math.floor(this.props.Data.length / runNum))
@@ -70,15 +79,18 @@ class TrafukoPage extends React.Component {
         const page = this.props.runtextPage;
         const data = this.props.Data.slice(page * runNum, Math.min((page + 1) * runNum, this.props.Data.length - 1));
         const showList = this.props.runtext ? data.map(a => <RunText text={a.text} key={a.id}/>) : <div></div>;
-
         return (
             <div className = "trafuko">
                 <FormGroup>
-                    <Label className="ruleTitle" for="ruleText">規章</Label>
-                      <Input type="textarea" name="text" className="ruleText" readOnly="true" defaultValue={RuleText}/>
-                      <div className="checkbox">
+                    <Alert color="danger" className="ruleTitle" onClick={this.toggle}>
+                        規章
+                    </Alert>
+                    <Collapse isOpen={this.props.collapse}>
+                            <Input type="textarea" className="ruleText" name="text" readOnly="true" defaultValue={RuleText}/>
+                    </Collapse>
+                    <div className="checkbox">
                         <input className="checkbox-input hvr-bounce-in" onClick={this.handleClick} type="checkbox" defaultValue={false} />
-                        我同意上述規範
+                        <div className={(this.props.inputDanger && !this.props.agreeCheck) ? "agree error" : "agree"}>我同意上述規範</div>
                         <input className="checkbox-input hvr-bounce-in" onClick={this.runtextClick} type="checkbox" defaultChecked={(screen.width >= 700) ? true : false}/>
                         顯示彈幕
                     </div>
@@ -109,7 +121,9 @@ class TrafukoPage extends React.Component {
 }
 
 export default connect(state => ({
-    ...state.trafuko
+    ...state.trafuko,
+    inputDanger: state.postForm.inputDanger,
+    agreeCheck: state.postForm.agreeCheck
 }))(TrafukoPage);
 
 function objToarr(obj) {

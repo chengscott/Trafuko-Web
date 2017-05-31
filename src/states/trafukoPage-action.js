@@ -37,3 +37,9 @@ export function setAgree(flag) {
         flag:flag
     };
 }
+
+export function setCollapse() {
+    return {
+        type: '@TRAFUKO_SET_RULE_COLLAPSE'
+    };
+}

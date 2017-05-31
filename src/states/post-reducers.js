@@ -4,7 +4,8 @@ const initPostFormState = {
     color: 'black',
     len: 0,
     lenDanger: false,
-    posted: false
+    posted: false,
+    toggle: false
 };
 
 export function postForm(state = initPostFormState, action) {

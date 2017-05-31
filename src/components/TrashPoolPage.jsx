@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Button} from 'reactstrap';
+import {Card, Button, CardText} from 'reactstrap';
 import {Animate} from 'react-move';
 
 import './TrashPoolPage.css';
@@ -154,24 +154,26 @@ class Pause extends React.Component {
     render() {
         if (this.props.ifPause) {
             return (
-                <div id="PauseBox"
-                     style={{
-                         float: 'center',
-                         width: '200px',
-                         height: "auto",
-                         padding: "10px",
-                         borderRadius: "10px",
-                         position: "absolute",
-                         left: this.props.style.left,
-                         top: this.props.style.top,
-                         background: "linear-gradient(to right, #0575E6, #021B79)",
-                         color: "yellow",
-                         zIndex: 1,
-                         display: this.props.ifPause ? "" : "none"
-                     }}>
-                <h2>{this.props.text}</h2>
-                <Button className="hvr-grow" onClick={() => this.handleLike(this.props.id)}>收藏</Button>
-                </div>
+                    <Card
+                        id="PauseBox"
+                        style={{
+                            float: 'center',
+                            width: '200px',
+                            height: "auto",
+                            padding: "10px",
+                            borderRadius: "10px",
+                            position: "absolute",
+                            left: this.props.style.left,
+                            top: this.props.style.top,
+                            background: "linear-gradient(to right, #0575E6, #021B79)",
+                            zIndex: 1,
+                            display: this.props.ifPause ? "" : "none"
+                        }}
+                        className="disable"
+                        onClick={() => this.handle()}>
+                        <CardText><h2 style={{color: "yellow"}}>{this.props.text}</h2></CardText>
+                        <Button className="hvr-grow" onClick={() => this.handleLike(this.props.id)}>收藏</Button>
+                    </Card>
             );
         } else return <div id="PauseBox"></div>;
     }
@@ -190,7 +192,7 @@ class Item extends React.Component {
         super(props);
         this.state = {
             style: change(this.props.status),
-            class: ""
+            show: true
         };
         this.status = this.props.status;
         this.handle = this.handle.bind(this);
@@ -209,7 +211,7 @@ class Item extends React.Component {
         style.color = this.state.style.color;
         style.textcolor = this.state.style.textcolor;
         this.props.pause(style, this.props.text, this.props.id);
-        this.setState({class: "disappear", style: style});
+        this.setState({show: false, style: style});
         clearInterval(this.change);
     }
 
@@ -227,6 +229,7 @@ class Item extends React.Component {
 
     render() {
         return (
+            this.state.show ?
             <Animate
                 default={{
                     scale: 0.3,
@@ -240,7 +243,7 @@ class Item extends React.Component {
                 easing='easeQuadInOut'
             >
                 {data => (
-                    <div
+                    <Card
                         style={{
                             float: 'center',
                             width: '200px',
@@ -248,21 +251,20 @@ class Item extends React.Component {
                             padding: "5px",
                             borderRadius: "15px",
                             transform: `scale(${data.scale})`,
-                            background: getGradient(data.color1, data.color2),
-                            color: data.textcolor,
+                            background: data.color,
                             position: "absolute",
                             left: data.left,
                             top: data.top,
                             cursor: 'pointer'
                         }}
-                      id={"i_" + this.props.id}
-                      className={"disable " + this.state.class}
-                      onClick={() => this.handle()}
-                    >
-                      <h2>{this.props.text}</h2>
-                    </div>
+                        id={"i_" + this.props.id}
+                        className="disable"
+                        onClick={() => this.handle()}>
+                        <CardText><h2 style={{color: data.textcolor}}>{this.props.text}</h2></CardText>
+                    </Card>
                 )}
             </Animate>
+            : <div></div>
         );
     }
 }
@@ -271,7 +273,8 @@ function change(status) {
     let num = Math.random();
     let color1 = (num >= 0.75) ? "#fffc00" : (num >= 0.5) ? "#A1FFCE" : (num >= 0.25) ? "#4b6cb7" : "#FDFC47";
     let color2 = (num >= 0.75) ? "#ffffff" : (num >= 0.5) ? "#FAFFD1" : (num >= 0.25) ? "#182848" : "#24FE41";
-    let textcolor = (num >= 0.75) ? "blue" : (num >= 0.5) ? "black" : (num >= 0.25) ? "yellow" : "black";
+    let color = (num >= 0.75) ? "#76FF03" : (num >= 0.5) ? "#18FFFF" : (num >= 0.25) ? "#D500F9" : "#FFFF00";
+    let textcolor = (num >= 0.75) ? "blue" : (num >= 0.5) ? "black" : (num >= 0.25) ? "white" : "black";
     let scale, left;
     let top = (50 + Math.random() * (screen.height - 200)) + "px";
     switch (status) {
@@ -303,6 +306,7 @@ function change(status) {
     return {
         color1: color1,
         color2: color2,
+        color: color,
         textcolor: textcolor,
         scale: scale,
         left: left,
@@ -316,8 +320,4 @@ function objToarr(obj) {
         arr.push(obj[x]);
     }
     return arr;
-}
-
-function getGradient(color1, color2) {
-    return "linear-gradient(to right, " + color1 + "," + color2 + ")";
 }

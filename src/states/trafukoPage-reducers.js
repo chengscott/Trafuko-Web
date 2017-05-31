@@ -2,11 +2,17 @@ const traukoInitState = {
     isAgree: false,
     runtext: true,
     runtextPage: 0,
+    collapse: false,
     Data: []
 };
 
 export function trafuko(state = traukoInitState, action) {
     switch (action.type) {
+        case '@TRAFUKO_SET_RULE_COLLAPSE':
+            return {
+                ...state,
+                collapse: !state.collapse
+            };
         case '@TRAFUKO_TOGGLE_AGREE':
             return {
                 ...state,
