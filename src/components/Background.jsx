@@ -29,7 +29,7 @@ export default class Background extends React.Component {
                         <img className="layer bg" data-depth="0.70" style={{width: "60%", height: "50%", margin:"10% 10% 10% 30%"}} alt="" src="images/p3.png"></img>
                         <img className="layer bg" data-depth="1.00" style={{width: "60%", height: "22%", margin:"35% 0% 0% 20%"}} alt="" src="images/p4.png"></img>
                 </div>
-            </div>         
+            </div>
         );
     }
 }

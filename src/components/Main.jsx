@@ -174,6 +174,7 @@ class Main extends React.Component {
                     <Modal isOpen={this.props.modal_logs} toggle={this.toggleModal_L} >
                         <ModalHeader toggle={this.toggleModal_L}>歷史紀錄</ModalHeader>
                         <ModalBody>
+                            2017-05-16 : &nbsp;&nbsp;MVP Demo<br/>
                             2017-05-07 : &nbsp;&nbsp;完成基本功能<br/>
                             2017-04-16 : &nbsp;&nbsp;問卷調查超過 50 人<br/>
                             2017-03-16 : &nbsp;&nbsp;Landing Page 上線

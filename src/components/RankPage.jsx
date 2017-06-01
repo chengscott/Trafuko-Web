@@ -68,7 +68,7 @@ export default class RankPage extends React.Component {
         }
         const Btnlist = btnlist.map(j =>
             (j === this.state.page) ?
-            (<PaginationItem className="z-index-modify" active key={"pagebtn_" + j} onClick={() => this.changePage(j)} >
+            (<PaginationItem active key={"pagebtn_" + j} onClick={() => this.changePage(j)} >
                 <PaginationLink>{j}</PaginationLink>
             </PaginationItem>) :
             (<PaginationItem className="clickHand" key={"pagebtn_" + j} onClick={() => this.changePage(j)} >

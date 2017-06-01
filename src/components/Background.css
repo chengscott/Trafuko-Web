@@ -13,7 +13,10 @@
     top: 0%;
     left: 0%;
     z-index: -2;
-    background: linear-gradient(to right, #1FA2FF, #12D8FA, #A6FFCB);
+    background: url("./images/overlay2.png"), url("./images/overlay3.svg"), linear-gradient(39deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+    background-position: top left, center center, center center;
+    background-size: auto, cover, cover;
+    color: rgba(255, 255, 255, 0.75);
 }
 
 @media screen and (max-width: 1024px) {

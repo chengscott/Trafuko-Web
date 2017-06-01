@@ -16,7 +16,7 @@ import {
 
 import './PostForm.css';
 
-const defaultText = '你今天都在幹話些什麼？(140 字以內)';
+const defaultText = '你今天都在幹話些什麼？';
 
 class PostForm extends React.Component {
 
