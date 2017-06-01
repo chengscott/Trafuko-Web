@@ -72,11 +72,13 @@ class Main extends React.Component {
 
     componentDidMount(){
 
-        fbsdk.init().then(value=>{
-            if(value != false){
+        fbsdk.init();
+        firebase.auth().onAuthStateChanged(function(firebaseUser) {
+            if(firebaseUser){
                 this.props.dispatch(setLogTxt("登出"));
             }
         });
+
     }
 
     toggleNavbar() {

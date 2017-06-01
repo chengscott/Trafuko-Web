@@ -25,41 +25,9 @@ export default class FacebookSDK {
             'display': 'popup'
         });
 
-
-        return new Promise((resolve) => {
-            firebase.auth().onAuthStateChanged(function(firebaseUser) {
-                if(firebaseUser){
-                    resolve(firebaseUser);
-                }else{
-                    resolve(false);
-                }
-            });
-        });
     }
 
-    /*checkState(accessToken){
-        firebase.auth().onAuthStateChanged(function(firebaseUser) {
-          // Check if we are already signed-in Firebase with the correct user.
-            if (!this.isUserEqual(event.authResponse, firebaseUser)) {
-            // Build Firebase credential with the Facebook auth token.
-                var credential = firebase.auth.FacebookAuthProvider.credential(accessToken);
-            // Sign in with the credential from the Facebook user.
-                firebase.auth().signInWithCredential(credential).catch(function(error) {
-              // Handle Errors here.
-                    //var errorCode = error.code;
-                    //var errorMessage = error.message;
-                  // The email of the user's account used.
-                    //var email = error.email;
-                  // The firebase.auth.AuthCredential type that was used.
-                    //var credential = error.credential;
-                    return error;
-              // ...
-                });
-            } else {
-                // User is already signed-in Firebase with the correct user.
-            }
-        });
-    }*/
+    
     //firebase.auth().onAuthStateChanged(function(firebaseUser) {}
     isUserEqual(facebookAuthResponse, firebaseUser) {
         if (firebaseUser) {
