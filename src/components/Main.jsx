@@ -35,7 +35,7 @@ import {
     toggleModal_a,
     toggleModal_l,
     setwrap,
-    /*setLogTxt*/
+    setLogTxt
 } from 'states/main-action.js';
 
 import './Main.css';
@@ -70,8 +70,13 @@ class Main extends React.Component {
         this.AccountInfo = this.AccountInfo.bind(this);
     }
 
-    componentDidMount() {
-        fbsdk.init();
+    componentDidMount(){
+
+        fbsdk.init().then(value=>{
+            if(value != false){
+                this.props.dispatch(setLogTxt("登出"));
+            }
+        });
     }
 
     toggleNavbar() {
@@ -93,7 +98,7 @@ class Main extends React.Component {
     }
 
     AccountInfo() {
-        /*if(this.state.logtxt == "登入"){
+        if(this.props.logtxt == "登入"){
 
             fbsdk.login().then( info=>{
                 alert("login success");
@@ -109,7 +114,7 @@ class Main extends React.Component {
             }).catch( err=>{
                 console.error(err);
             });
-        }*/
+        }
     }
 
     render() {

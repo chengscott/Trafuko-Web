@@ -24,6 +24,17 @@ export default class FacebookSDK {
         provider.setCustomParameters({
             'display': 'popup'
         });
+
+
+        return new Promise((resolve) => {
+            firebase.auth().onAuthStateChanged(function(firebaseUser) {
+                if(firebaseUser){
+                    resolve(firebaseUser);
+                }else{
+                    resolve(false);
+                }
+            });
+        });
     }
 
     /*checkState(accessToken){
@@ -49,7 +60,7 @@ export default class FacebookSDK {
             }
         });
     }*/
-
+    //firebase.auth().onAuthStateChanged(function(firebaseUser) {}
     isUserEqual(facebookAuthResponse, firebaseUser) {
         if (firebaseUser) {
             var providerData = firebaseUser.providerData;
@@ -67,7 +78,24 @@ export default class FacebookSDK {
     login() {
 
         return new Promise((resolve,reject) => {
+            /*firebase.auth().signInWithRedirect(provider);
+            firebase.auth().getRedirectResult().then(function(result) {
+                var info = {
+                    token: result.credential.accessToken,
+                    user: result.user
+                };
 
+                resolve(info);
+            }).catch(function(error) {
+                var errInfo = {
+                    errorCode: error.code,
+                    errorMessage: error.message,
+                    email: error.email,
+                    credential: error.credential
+                };
+
+                reject(errInfo);
+            });*/
             firebase.auth().signInWithPopup(provider).then(function(result) {
               // This gives you a Facebook Access Token. You can use it to access the Facebook API.
               // The signed-in user info.
