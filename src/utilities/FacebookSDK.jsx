@@ -27,7 +27,6 @@ export default class FacebookSDK {
 
     }
 
-    
     //firebase.auth().onAuthStateChanged(function(firebaseUser) {}
     isUserEqual(facebookAuthResponse, firebaseUser) {
         if (firebaseUser) {
