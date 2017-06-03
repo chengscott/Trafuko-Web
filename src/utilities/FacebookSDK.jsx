@@ -24,32 +24,10 @@ export default class FacebookSDK {
         provider.setCustomParameters({
             'display': 'popup'
         });
+
     }
 
-    /*checkState(accessToken){
-        firebase.auth().onAuthStateChanged(function(firebaseUser) {
-          // Check if we are already signed-in Firebase with the correct user.
-            if (!this.isUserEqual(event.authResponse, firebaseUser)) {
-            // Build Firebase credential with the Facebook auth token.
-                var credential = firebase.auth.FacebookAuthProvider.credential(accessToken);
-            // Sign in with the credential from the Facebook user.
-                firebase.auth().signInWithCredential(credential).catch(function(error) {
-              // Handle Errors here.
-                    //var errorCode = error.code;
-                    //var errorMessage = error.message;
-                  // The email of the user's account used.
-                    //var email = error.email;
-                  // The firebase.auth.AuthCredential type that was used.
-                    //var credential = error.credential;
-                    return error;
-              // ...
-                });
-            } else {
-                // User is already signed-in Firebase with the correct user.
-            }
-        });
-    }*/
-
+    //firebase.auth().onAuthStateChanged(function(firebaseUser) {}
     isUserEqual(facebookAuthResponse, firebaseUser) {
         if (firebaseUser) {
             var providerData = firebaseUser.providerData;
@@ -67,7 +45,24 @@ export default class FacebookSDK {
     login() {
 
         return new Promise((resolve,reject) => {
+            /*firebase.auth().signInWithRedirect(provider);
+            firebase.auth().getRedirectResult().then(function(result) {
+                var info = {
+                    token: result.credential.accessToken,
+                    user: result.user
+                };
 
+                resolve(info);
+            }).catch(function(error) {
+                var errInfo = {
+                    errorCode: error.code,
+                    errorMessage: error.message,
+                    email: error.email,
+                    credential: error.credential
+                };
+
+                reject(errInfo);
+            });*/
             firebase.auth().signInWithPopup(provider).then(function(result) {
               // This gives you a Facebook Access Token. You can use it to access the Facebook API.
               // The signed-in user info.

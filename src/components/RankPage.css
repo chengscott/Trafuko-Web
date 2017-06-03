@@ -4,7 +4,7 @@ input {
 
 .rankpage {
     height: 160px;
-    max-width: 730px;
+    max-width: 720px;
     margin: auto;
     margin-bottom: 10px;
 }
@@ -14,7 +14,7 @@ input {
 }
 
 .rankpage .active {
-    background-color: #673AB7 !important;
+    background-color: #673ab7 !important;
     color: white !important;
 }
 
@@ -23,12 +23,12 @@ input {
 }
 
 .rankpage .tableTitle {
-    background: #673AB7;
+    background: #673ab7;
     color: white;
 }
 
 .rankpage .tableEntry {
-    background: #D1C4E9;
+    background: #d1c4e9;
     color: black;
 }
 

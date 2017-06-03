@@ -35,7 +35,7 @@ import {
     toggleModal_a,
     toggleModal_l,
     setwrap,
-    /*setLogTxt*/
+    setLogTxt
 } from 'states/main-action.js';
 
 import './Main.css';
@@ -70,8 +70,15 @@ class Main extends React.Component {
         this.AccountInfo = this.AccountInfo.bind(this);
     }
 
-    componentDidMount() {
+    componentDidMount(){
+
         fbsdk.init();
+        firebase.auth().onAuthStateChanged(function(firebaseUser) {
+            if(firebaseUser){
+                this.props.dispatch(setLogTxt("登出"));
+            }
+        });
+
     }
 
     toggleNavbar() {
@@ -93,7 +100,7 @@ class Main extends React.Component {
     }
 
     AccountInfo() {
-        /*if(this.state.logtxt == "登入"){
+        if(this.props.logtxt == "登入"){
 
             fbsdk.login().then( info=>{
                 alert("login success");
@@ -109,7 +116,7 @@ class Main extends React.Component {
             }).catch( err=>{
                 console.error(err);
             });
-        }*/
+        }
     }
 
     render() {
@@ -174,6 +181,7 @@ class Main extends React.Component {
                     <Modal isOpen={this.props.modal_logs} toggle={this.toggleModal_L} >
                         <ModalHeader toggle={this.toggleModal_L}>歷史紀錄</ModalHeader>
                         <ModalBody>
+                            2017-05-16 : &nbsp;&nbsp;MVP Demo<br/>
                             2017-05-07 : &nbsp;&nbsp;完成基本功能<br/>
                             2017-04-16 : &nbsp;&nbsp;問卷調查超過 50 人<br/>
                             2017-03-16 : &nbsp;&nbsp;Landing Page 上線

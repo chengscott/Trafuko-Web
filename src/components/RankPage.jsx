@@ -84,7 +84,7 @@ export default class RankPage extends React.Component {
                 <Nav tabs>
                     <NavItem>
                         <NavLink
-                          className={classnames({ active: this.state.status == "top", statusbtn: true})}
+                          className={classnames({active: this.state.status == "top", statusbtn: true})}
                           onClick={() => { this.handleSChange("top"); }}
                         >
                           Top100
@@ -92,7 +92,7 @@ export default class RankPage extends React.Component {
                     </NavItem>
                     <NavItem>
                         <NavLink
-                          className={classnames({ active: this.state.status == "day", statusbtn: true})}
+                          className={classnames({active: this.state.status == "day", statusbtn: true})}
                           onClick={() => { this.handleSChange("day"); }}
                         >
                           每日前十
@@ -100,7 +100,7 @@ export default class RankPage extends React.Component {
                     </NavItem>
                     <NavItem>
                         <NavLink
-                          className={classnames({ active: this.state.status == "week", statusbtn: true})}
+                          className={classnames({active: this.state.status == "week", statusbtn: true})}
                           onClick={() => { this.handleSChange("week"); }}
                         >
                           每週前百
@@ -108,7 +108,7 @@ export default class RankPage extends React.Component {
                     </NavItem>
                     <NavItem>
                         <NavLink
-                          className={classnames({ active: this.state.status == "mon", statusbtn: true})}
+                          className={classnames({active: this.state.status == "mon", statusbtn: true})}
                           onClick={() => { this.handleSChange("mon"); }}
                         >
                           每月前百
