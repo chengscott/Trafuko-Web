@@ -20,7 +20,12 @@ import {
     ModalHeader,
     ModalBody,
     ModalFooter,
-    Button
+    Button,
+    Dropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem,
+    Glyphicon
 } from 'reactstrap';
 import * as firebase from "firebase";
 
@@ -63,6 +68,10 @@ class Main extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            dropdownOpen: false
+        };
+        this.toggle = this.toggle.bind(this);
         this.toggleNavbar = this.toggleNavbar.bind(this);
         this.toggleModal_A = this.toggleModal_A.bind(this);
         this.toggleModal_L = this.toggleModal_L.bind(this);
@@ -77,10 +86,15 @@ class Main extends React.Component {
             if(firebaseUser){
                 this.props.dispatch(setLogTxt("登出"));
             }
-        });
+        }.bind(this));
 
     }
 
+    toggle(){
+        this.setState({
+            dropdownOpen: !this.state.dropdownOpen
+        });
+    }
     toggleNavbar() {
         this.props.dispatch(toggleNav());
     }
@@ -141,7 +155,19 @@ class Main extends React.Component {
                                         <NavLink tag={Link} to='/Rank'>排行榜</NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink style={{cursor:"pointer"}} onClick={() => this.AccountInfo()}>{this.props.logtxt}</NavLink>
+                                        {this.props.logtxt == "登出"?(
+                                                <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                                                    <NavLink style={{cursor:"pointer"}} onClick={() => this.toggle()}><i className="fa fa-user" aria-hidden="true">&nbsp;</i>Welcome&nbsp;<i className="fa fa-chevron-down" aria-hidden="true"></i></NavLink>
+                                                    <DropdownMenu>
+                                                        <DropdownItem>收藏列表&nbsp;&nbsp;&nbsp;&nbsp;<i className="fa fa-star" aria-hidden="true"></i></DropdownItem>
+                                                        <DropdownItem divider />
+                                                        <DropdownItem onClick={() => this.AccountInfo()}>登出&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i className="fa fa-sign-out" aria-hidden="true"></i></DropdownItem>
+                                                    </DropdownMenu>
+                                              </Dropdown>
+                                            ):(
+                                                <NavLink style={{cursor:"pointer"}} onClick={() => this.AccountInfo()}><i className="fa fa-user-o" aria-hidden="true"></i>{this.props.logtxt}</NavLink>
+                                            )
+                                        }
                                     </NavItem>
                                 </Nav>
                             </Collapse>
