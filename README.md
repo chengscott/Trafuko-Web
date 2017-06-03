@@ -43,8 +43,9 @@ yarn lint
 
 # Workflow
 
-1. Getting Started
+1. Up to date
     - ```git pull```
+    - ```yarn```
 2. Unit Implementation (& Unit Test)
 3. Integration: Test & Lint
     - ```yarn test```

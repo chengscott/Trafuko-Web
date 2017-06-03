@@ -4,6 +4,7 @@ import {createStore, combineReducers, compose, applyMiddleware} from 'redux';
 import thunkMiddleware from 'redux-thunk';
 // import loggerMiddleware from 'redux-logger';
 import {Provider} from 'react-redux';
+//import {createTracker} from 'redux-segment';
 
 import {postForm} from 'states/post-reducers.js';
 import {main} from 'states/main-reducers.js';
@@ -13,11 +14,13 @@ import Main from 'components/Main.jsx';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
+//const tracker = createTracker();
+
 window.onload = function() {
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
     const store = createStore(combineReducers({
         postForm, main, trafuko
-    }), composeEnhancers(applyMiddleware(thunkMiddleware/*, loggerMiddleware*/)));
+    }), composeEnhancers(applyMiddleware(thunkMiddleware/*, tracker, loggerMiddleware*/)));
 
     ReactDOM.render(
         <Provider store={store}>

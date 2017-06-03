@@ -1,3 +1,5 @@
+//import {EventTypes} from 'redux-segment';
+
 export function toggleNav() {
     return {
         type: '@MAIN_TOGGLE_NAV'
@@ -6,13 +8,15 @@ export function toggleNav() {
 
 export function toggleModal_a() {
     return {
-        type: '@MAIN_TOGGLE_MODAL_ABOUT'
+        type: '@MAIN_TOGGLE_MODAL_ABOUT',
+        //meta: {analytics: EventTypes.track}
     };
 }
 
 export function toggleModal_l() {
     return {
-        type: '@MAIN_TOGGLE_MODAL_LOGS'
+        type: '@MAIN_TOGGLE_MODAL_LOGS',
+        //meta: {analytics: EventTypes.track}
     };
 }
 
@@ -25,13 +29,13 @@ export function toggleModal_Info() {
 export function setwrap(flag) {
     return {
         type: '@MAIN_SET_WRAP',
-        flag:flag
+        flag: flag
     };
 }
 
 export function setLogTxt(str) {
     return {
         type: '@MAIN_SET_LOGTXT',
-        str:str
+        str: str
     };
 }
