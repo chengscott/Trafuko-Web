@@ -17,7 +17,7 @@ export function setRuntextPage(page) {
     };
 }
 
-export function receiveData(data){
+export function receiveData(data) {
     return {
         type: '@TRAFUKO_RECEIVE_DATA',
         data: data

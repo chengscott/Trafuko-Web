@@ -16,20 +16,20 @@ export function toggleModal_l() {
     };
 }
 
-export function toggleModal_Info(){
+export function toggleModal_Info() {
     return {
         type: '@MAIN_TOGGLE_MODAL_INFO'
     };
 }
 
-export function setwrap(flag){
+export function setwrap(flag) {
     return {
         type: '@MAIN_SET_WRAP',
         flag:flag
     };
 }
 
-export function setLogTxt(str){
+export function setLogTxt(str) {
     return {
         type: '@MAIN_SET_LOGTXT',
         str:str
