@@ -79,7 +79,7 @@ export default class RankPage extends React.Component {
         const data = this.state.Data.sort(compare);
         const showList = data.slice((this.state.page - 1) * npp , Math.min(this.state.page * npp, this.state.Data.length - 1));
         const listItems = showList.map((each) => <Box order={data.indexOf(each) + 1} key={each.id} text={each.text}/>);
-        return(
+        return (
             <div className="rankpage">
                 <Nav tabs>
                     <NavItem>
@@ -172,17 +172,6 @@ export default class RankPage extends React.Component {
         );
     }
 }
-/*
-                <Table responsive><tbody>
-                    <tr>
-                        <th width="25%"><Button onClick={() => this.handleSChange("top")} color={(this.state.status === "top") ? "warning" : "default"}>&nbsp;top100&nbsp;</Button></th>
-                        <th width="25%"><Button onClick={() => this.handleSChange("day")} color={(this.state.status === "day") ? "warning" : "default"}>每日前十</Button></th>
-                        <th width="25%"><Button onClick={() => this.handleSChange("week")} color={(this.state.status === "week") ? "warning" : "default"}>每週前百</Button></th>
-                        <th width="25%"><Button onClick={() => this.handleSChange("mon")} color={(this.state.status === "mon") ? "warning" : "default"}>每月前百</Button></th>
-                    </tr>
-                </tbody></Table>
-
-*/
 
 const Box = (props) => (
     <tr className="tableEntry">

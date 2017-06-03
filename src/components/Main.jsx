@@ -79,21 +79,20 @@ class Main extends React.Component {
         this.signOut = this.signOut.bind(this);
     }
 
-    componentDidMount(){
-
+    componentDidMount() {
         fbsdk.init();
-        firebase.auth().onAuthStateChanged(function(firebaseUser) {
-            if(firebaseUser){
+        firebase.auth().onAuthStateChanged((firebaseUser) => {
+            if (firebaseUser) {
                 this.props.dispatch(setLogTxt("登出"));
             }
-        }.bind(this));
-
+        });
     }
 
-    toggleInfo(){
+    toggleInfo() {
         this.props.dispatch(toggleModal_Info());
         this.signIn();
     }
+
     toggleNavbar() {
         this.props.dispatch(toggleNav());
     }
@@ -108,7 +107,7 @@ class Main extends React.Component {
         this.props.dispatch(toggleModal_l());
     }
 
-    setwrapEnable(flag){
+    setwrapEnable(flag) {
         this.props.dispatch(setwrap(flag));
     }
 
@@ -117,7 +116,6 @@ class Main extends React.Component {
             fbsdk.login().then(() => {
                 this.props.dispatch(setLogTxt("登出"));
             });
-
         }
     }
 

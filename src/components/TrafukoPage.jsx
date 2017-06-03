@@ -2,17 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {FormGroup, Input, Container, Row, Col} from 'reactstrap';
 import {connect} from 'react-redux';
-
-import PostForm from 'components/PostForm.jsx';
-import RunText from 'components/RunText.jsx';
 import Toggle from 'react-toggle';
-
 import {
     Accordion,
     AccordionItem,
     AccordionItemTitle,
     AccordionItemBody,
 } from 'react-accessible-accordion';
+
+import PostForm from 'components/PostForm.jsx';
+import RunText from 'components/RunText.jsx';
 
 import {
     setAgree,
@@ -108,7 +107,7 @@ class TrafukoPage extends React.Component {
                                       <div className={(this.props.inputDanger && !this.props.agreeCheck) ? "label error" : "label"}>&nbsp;我同意上述規範</div>
                                 </label>
                             </Col>
-                            <Col ms="auto">
+                            <Col>
                                 <label className="togglebtn">
                                     <Toggle
                                       defaultChecked={(screen.width >= 700) ? true : false}
