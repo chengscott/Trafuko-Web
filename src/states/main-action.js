@@ -16,6 +16,12 @@ export function toggleModal_l() {
     };
 }
 
+export function toggleModal_Info(){
+    return {
+        type: '@MAIN_TOGGLE_MODAL_INFO'
+    };
+}
+
 export function setwrap(flag){
     return {
         type: '@MAIN_SET_WRAP',

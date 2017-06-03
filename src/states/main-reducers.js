@@ -2,6 +2,7 @@ const mainInitState = {
     collapsed: false,
     modal_about: false,
     modal_logs:false,
+    modal_info: false,
     wrapenable: true,
     logtxt: "登入"
 };
@@ -22,6 +23,11 @@ export function main(state = mainInitState, action) {
             return {
                 ...state,
                 modal_logs: !state.modal_logs
+            };
+        case '@MAIN_TOGGLE_MODAL_INFO':
+            return {
+                ...state,
+                modal_info: !state.modal_info
             };
         case '@MAIN_SET_WRAP':
             return {

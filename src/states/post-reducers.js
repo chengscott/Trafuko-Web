@@ -25,7 +25,7 @@ export function postForm(state = initPostFormState, action) {
                 ...state,
                 color: action.color
             };
-        case '@POST_FORM/LEN_DANGER':
+        case '@POST_FORM/LEN_DANGER':            
             return{
                 ...state,
                 lenDanger: action.flag

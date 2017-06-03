@@ -54,9 +54,9 @@ class PostForm extends React.Component {
                             </Alert>
                         }
                         {
-                            (this.props.lenDanger) &&
+                            (this.props.lenDanger == true) &&
                             <Alert color="danger" className="margin">
-                                <strong>錯誤!</strong> 超過 140 字 ({this.state.len})
+                                <strong>錯誤!</strong> 超過 140 字
                             </Alert>
                         }
                         {
@@ -93,8 +93,7 @@ class PostForm extends React.Component {
 
     handleInputChange(e) {
         const text = e.target.value;
-
-        if (text.length > 140) {
+        if (text.length >= 140) {
             this.props.dispatch(lenDanger(true));
             this.props.dispatch(changeLen(text.length));
         } else if (this.props.lenDanger) {

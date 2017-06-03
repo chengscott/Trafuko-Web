@@ -20,12 +20,11 @@ import {
     ModalHeader,
     ModalBody,
     ModalFooter,
-    Button,
-    Dropdown,
+    Button
+    /*Dropdown,
     DropdownToggle,
     DropdownMenu,
-    DropdownItem,
-    Glyphicon
+    DropdownItem,*/
 } from 'reactstrap';
 import * as firebase from "firebase";
 
@@ -33,12 +32,14 @@ import Background from 'components/Background.jsx';
 import TrafukoPage from 'components/TrafukoPage.jsx';
 import RankPage from 'components/RankPage.jsx';
 import TrashPoolPage from 'components/TrashPoolPage.jsx';
+import FavorPage from 'components/FavorPage.jsx';
 import FB from 'utilities/FacebookSDK.jsx';
 
 import {
     toggleNav,
     toggleModal_a,
     toggleModal_l,
+    toggleModal_Info,
     setwrap,
     setLogTxt
 } from 'states/main-action.js';
@@ -60,6 +61,7 @@ class Main extends React.Component {
         collapsed: PropTypes.bool.isRequired,
         modal_about: PropTypes.bool.isRequired,
         modal_logs:PropTypes.bool.isRequired,
+        modal_info: PropTypes.bool.isRequired,
         wrapenable: PropTypes.bool.isRequired,
         logtxt: PropTypes.string.isRequired,
         dispatch: PropTypes.func.isRequired
@@ -68,15 +70,13 @@ class Main extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            dropdownOpen: false
-        };
-        this.toggle = this.toggle.bind(this);
+        this.toggleInfo = this.toggleInfo.bind(this);
         this.toggleNavbar = this.toggleNavbar.bind(this);
         this.toggleModal_A = this.toggleModal_A.bind(this);
         this.toggleModal_L = this.toggleModal_L.bind(this);
         this.setwrapEnable = this.setwrapEnable.bind(this);
-        this.AccountInfo = this.AccountInfo.bind(this);
+        this.signIn = this.signIn.bind(this);
+        this.signOut = this.signOut.bind(this);
     }
 
     componentDidMount(){
@@ -90,10 +90,9 @@ class Main extends React.Component {
 
     }
 
-    toggle(){
-        this.setState({
-            dropdownOpen: !this.state.dropdownOpen
-        });
+    toggleInfo(){
+        this.props.dispatch(toggleModal_Info());
+        this.signIn();
     }
     toggleNavbar() {
         this.props.dispatch(toggleNav());
@@ -113,16 +112,18 @@ class Main extends React.Component {
         this.props.dispatch(setwrap(flag));
     }
 
-    AccountInfo() {
+    signIn() {
         if (this.props.logtxt == "登入") {
             fbsdk.login().then(() => {
-                alert("login success");
                 this.props.dispatch(setLogTxt("登出"));
             });
 
-        } else {
+        }
+    }
+
+    signOut() {
+        if (this.props.logtxt == "登出") {
             fbsdk.logout().then(() => {
-                alert("logout success");
                 this.props.dispatch(setLogTxt("登入"));
             });
         }
@@ -150,18 +151,29 @@ class Main extends React.Component {
                                         <NavLink tag={Link} to='/Rank'>排行榜</NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        {this.props.logtxt == "登出"?(
+                                        {/*
+                                            old way need  state dropdownOpen
+                                            this.props.logtxt == "登出"?(
                                                 <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                                                     <NavLink style={{cursor:"pointer"}} onClick={() => this.toggle()}><i className="fa fa-user" aria-hidden="true">&nbsp;</i>Welcome&nbsp;<i className="fa fa-chevron-down" aria-hidden="true"></i></NavLink>
                                                     <DropdownMenu>
                                                         <DropdownItem>收藏列表&nbsp;&nbsp;&nbsp;&nbsp;<i className="fa fa-star" aria-hidden="true"></i></DropdownItem>
                                                         <DropdownItem divider />
-                                                        <DropdownItem onClick={() => this.AccountInfo()}>登出&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i className="fa fa-sign-out" aria-hidden="true"></i></DropdownItem>
+                                                        <DropdownItem onClick={() => this.signOut()}>登出&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i className="fa fa-sign-out" aria-hidden="true"></i></DropdownItem>
                                                     </DropdownMenu>
                                               </Dropdown>
                                             ):(
-                                                <NavLink style={{cursor:"pointer"}} onClick={() => this.AccountInfo()}><i className="fa fa-user-o" aria-hidden="true"></i>{this.props.logtxt}</NavLink>
-                                            )
+                                                <NavLink style={{cursor:"pointer"}} onClick={() => this.signIn()}><i className="fa fa-user-o" aria-hidden="true"></i></NavLink>
+                                            )*/
+                                        }
+                                        {/*this.props.logtxt == "登出"?(
+                                                <div>
+                                                    <NavLink tag={Link} to='/Favor'>收藏列表&nbsp;<i className="fa fa-circle" aria-hidden="true"></i></NavLink>
+                                                    <NavLink style={{cursor:"pointer"}} onClick={() => this.signOut()} >登出</NavLink>
+                                                </div>
+                                            ):(
+                                                <NavLink style={{cursor:"pointer"}} onClick={() => this.toggleInfo()} >收藏列表&nbsp;<i className="fa fa-circle-o" aria-hidden="true"></i></NavLink>
+                                            )*/
                                         }
                                     </NavItem>
                                 </Nav>
@@ -179,6 +191,9 @@ class Main extends React.Component {
                         <Route exact path="/TrashPool" render={() => (
                                 <TrashPoolPage firebase={fb} wrap={this.setwrapEnable}/>
                             )}/>
+                        <Route exact path="/Favor" render={() => (
+                                <FavorPage firebase={fb} wrap={this.setwrapEnable}/>
+                            )}/>
                     </div>
 
                     <div id="id_footer">
@@ -188,6 +203,18 @@ class Main extends React.Component {
                             <BreadcrumbItem active><a  href="#" onClick={this.toggleModal_L}>Log</a></BreadcrumbItem>
                         </Breadcrumb>
                     </div>
+                    <Modal isOpen={this.props.modal_info} toggle={this.toggleInfo} >
+                        <ModalHeader toggle={this.toggleInfo}><strong>登入福利</strong></ModalHeader>
+                        <ModalBody>
+                            <strong>立即享有收藏幹話功能!!!</strong> <br/><br/>
+                            <li>專屬個人空間</li>
+                            <li>保存幹話回味無窮</li>
+                            <li>當下立即保存s級幹話不再辛苦翻找</li>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button color="primary" onClick={this.toggleInfo}>確定</Button>
+                        </ModalFooter>
+                    </Modal>
                     <Modal isOpen={this.props.modal_about} toggle={this.toggleModal_A} >
                         <ModalHeader toggle={this.toggleModal_A}>關於我們</ModalHeader>
                         <ModalBody>
