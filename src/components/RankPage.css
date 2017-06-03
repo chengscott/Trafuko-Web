@@ -9,8 +9,27 @@ input {
     margin-bottom: 10px;
 }
 
+.rankpage .statusbtn {
+    cursor: pointer;
+}
+
+.rankpage .active {
+    background-color: #673AB7 !important;
+    color: white !important;
+}
+
 .rankpage .clickHand {
     cursor: pointer;
+}
+
+.rankpage .tableTitle {
+    background: #673AB7;
+    color: white;
+}
+
+.rankpage .tableEntry {
+    background: #D1C4E9;
+    color: black;
 }
 
 #id_content .z-index-modify {

@@ -22,3 +22,63 @@
         display: none;
     }
 }
+
+#logo {
+    width: 70%;
+    height: 70%;
+    margin: 20% 0% 0% 15%;
+}
+
+#o1 {
+    width: 30%;
+    height: 20%;
+    margin: 10% 30% 5% 5%;
+}
+
+#o2 {
+    width: 20%;
+    height: 18%;
+    margin: 35% 10% 5% 65%;
+}
+
+#o3 {
+    width: 22%;
+    height: 18%;
+    margin: 5% 10% 5% 65%;
+}
+
+#o4 {
+    width: 11%;
+    height: 18%;
+    margin: 25% 5% 5% 80%;
+}
+
+#o5 {
+    width: 11%;
+    height: 18%;
+    margin: 25% 65% 5% 5%;
+}
+
+#o6 {
+    width: 11%;
+    height: 18%;
+    margin: 35% 70% 10% 5%;
+}
+
+#o7 {
+    width: 9%;
+    height: 18%;
+    margin: 20% 5% 5% 30%;
+}
+
+#o9 {
+    width: 11%;
+    height: 18%;
+    margin: 20% 5% 5% 60%;
+}
+
+#o10 {
+    width: 11%;
+    height: 18%;
+    margin: 28% 10% 5% 40%;
+}

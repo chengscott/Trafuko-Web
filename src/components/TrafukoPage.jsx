@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 
 import PostForm from 'components/PostForm.jsx';
 import RunText from 'components/RunText.jsx';
+import Toggle from 'react-toggle';
 
 import {
     setAgree,
@@ -89,10 +90,22 @@ class TrafukoPage extends React.Component {
                             <Input type="textarea" className="ruleText" name="text" readOnly="true" defaultValue={RuleText}/>
                     </Collapse>
                     <div className="checkbox">
-                        <input className="checkbox-input hvr-bounce-in" onClick={this.handleClick} type="checkbox" defaultValue={false} />
-                        <div className={(this.props.inputDanger && !this.props.agreeCheck) ? "agree error" : "agree"}>我同意上述規範</div>
-                        <input className="checkbox-input hvr-bounce-in" onClick={this.runtextClick} type="checkbox" defaultChecked={(screen.width >= 700) ? true : false}/>
-                        顯示彈幕
+                        <label>
+                            <Toggle
+                              defaultChecked={false}
+                              className="red"
+                              onChange={this.handleClick} />
+                            <div className={(this.props.inputDanger && !this.props.agreeCheck) ? "label error" : "label"}>我同意上述規範</div>
+                        </label>
+                        &nbsp;&nbsp;
+                        <label>
+                            <Toggle
+                              defaultChecked={(screen.width >= 700) ? true : false}
+                              className="togglebtn"
+                              icons={false}
+                              onChange={this.runtextClick} />
+                            <span>顯示彈幕</span>
+                        </label>
                     </div>
                 </FormGroup>
                 <PostForm agreeCheck={this.props.isAgree} firebase={this.props.firebase}/>
@@ -100,7 +113,12 @@ class TrafukoPage extends React.Component {
             </div>
         );
     }
+/*
 
+                        <input className="checkbox-input hvr-bounce-in" onClick={this.handleClick} type="checkbox" defaultValue={false} />
+<input className="checkbox-input hvr-bounce-in" onClick={this.runtextClick} type="checkbox" defaultChecked={(screen.width >= 700) ? true : false}/>
+                        
+*/
     runtextClick(e) {
         const isRunning = e.target.checked;
         this.props.dispatch(setRuntext(isRunning));

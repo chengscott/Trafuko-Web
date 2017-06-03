@@ -6,8 +6,14 @@ import {
     Table,
     Pagination,
     PaginationItem,
-    PaginationLink
+    PaginationLink,
+    TabContent,
+    TabPane,
+    Nav,
+    NavItem,
+    NavLink
 } from 'reactstrap';
+import classnames from 'classnames';
 
 export default class RankPage extends React.Component {
 
@@ -22,24 +28,18 @@ export default class RankPage extends React.Component {
         this.state = {
             page: 1,
             npp: npp,
-            dropdownOpen: false,
             status: "top",
             Data: []
         };
         this.handleSChange = this.handleSChange.bind(this);
-        this.toggle = this.toggle.bind(this);
+        this.changePage = this.changePage.bind(this);
+        this.changeNumPerPage = this.changeNumPerPage.bind(this);
     }
 
     componentDidMount() {
         this.props.wrap(false); // overflow: auto
         this.props.firebase.ref('posts').on('value', snapshot => {
             this.setState({Data: objToarr(snapshot.val())});
-        });
-    }
-
-    toggle() {
-        this.setState({
-            dropdownOpen: !this.state.dropdownOpen
         });
     }
 
@@ -68,7 +68,7 @@ export default class RankPage extends React.Component {
         }
         const Btnlist = btnlist.map(j =>
             (j === this.state.page) ?
-            (<PaginationItem className="z-index-modify" active key={"pagebtn_" + j} onClick={() => this.changePage(j)} >
+            (<PaginationItem active key={"pagebtn_" + j} onClick={() => this.changePage(j)} >
                 <PaginationLink>{j}</PaginationLink>
             </PaginationItem>) :
             (<PaginationItem className="clickHand" key={"pagebtn_" + j} onClick={() => this.changePage(j)} >
@@ -81,24 +81,82 @@ export default class RankPage extends React.Component {
         const listItems = showList.map((each) => <Box order={data.indexOf(each) + 1} key={each.id} text={each.text}/>);
         return(
             <div className="rankpage">
-                <Table responsive><tbody>
-                    <tr>
-                        <th width="25%"><Button onClick={() => this.handleSChange("top")} color={(this.state.status === "top") ? "warning" : "default"}>&nbsp;top100&nbsp;</Button></th>
-                        <th width="25%"><Button onClick={() => this.handleSChange("day")} color={(this.state.status === "day") ? "warning" : "default"}>每日前十</Button></th>
-                        <th width="25%"><Button onClick={() => this.handleSChange("week")} color={(this.state.status === "week") ? "warning" : "default"}>每週前百</Button></th>
-                        <th width="25%"><Button onClick={() => this.handleSChange("mon")} color={(this.state.status === "mon") ? "warning" : "default"}>每月前百</Button></th>
-                    </tr>
-                </tbody></Table>
-
-                <Table bordered inverse className="table"><tbody>
-                    <tr>
-                        <td width="10%">排名</td>
-                        <td width="80%">幹話內容</td>
-                        <td width="10%"></td>
-                    </tr>
-                    {listItems}
-                </tbody></Table>
-
+                <Nav tabs>
+                    <NavItem>
+                        <NavLink
+                          className={classnames({ active: this.state.status == "top", statusbtn: true})}
+                          onClick={() => { this.handleSChange("top"); }}
+                        >
+                          Top100
+                        </NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink
+                          className={classnames({ active: this.state.status == "day", statusbtn: true})}
+                          onClick={() => { this.handleSChange("day"); }}
+                        >
+                          每日前十
+                        </NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink
+                          className={classnames({ active: this.state.status == "week", statusbtn: true})}
+                          onClick={() => { this.handleSChange("week"); }}
+                        >
+                          每週前百
+                        </NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink
+                          className={classnames({ active: this.state.status == "mon", statusbtn: true})}
+                          onClick={() => { this.handleSChange("mon"); }}
+                        >
+                          每月前百
+                        </NavLink>
+                    </NavItem>
+                </Nav>
+                <TabContent activeTab={this.state.status}>
+                    <TabPane tabId="top">
+                        <Table bordered><tbody>
+                            <tr className="tableTitle">
+                                <td width="10%">排名</td>
+                                <td width="80%">幹話內容</td>
+                                <td width="10%"></td>
+                            </tr>
+                            {listItems}
+                        </tbody></Table>
+                    </TabPane>
+                    <TabPane tabId="day">
+                        <Table bordered><tbody>
+                            <tr className="tableTitle">
+                                <td width="10%">排名</td>
+                                <td width="80%">幹話內容</td>
+                                <td width="10%"></td>
+                            </tr>
+                            {listItems}
+                        </tbody></Table>
+                    </TabPane>
+                    <TabPane tabId="week">
+                        <Table bordered><tbody>
+                            <tr className="tableTitle">
+                                <td width="10%">排名</td>
+                                <td width="80%">幹話內容</td>
+                                <td width="10%"></td>
+                            </tr>
+                            {listItems}
+                        </tbody></Table>
+                    </TabPane>
+                    <TabPane tabId="mon">
+                        <Table bordered><tbody>
+                            <tr className="tableTitle">
+                                <td width="10%">排名</td>
+                                <td width="80%">幹話內容</td>
+                                <td width="10%"></td>
+                            </tr>
+                            {listItems}
+                        </tbody></Table>
+                    </TabPane>
+                </TabContent>
                 <Pagination style={{'marginBottom':'72px'}}>
                     {(this.state.page != 1) &&
                     <PaginationItem className="hvr-backward clickHand" onClick={() => this.changePage(this.state.page - 1)}>
@@ -110,14 +168,24 @@ export default class RankPage extends React.Component {
                         <PaginationLink next/>
                     </PaginationItem>}
                 </Pagination>
-
             </div>
         );
     }
 }
+/*
+                <Table responsive><tbody>
+                    <tr>
+                        <th width="25%"><Button onClick={() => this.handleSChange("top")} color={(this.state.status === "top") ? "warning" : "default"}>&nbsp;top100&nbsp;</Button></th>
+                        <th width="25%"><Button onClick={() => this.handleSChange("day")} color={(this.state.status === "day") ? "warning" : "default"}>每日前十</Button></th>
+                        <th width="25%"><Button onClick={() => this.handleSChange("week")} color={(this.state.status === "week") ? "warning" : "default"}>每週前百</Button></th>
+                        <th width="25%"><Button onClick={() => this.handleSChange("mon")} color={(this.state.status === "mon") ? "warning" : "default"}>每月前百</Button></th>
+                    </tr>
+                </tbody></Table>
+
+*/
 
 const Box = (props) => (
-    <tr>
+    <tr className="tableEntry">
         <th>{props.order}</th>
         <td className="font">{props.text}</td>
         <td><Button className="hvr-bounce-in" color="success">收藏</Button></td>
