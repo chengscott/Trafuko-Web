@@ -4,11 +4,34 @@ input {
 
 .rankpage {
     height: 160px;
-    max-width: 730px;
+    max-width: 720px;
     margin: auto;
     margin-bottom: 10px;
 }
 
+.rankpage .statusbtn {
+    cursor: pointer;
+}
+
+.rankpage .active {
+    background-color: #673ab7 !important;
+    color: white !important;
+}
+
 .rankpage .clickHand {
     cursor: pointer;
+}
+
+.rankpage .tableTitle {
+    background: #673ab7;
+    color: white;
+}
+
+.rankpage .tableEntry {
+    background: #d1c4e9;
+    color: black;
+}
+
+#id_content .z-index-modify {
+    z-index: -1;
 }

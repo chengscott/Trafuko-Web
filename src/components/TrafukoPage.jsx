@@ -1,17 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {FormGroup, Input, Collapse, Alert} from 'reactstrap';
+import {FormGroup, Input, Container, Row, Col} from 'reactstrap';
 import {connect} from 'react-redux';
 
 import PostForm from 'components/PostForm.jsx';
 import RunText from 'components/RunText.jsx';
+import Toggle from 'react-toggle';
+
+import {
+    Accordion,
+    AccordionItem,
+    AccordionItemTitle,
+    AccordionItemBody,
+} from 'react-accessible-accordion';
 
 import {
     setAgree,
     setRuntextPage,
     receiveData,
-    setRuntext,
-    setCollapse
+    setRuntext
 } from 'states/trafukoPage-action.js';
 
 import './TrafukoPage.css';
@@ -47,7 +54,6 @@ class TrafukoPage extends React.Component {
         this.tick = this.tick.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.runtextClick = this.runtextClick.bind(this);
-        this.toggle = this.toggle.bind(this);
     }
 
     componentDidMount() {
@@ -64,10 +70,6 @@ class TrafukoPage extends React.Component {
         clearInterval(this.reRender);
     }
 
-    toggle() {
-        this.props.dispatch(setCollapse());
-    }
-
     tick() {
         let nextPage = this.props.runtextPage + 1;
         if (nextPage >= Math.floor(this.props.Data.length / runNum))
@@ -82,18 +84,41 @@ class TrafukoPage extends React.Component {
         return (
             <div className = "trafuko">
                 <FormGroup>
-                    <Alert color="danger" className="ruleTitle" onClick={this.toggle}>
-                        規章
-                    </Alert>
-                    <Collapse isOpen={this.props.collapse}>
-                            <Input type="textarea" className="ruleText" name="text" readOnly="true" defaultValue={RuleText}/>
-                    </Collapse>
-                    <div className="checkbox">
-                        <input className="checkbox-input hvr-bounce-in" onClick={this.handleClick} type="checkbox" defaultValue={false} />
-                        <div className={(this.props.inputDanger && !this.props.agreeCheck) ? "agree error" : "agree"}>我同意上述規範</div>
-                        <input className="checkbox-input hvr-bounce-in" onClick={this.runtextClick} type="checkbox" defaultChecked={(screen.width >= 700) ? true : false}/>
-                        顯示彈幕
-                    </div>
+                    <Accordion>
+                        <AccordionItem>
+                            <AccordionItemTitle>
+                                <div className="u-position-relative">
+                                    規章
+                                    <div className="accordion__arrow" role="presentation" />
+                                </div>
+                            </AccordionItemTitle>
+                            <AccordionItemBody>
+                                <Input type="textarea" className="ruleText" name="text" readOnly="true" defaultValue={RuleText}/>
+                            </AccordionItemBody>
+                        </AccordionItem>
+                    </Accordion>
+                    <Container className="togglebox">
+                        <Row>
+                            <Col>
+                                <label className="togglebtn">
+                                    <Toggle
+                                      defaultChecked={false}
+                                      className="red"
+                                      onChange={this.handleClick} />
+                                      <div className={(this.props.inputDanger && !this.props.agreeCheck) ? "label error" : "label"}>&nbsp;我同意上述規範</div>
+                                </label>
+                            </Col>
+                            <Col ms="auto">
+                                <label className="togglebtn">
+                                    <Toggle
+                                      defaultChecked={(screen.width >= 700) ? true : false}
+                                      icons={false}
+                                      onChange={this.runtextClick} />
+                                    <div className="label">&nbsp;顯示彈幕</div>
+                                </label>
+                            </Col>
+                        </Row>
+                    </Container>
                 </FormGroup>
                 <PostForm agreeCheck={this.props.isAgree} firebase={this.props.firebase}/>
                 {showList}
