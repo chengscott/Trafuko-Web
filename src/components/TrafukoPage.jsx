@@ -18,8 +18,7 @@ import {
     setAgree,
     setRuntextPage,
     receiveData,
-    setRuntext,
-    setCollapse
+    setRuntext
 } from 'states/trafukoPage-action.js';
 
 import './TrafukoPage.css';
@@ -55,7 +54,6 @@ class TrafukoPage extends React.Component {
         this.tick = this.tick.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.runtextClick = this.runtextClick.bind(this);
-        this.toggle = this.toggle.bind(this);
     }
 
     componentDidMount() {
@@ -70,10 +68,6 @@ class TrafukoPage extends React.Component {
 
     componentWillUnmount() {
         clearInterval(this.reRender);
-    }
-
-    toggle() {
-        this.props.dispatch(setCollapse());
     }
 
     tick() {
@@ -105,7 +99,7 @@ class TrafukoPage extends React.Component {
                     </Accordion>
                     <Container className="togglebox">
                         <Row>
-                            <Col >
+                            <Col>
                                 <label className="togglebtn">
                                     <Toggle
                                       defaultChecked={false}

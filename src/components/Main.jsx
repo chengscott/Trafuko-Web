@@ -100,28 +100,23 @@ class Main extends React.Component {
     }
 
     AccountInfo() {
-        if(this.props.logtxt == "登入"){
-
-            fbsdk.login().then( info=>{
+        if (this.props.logtxt == "登入") {
+            fbsdk.login().then(() => {
                 alert("login success");
                 this.props.dispatch(setLogTxt("登出"));
-            }).catch( err=>{
-                console.error(err);
             });
 
         } else {
-            fbsdk.logout().then( status=>{
+            fbsdk.logout().then(() => {
                 alert("logout success");
                 this.props.dispatch(setLogTxt("登入"));
-            }).catch( err=>{
-                console.error(err);
             });
         }
     }
 
     render() {
         const wrapEnable = (this.props.wrapenable == 1) ? 'hidden' : 'hidden-x';
-        return(
+        return (
             <Router>
                 <div id="id_wrapper" className={wrapEnable}>
                     <Background />

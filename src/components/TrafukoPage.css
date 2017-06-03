@@ -3,9 +3,9 @@
 }
 
 .trafuko .ruleText {
-    height: 160;
-    min-width: 160;
-    max-width: 540;
+    height: 160px;
+    min-width: 160px;
+    max-width: 540px;
     margin: auto;
     cursor: not-allowed;
 }
@@ -14,16 +14,16 @@
     position: relative;
     padding-top: 1px;
     height: 24px;
-    max-width: 540;
+    max-width: 540px;
     margin: auto;
     font-weight: bold;
 }
 
 .trafuko .label-css {
     padding-left: 25px;
-    height: 20;
+    height: 20px;
     display: inline-block;
-    line-height: 20;
+    line-height: 20px;
     background-repeat: no-repeat;
     background-position: 0 0;
     cursor: pointer;
@@ -102,10 +102,10 @@
 }
 
 .react-toggle-track {
-    width: 50;
+    width: 50px;
     height: 24px;
     padding: 0;
-    border-radius: 30;
+    border-radius: 30px;
     background-color: #4d4d4d;
     -webkit-transition: all 0.2s ease;
     -moz-transition: all 0.2s ease;
@@ -127,7 +127,7 @@
 .react-toggle-track-check {
     position: absolute;
     width: 14px;
-    height: 10;
+    height: 10px;
     top: 0;
     bottom: 0;
     margin-top: auto;
@@ -149,14 +149,14 @@
 
 .react-toggle-track-x {
     position: absolute;
-    width: 10;
-    height: 10;
+    width: 10px;
+    height: 10px;
     top: 0;
     bottom: 0;
     margin-top: auto;
     margin-bottom: auto;
     line-height: 0;
-    right: 10;
+    right: 10px;
     opacity: 1;
     -webkit-transition: opacity 0.25s ease;
     -moz-transition: opacity 0.25s ease;
@@ -257,11 +257,10 @@
     color: #444;
     cursor: pointer;
     padding: 5px;
-    text-align: left;
     border: none;
     text-align: center;
-    min-width: 160;
-    max-width: 540;
+    min-width: 160px;
+    max-width: 540px;
     margin: auto;
 }
 
@@ -294,7 +293,7 @@
     display: block;
     position: absolute;
     top: 50%;
-    width: 10;
+    width: 10px;
     height: 2px;
     background-color: currentColor;
     content: "";
