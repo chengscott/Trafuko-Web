@@ -1,10 +1,10 @@
-// var expect = require('expect');
+var expect = require('expect');
 
-// import FavorPage from 'components/FavorPage.jsx';
+import FavorPage from 'components/FavorPage.jsx';
 
-// describe('FavorPage', () => {
-//     // Basic Test
-//     it('component exists', () => {
-//         expect(FavorPage).toExist();
-//     });
-// });
+describe('FavorPage', () => {
+    // Basic Test
+    it('component exists', () => {
+        expect(FavorPage).toExist();
+    });
+});
