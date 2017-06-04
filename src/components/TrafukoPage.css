@@ -1,5 +1,6 @@
 .trafuko {
     padding: 1rem;
+    margin-top: 40px;
 }
 
 .trafuko .ruleText {
@@ -17,6 +18,18 @@
     max-width: 540px;
     margin: auto;
     font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+}
+
+.trafuko .togglebox .runtext {
+    display: block;
+}
+
+.trafuko .togglebtn {
+    margin-top: 7px;
+    height: 1rem;
+    width: 8rem;
 }
 
 .trafuko .label-css {
@@ -31,13 +44,9 @@
 
 .trafuko .label {
     cursor: pointer;
-    display: inline;
+    display: inline-block;
     position: absolute;
-    top: 20%;
-}
-
-.trafuko .togglebtn {
-    margin-top: 7px;
+    top: 38%;
 }
 
 .trafuko .error {

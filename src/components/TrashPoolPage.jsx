@@ -153,26 +153,26 @@ class Pause extends React.Component {
     render() {
         if (this.props.ifPause) {
             return (
-                <Card
-                    id="PauseBox"
-                    style={{
-                        float: 'center',
-                        width: '200px',
-                        height: "auto",
-                        padding: "10px",
-                        borderRadius: "10px",
-                        position: "absolute",
-                        left: this.props.style.left,
-                        top: this.props.style.top,
-                        background: "linear-gradient(to right, #0575E6, #021B79)",
-                        zIndex: 1,
-                        display: this.props.ifPause ? "" : "none"
-                    }}
-                    className="disable"
-                    onClick={() => this.handle()}>
-                    <CardText><h2 style={{color: "yellow"}}>{this.props.text}</h2></CardText>
-                    <Button className="hvr-grow" onClick={() => this.handleLike(this.props.id)}>收藏</Button>
-                </Card>
+                    <Card
+                        id="PauseBox"
+                        style={{
+                            float: 'center',
+                            width: '200px',
+                            height: "auto",
+                            padding: "8px",
+                            borderRadius: "11px",
+                            position: "absolute",
+                            left: this.props.style.left,
+                            top: this.props.style.top,
+                            background: "linear-gradient(to right, #0575E6, #021B79)",
+                            zIndex: 1,
+                            display: this.props.ifPause ? "" : "none"
+                        }}
+                        className="disable"
+                        onClick={() => this.handle()}>
+                        <h4><CardText style={{color: "yellow"}}>{this.props.text}</CardText></h4>
+                        <Button className="hvr-grow" onClick={() => this.handleLike(this.props.id)}>收藏</Button>
+                    </Card>
             );
         } else return <div id="PauseBox"></div>;
     }
@@ -244,8 +244,8 @@ class Item extends React.Component {
                             float: 'center',
                             width: '200px',
                             height: "auto",
-                            padding: "5px",
-                            borderRadius: "15px",
+                            padding: "8px",
+                            borderRadius: "11px",
                             transform: `scale(${data.scale})`,
                             background: data.color,
                             position: "absolute",
@@ -256,7 +256,7 @@ class Item extends React.Component {
                         id={"i_" + this.props.id}
                         className="disable"
                         onClick={() => this.handle()}>
-                        <CardText><h2 style={{color: data.textcolor}}>{this.props.text}</h2></CardText>
+                        <h4><CardText style={{color: data.textcolor}}>{this.props.text}</CardText></h4>
                     </Card>
                 )}
             </Animate>
