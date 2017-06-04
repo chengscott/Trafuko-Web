@@ -79,7 +79,7 @@ class TrafukoPage extends React.Component {
     render() {
         const page = this.props.runtextPage;
         const data = this.props.Data.slice(page * runNum, Math.min((page + 1) * runNum, this.props.Data.length - 1));
-        const showList = this.props.runtext ? data.map(a => <RunText text={a.text} color={a.color} key={a.id} id={a.id}/>) : <div></div>;
+        const showList = this.props.runtext ? data.map(a => <RunText text={a.text} color={(a.color === 0)?'black':a.color} key={a.id} id={a.id}/>) : <div></div>;
         return (
             <div className = "trafuko">
                 <FormGroup>

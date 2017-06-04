@@ -1,40 +1,68 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import fecha from 'fecha';
+
 import './FavorPage.css';
 
 export default class FavorPage extends React.Component {
 
     static propTypes = {
         firebase: PropTypes.object.isRequired,
-        dispatch: PropTypes.func.isRequired,
+        auth: PropTypes.func.isRequired,
         wrap: PropTypes.func.isRequired
     };
 
     constructor(props) {
         super(props);
+        this.state = {
+            favlist: []
+        };
+        this.getFavList = this.getFavList.bind(this);
     }
 
     componentDidMount() {
         this.props.wrap(false); // overflow: auto
+        this.props.auth().onAuthStateChanged((firebaseUser) => {
+            if (firebaseUser) {
+                this.props.firebase.ref('/fav/'+firebaseUser.uid).on('value', snapshot => {
+                    let arr = objToarr(snapshot.val());
+                    arr.forEach(function(element){
+                        this.getFavList(firebaseUser.uid,element.id,element.ts);
+                    }.bind(this));
+                });
+            }
+        });
+    }
+
+    getFavList(uid,pid,ts){
+        this.props.firebase.ref('/posts/' + pid).on('value', (snapshot) =>{
+            let val = snapshot.val();
+            if(val !== null) {
+                let obj = {
+                    uid: uid,
+                    id: pid,
+                    text: val.text,
+                    color: val.color,
+                    ts: ts
+                };
+                let objs = this.state.favlist;
+                objs.push(obj);
+                this.setState({
+                    favlist: objs
+                });
+            }
+        });
     }
     render() {
-
-        const time = new Date("Sat May 27 2017 17:37:59 GMT+0800");
-        const time_str = timeTransfer(time);
-        const item1 = (<Item text={"努力不一定會成功，但是不努力的話，就會很輕鬆喔～"} time={time_str}/>);
-
+        //const items = this.state.favlist.map(a=> (<Item text={()=>this.getPost(a.id)} time={a.ts}/>));
+        const items = this.state.favlist.map( a=>(<Item key={a.id} post={a} firebase={this.props.firebase}/>));
         return (
             <div id="favorpage">
                 <div className="title">
                     <h1> Trafuko favorite list</h1>
                 </div>
                 <ui className="list">
-                    {item1}
-                    {item1}
-                    {item1}
-                    {item1}
-                    {item1}
-                    {item1}
+                    {items}
                 </ui>
             </div>
         );
@@ -43,23 +71,38 @@ export default class FavorPage extends React.Component {
 class Item extends React.Component {
     // time // text //
     static propTypes = {
-        time: PropTypes.string.isRequired,
-        text: PropTypes.string.isRequired,
-        color: PropTypes.string
+        firebase: PropTypes.object.isRequired,
+        post: PropTypes.object.isRequired
     };
 
     constructor(props) {
         super(props);
+        this.state = {
+            showable: false
+        };
+        this.deleteFav = this.deleteFav.bind(this);
     }
 
+    deleteFav(id){
+        this.props.firebase.ref('/fav/'+this.props.post.uid+'/'+id).remove();
+        this.setState({
+            showable: true
+        });
+    }
     render() {
+        const time = new Date(this.props.post.ts);
+        const favtime = fecha.format(time, "YYYY-MM-DD");
+        const show = (this.state.showable)?'none':'block';
         return (
-            <li className="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+            <li style={{display:show}} className="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                <div className="ui-history-close fa fa-close fa-fw" onClick={()=>this.deleteFav(this.props.post.id)}></div>
                 <div className="item">
                 <div className="content">
-                    <h4 className="text">{this.props.text}</h4>
+                    <h4 className="text"
+                        color={this.props.post.color}
+                    >{this.props.post.text}</h4>
                     <p>
-                        <i><i className="fa fa-clock-o">&nbsp;&nbsp;</i>{this.props.time}</i>
+                        <i><i className="fa fa-clock-o">&nbsp;&nbsp;</i>{favtime}</i>
                         <br/>
                     </p>
                 </div>
@@ -69,20 +112,11 @@ class Item extends React.Component {
     }
 }
 
-function timeTransfer(time){
 
-    var Y = (time.getYear()+1900).toString();
-    var M = (time.getMonth()+1).toString();
-    var dd = time.getDate();
-    var hh = time.getHours();
-    var mm = time.getMinutes();
-
-    dd = (dd < 10)?('0'+dd.toString()):dd.toString();
-    hh = (hh == 0)?'00':
-         (hh < 10)?('0'+hh.toString()):hh.toString();
-    mm = (mm == 0)?'00':
-         (mm < 10)?('0'+mm.toString()):mm.toString();
-
-    var str = Y + "-" + M + '-' + dd + " " + hh + ":" + mm;
-    return str;
+function objToarr(obj) {
+    let arr = [];
+    for (let x in obj) {
+        arr.push(obj[x]);
+    }
+    return arr;
 }

@@ -46,7 +46,8 @@ export default class FacebookSDK {
                 // The signed-in user info.
                 const info = {
                     token: result.credential.accessToken,
-                    user: result.user
+                    user: result.user,
+                    userid: result.user.uid
                 };
                 resolve(info);
             }).catch((error) => {

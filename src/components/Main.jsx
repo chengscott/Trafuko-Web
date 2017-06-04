@@ -41,7 +41,8 @@ import {
     toggleModal_l,
     toggleModal_Info,
     setwrap,
-    setLogTxt
+    setLogTxt,
+    setUserid
 } from 'states/main-action.js';
 
 import './Main.css';
@@ -64,6 +65,7 @@ class Main extends React.Component {
         modal_info: PropTypes.bool.isRequired,
         wrapenable: PropTypes.bool.isRequired,
         logtxt: PropTypes.string.isRequired,
+        userid: PropTypes.string,
         dispatch: PropTypes.func.isRequired
     };
 
@@ -79,10 +81,11 @@ class Main extends React.Component {
         this.signOut = this.signOut.bind(this);
     }
 
-    componentDidMount() {
+    componentWillMount() {
         fbsdk.init();
         firebase.auth().onAuthStateChanged((firebaseUser) => {
             if (firebaseUser) {
+                this.props.dispatch(setUserid(firebaseUser.uid));
                 this.props.dispatch(setLogTxt("登出"));
             }
         });
@@ -112,7 +115,8 @@ class Main extends React.Component {
 
     signIn() {
         if (this.props.logtxt == "登入") {
-            fbsdk.login().then(() => {
+            fbsdk.login().then(info => {
+                this.props.dispatch(setUserid(info.uid));
                 this.props.dispatch(setLogTxt("登出"));
             });
         }
@@ -121,6 +125,7 @@ class Main extends React.Component {
     signOut() {
         if (this.props.logtxt == "登出") {
             fbsdk.logout().then(() => {
+                this.props.dispatch(setUserid(""));
                 this.props.dispatch(setLogTxt("登入"));
             });
         }
@@ -188,10 +193,10 @@ class Main extends React.Component {
                                 <RankPage firebase={fb} wrap={this.setwrapEnable}/>
                             )}/>
                         <Route exact path="/TrashPool" render={() => (
-                                <TrashPoolPage firebase={fb} wrap={this.setwrapEnable}/>
+                                <TrashPoolPage userid={this.props.userid} firebase={fb} wrap={this.setwrapEnable}/>
                             )}/>
                         <Route exact path="/Favor" render={() => (
-                                <FavorPage firebase={fb} wrap={this.setwrapEnable}/>
+                                <FavorPage auth={firebase.auth} firebase={fb} wrap={this.setwrapEnable}/>
                             )}/>
                     </div>
 

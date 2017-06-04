@@ -4,7 +4,8 @@ const mainInitState = {
     modal_logs:false,
     modal_info: false,
     wrapenable: true,
-    logtxt: "登入"
+    logtxt: "登入",
+    userid: ""
 };
 
 export function main(state = mainInitState, action) {
@@ -38,6 +39,11 @@ export function main(state = mainInitState, action) {
             return {
                 ...state,
                 logtxt: action.str
+            };
+        case '@MAIN_SET_USERID':
+            return{
+                ...state,
+                userid: action.id
             };
         default:
             return state;

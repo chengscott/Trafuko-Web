@@ -39,3 +39,10 @@ export function setLogTxt(str) {
         str: str
     };
 }
+
+export function setUserid(id) {
+    return {
+        type: '@MAIN_SET_USERID',
+        id: id
+    };
+}

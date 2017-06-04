@@ -8,6 +8,7 @@ import './TrashPoolPage.css';
 export default class TrashPoolPage extends React.Component {
 
     static propTypes = {
+        userid: PropTypes.string.isRequired,
         firebase: PropTypes.object.isRequired,
         wrap: PropTypes.func.isRequired
     };
@@ -58,6 +59,7 @@ export default class TrashPoolPage extends React.Component {
     }
 
     handleClickout(e) {
+
         if (!document.getElementById('PauseBox').contains(e.target)) {
             if (!this.state.clicked) {
                 window.removeEventListener('click', this.handleClickout);
@@ -121,7 +123,7 @@ export default class TrashPoolPage extends React.Component {
         const items6 = data6.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s6} pause={this.capture}/>));
         return (
             <div className="trashPool">
-                <Pause style={this.state.style} ifPause={this.state.ifPause} text={this.state.ptext} id={"p_" + this.state.id}/>
+                <Pause  firebase={this.props.firebase} userid={this.props.userid} style={this.state.style} ifPause={this.state.ifPause} text={this.state.ptext} id={this.state.id}/>
                 {items1}
                 {items2}
                 {items3}
@@ -136,6 +138,8 @@ export default class TrashPoolPage extends React.Component {
 class Pause extends React.Component {
 
     static propTypes = {
+        firebase: PropTypes.object.isRequired,
+        userid: PropTypes.string.isRequired,
         style: PropTypes.object,
         id: PropTypes.string,
         ifPause: PropTypes.bool,
@@ -144,10 +148,21 @@ class Pause extends React.Component {
 
     constructor(props) {
         super(props);
+        this.handleLike = this.handleLike.bind(this);
     }
 
-    handleLike() {
+    handleLike(id) {
+        if (this.props.userid !== "") {
 
+            const now = new Date();
+            this.props.firebase.ref('fav/' + this.props.userid +'/' + id).set({
+                id: id,
+                ts: now.toString()
+            });
+            console("add to favor list");
+        }else {
+            console("login to get the benifit of favor list");
+        }
     }
 
     render() {
@@ -169,7 +184,7 @@ class Pause extends React.Component {
                             display: this.props.ifPause ? "" : "none"
                         }}
                         className="disable"
-                        onClick={() => this.handle()}>
+                        /*onClick={() => this.props.clickOut()}*/>
                         <h4><CardText style={{color: "yellow"}}>{this.props.text}</CardText></h4>
                         <Button className="hvr-grow" onClick={() => this.handleLike(this.props.id)}>收藏</Button>
                     </Card>
