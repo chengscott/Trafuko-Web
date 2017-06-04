@@ -1,4 +1,4 @@
-//import {EventTypes} from 'redux-segment';
+import {EventTypes} from 'redux-segment';
 
 export function input(value) {
     return {
@@ -18,7 +18,7 @@ export function colorChange(color) {
     return {
         type: '@POST_FORM/COLOR_CHANGE',
         color: color,
-        //meta: {analytics: EventTypes.track}
+        meta: {analytics: EventTypes.track}
     };
 }
 
@@ -26,7 +26,7 @@ export function lenDanger(flag) {
     return {
         type: '@POST_FORM/LEN_DANGER',
         flag: flag,
-        //meta: {analytics: EventTypes.track}
+        meta: {analytics: EventTypes.track}
     };
 }
 

@@ -1,4 +1,4 @@
-//import {EventTypes} from 'redux-segment';
+import {EventTypes} from 'redux-segment';
 
 export function toggleAgree() {
     return {
@@ -9,7 +9,7 @@ export function toggleAgree() {
 export function toggleRuntext() {
     return {
         type: '@TRAFUKO_TOGGLE_RUNTEXT',
-        //meta: {analytics: EventTypes.track}
+        meta: {analytics: EventTypes.track}
     };
 }
 
