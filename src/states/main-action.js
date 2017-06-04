@@ -1,4 +1,4 @@
-import {EventTypes} from 'redux-segment';
+//import {EventTypes} from 'redux-segment';
 
 export function toggleNav() {
     return {
@@ -9,14 +9,14 @@ export function toggleNav() {
 export function toggleModal_a() {
     return {
         type: '@MAIN_TOGGLE_MODAL_ABOUT',
-        meta: {analytics: EventTypes.track}
+        //meta: {analytics: EventTypes.track}
     };
 }
 
 export function toggleModal_l() {
     return {
         type: '@MAIN_TOGGLE_MODAL_LOGS',
-        meta: {analytics: EventTypes.track}
+        //meta: {analytics: EventTypes.track}
     };
 }
 
