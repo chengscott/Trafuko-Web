@@ -40,5 +40,4 @@ export function trafuko(state = traukoInitState, action) {
         default:
             return state;
     }
-
 }

@@ -79,21 +79,19 @@ class Main extends React.Component {
         this.signOut = this.signOut.bind(this);
     }
 
-    componentDidMount(){
-
+    componentDidMount() {
         fbsdk.init();
-        firebase.auth().onAuthStateChanged(function(firebaseUser) {
-            if(firebaseUser){
+        firebase.auth().onAuthStateChanged((firebaseUser) => {
+            if (firebaseUser) {
                 this.props.dispatch(setLogTxt("登出"));
             }
-        }.bind(this));
-
+        });
     }
 
-    toggleInfo(){
+    toggleInfo() {
         this.props.dispatch(toggleModal_Info());
-        this.signIn();
     }
+
     toggleNavbar() {
         this.props.dispatch(toggleNav());
     }
@@ -108,7 +106,7 @@ class Main extends React.Component {
         this.props.dispatch(toggleModal_l());
     }
 
-    setwrapEnable(flag){
+    setwrapEnable(flag) {
         this.props.dispatch(setwrap(flag));
     }
 
@@ -117,7 +115,6 @@ class Main extends React.Component {
             fbsdk.login().then(() => {
                 this.props.dispatch(setLogTxt("登出"));
             });
-
         }
     }
 
@@ -167,15 +164,17 @@ class Main extends React.Component {
                                             )*/
                                         }
                                         {/*this.props.logtxt == "登出"?(
-                                                <div>
-                                                    <NavLink tag={Link} to='/Favor'>收藏列表&nbsp;<i className="fa fa-circle" aria-hidden="true"></i></NavLink>
-                                                    <NavLink style={{cursor:"pointer"}} onClick={() => this.signOut()} >登出</NavLink>
-                                                </div>
+                                                <NavLink tag={Link} to='/Favor'>收藏列表&nbsp;<i className="fa fa-circle" aria-hidden="true"></i></NavLink>
                                             ):(
-                                                <NavLink style={{cursor:"pointer"}} onClick={() => this.toggleInfo()} >收藏列表&nbsp;<i className="fa fa-circle-o" aria-hidden="true"></i></NavLink>
+                                                <NavLink style={{cursor:"pointer"}} onClick={() => {this.toggleInfo();this.signIn();}} >收藏列表&nbsp;<i className="fa fa-circle-o" aria-hidden="true"></i></NavLink>
                                             )*/
                                         }
                                     </NavItem>
+                                    {/*this.props.logtxt == "登出" &&
+                                        <NavItem>
+                                            <NavLink tag={Link} to='/' onClick={() => this.signOut()} >登出</NavLink>
+                                        </NavItem>*/
+                                    }
                                 </Nav>
                             </Collapse>
                         </Navbar>

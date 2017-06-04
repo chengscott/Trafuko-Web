@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './RankPage.css';
 import {
-    Button,
     Table,
     Pagination,
     PaginationItem,
@@ -63,14 +62,14 @@ export default class RankPage extends React.Component {
         else if (page >= 18) return 16;
         else return page - 2;
     }
-    
+
     handleLike(id) {
-        console.log("Like id " + id);
+        id;
         //this.props.firebase.ref('fav')
     }
 
     checkIfLike(id) {
-        //
+        id;
         return false;
     }
 
@@ -93,7 +92,7 @@ export default class RankPage extends React.Component {
         const npp = this.state.npp;
         const data = this.state.Data.sort(compare);
         const showList = data.slice((this.state.page - 1) * npp , Math.min(this.state.page * npp, this.state.Data.length - 1));
-        const listItems = showList.map((each) => 
+        const listItems = showList.map((each) =>
             <Box order={data.indexOf(each) + 1}
                  key={each.id}
                  text={each.text}

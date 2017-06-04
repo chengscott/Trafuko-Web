@@ -58,7 +58,6 @@ export default class TrashPoolPage extends React.Component {
     }
 
     handleClickout(e) {
-
         if (!document.getElementById('PauseBox').contains(e.target)) {
             if (!this.state.clicked) {
                 window.removeEventListener('click', this.handleClickout);
@@ -200,10 +199,7 @@ class Item extends React.Component {
     }
 
     componentDidMount() {
-        this.change = setInterval(
-            () => this.tick(),
-            5000
-        );
+        this.change = setInterval(() => this.tick(), 5000);
     }
 
     handle() {

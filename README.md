@@ -32,11 +32,33 @@ yarn start
 ## Test
 
 ```bash
-yarn run test
+yarn test
 ```
 
 ## Lint
 
 ```bash
-yarn run lint
+yarn lint
 ```
+
+# Workflow
+
+1. Up to date
+    - ```git pull```
+    - ```yarn```
+2. Unit Implementation (& Unit Test)
+3. Integration: Test & Lint
+    - ```yarn test```
+    - ```yarn lint```
+4. Commit
+    - ```git status```
+    - ```git add --all```
+    - ```git commit -m "change description"```
+5. Sync to GitHub
+    - ```git pull```
+    - Resolve merge conflict (may commit again)
+    - ```git push```
+    - (Workspace is clean now!)
+- Post Sync
+    - Travis CI
+    - Azure CD

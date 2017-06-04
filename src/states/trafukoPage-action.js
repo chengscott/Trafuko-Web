@@ -1,3 +1,5 @@
+//import {EventTypes} from 'redux-segment';
+
 export function toggleAgree() {
     return {
         type: '@TRAFUKO_TOGGLE_AGREE'
@@ -6,7 +8,8 @@ export function toggleAgree() {
 
 export function toggleRuntext() {
     return {
-        type: '@TRAFUKO_TOGGLE_RUNTEXT'
+        type: '@TRAFUKO_TOGGLE_RUNTEXT',
+        //meta: {analytics: EventTypes.track}
     };
 }
 
@@ -17,7 +20,7 @@ export function setRuntextPage(page) {
     };
 }
 
-export function receiveData(data){
+export function receiveData(data) {
     return {
         type: '@TRAFUKO_RECEIVE_DATA',
         data: data
@@ -27,13 +30,13 @@ export function receiveData(data){
 export function setRuntext(flag) {
     return {
         type: '@TRAFUKO_SET_RUNTEXT',
-        flag:flag
+        flag: flag
     };
 }
 
 export function setAgree(flag) {
     return {
         type: '@TRAFUKO_SET_AGREE',
-        flag:flag
+        flag: flag
     };
 }

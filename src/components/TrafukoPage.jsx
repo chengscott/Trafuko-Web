@@ -2,17 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {FormGroup, Input} from 'reactstrap';
 import {connect} from 'react-redux';
-
-import PostForm from 'components/PostForm.jsx';
-import RunText from 'components/RunText.jsx';
 import Toggle from 'react-toggle';
-
 import {
     Accordion,
     AccordionItem,
     AccordionItemTitle,
     AccordionItemBody,
 } from 'react-accessible-accordion';
+
+import PostForm from 'components/PostForm.jsx';
+import RunText from 'components/RunText.jsx';
 
 import {
     setAgree,
@@ -98,7 +97,7 @@ class TrafukoPage extends React.Component {
                         </AccordionItem>
                     </Accordion>
                     <div className="togglebox">
-                        <label className="togglebtn rule">
+                        <label className="togglebtn">
                             <Toggle
                               defaultChecked={false}
                               className="red"
