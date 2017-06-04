@@ -18,8 +18,10 @@ export default class FavorPage extends React.Component {
         this.props.wrap(false); // overflow: auto
     }
     render() {
-        const time = new Date();
-        const item1 = (<Item text={"Testing"} time={time.toString()}/>);
+
+        const time = new Date("Sat May 27 2017 17:37:59 GMT+0800");
+        const time_str = timeTransfer(time);
+        const item1 = (<Item text={"努力不一定會成功，但是不努力的話，就會很輕鬆喔～"} time={time_str}/>);
 
         return (
             <div id="favorpage">
@@ -42,7 +44,8 @@ class Item extends React.Component {
     // time // text //
     static propTypes = {
         time: PropTypes.string.isRequired,
-        text: PropTypes.string.isRequired
+        text: PropTypes.string.isRequired,
+        color: PropTypes.string
     };
 
     constructor(props) {
@@ -56,7 +59,7 @@ class Item extends React.Component {
                 <div className="content">
                     <h4 className="text">{this.props.text}</h4>
                     <p>
-                        <i><i className="fa fa-clock-o"></i>{this.props.time}</i>
+                        <i><i className="fa fa-clock-o">&nbsp;&nbsp;</i>{this.props.time}</i>
                         <br/>
                     </p>
                 </div>
@@ -64,4 +67,22 @@ class Item extends React.Component {
             </li>
         );
     }
+}
+
+function timeTransfer(time){
+
+    var Y = (time.getYear()+1900).toString();
+    var M = (time.getMonth()+1).toString();
+    var dd = time.getDate();
+    var hh = time.getHours();
+    var mm = time.getMinutes();
+
+    dd = (dd < 10)?('0'+dd.toString()):dd.toString();
+    hh = (hh == 0)?'00':
+         (hh < 10)?('0'+hh.toString()):hh.toString();
+    mm = (mm == 0)?'00':
+         (mm < 10)?('0'+mm.toString()):mm.toString();
+
+    var str = Y + "-" + M + '-' + dd + " " + hh + ":" + mm;
+    return str;
 }
