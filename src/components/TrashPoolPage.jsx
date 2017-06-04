@@ -160,8 +160,8 @@ class Pause extends React.Component {
                             float: 'center',
                             width: '200px',
                             height: "auto",
-                            padding: "10px",
-                            borderRadius: "10px",
+                            padding: "8px",
+                            borderRadius: "11px",
                             position: "absolute",
                             left: this.props.style.left,
                             top: this.props.style.top,
@@ -171,7 +171,7 @@ class Pause extends React.Component {
                         }}
                         className="disable"
                         onClick={() => this.handle()}>
-                        <CardText><h2 style={{color: "yellow"}}>{this.props.text}</h2></CardText>
+                        <h4><CardText style={{color: "yellow"}}>{this.props.text}</CardText></h4>
                         <Button className="hvr-grow" onClick={() => this.handleLike(this.props.id)}>收藏</Button>
                     </Card>
             );
@@ -248,8 +248,8 @@ class Item extends React.Component {
                             float: 'center',
                             width: '200px',
                             height: "auto",
-                            padding: "5px",
-                            borderRadius: "15px",
+                            padding: "8px",
+                            borderRadius: "11px",
                             transform: `scale(${data.scale})`,
                             background: data.color,
                             position: "absolute",
@@ -260,7 +260,7 @@ class Item extends React.Component {
                         id={"i_" + this.props.id}
                         className="disable"
                         onClick={() => this.handle()}>
-                        <CardText><h2 style={{color: data.textcolor}}>{this.props.text}</h2></CardText>
+                        <h4><CardText style={{color: data.textcolor}}>{this.props.text}</CardText></h4>
                     </Card>
                 )}
             </Animate>

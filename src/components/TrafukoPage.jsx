@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {FormGroup, Input, Container, Row, Col} from 'reactstrap';
+import {FormGroup, Input} from 'reactstrap';
 import {connect} from 'react-redux';
 
 import PostForm from 'components/PostForm.jsx';
@@ -80,7 +80,7 @@ class TrafukoPage extends React.Component {
     render() {
         const page = this.props.runtextPage;
         const data = this.props.Data.slice(page * runNum, Math.min((page + 1) * runNum, this.props.Data.length - 1));
-        const showList = this.props.runtext ? data.map(a => <RunText text={a.text} key={a.id}/>) : <div></div>;
+        const showList = this.props.runtext ? data.map(a => <RunText text={a.text} color={a.color} key={a.id} id={a.id}/>) : <div></div>;
         return (
             <div className = "trafuko">
                 <FormGroup>
@@ -97,28 +97,22 @@ class TrafukoPage extends React.Component {
                             </AccordionItemBody>
                         </AccordionItem>
                     </Accordion>
-                    <Container className="togglebox">
-                        <Row>
-                            <Col>
-                                <label className="togglebtn">
-                                    <Toggle
-                                      defaultChecked={false}
-                                      className="red"
-                                      onChange={this.handleClick} />
-                                      <div className={(this.props.inputDanger && !this.props.agreeCheck) ? "label error" : "label"}>&nbsp;我同意上述規範</div>
-                                </label>
-                            </Col>
-                            <Col ms="auto">
-                                <label className="togglebtn">
-                                    <Toggle
-                                      defaultChecked={(screen.width >= 700) ? true : false}
-                                      icons={false}
-                                      onChange={this.runtextClick} />
-                                    <div className="label">&nbsp;顯示彈幕</div>
-                                </label>
-                            </Col>
-                        </Row>
-                    </Container>
+                    <div className="togglebox">
+                        <label className="togglebtn rule">
+                            <Toggle
+                              defaultChecked={false}
+                              className="red"
+                              onChange={this.handleClick} />
+                              <div className={(this.props.inputDanger && !this.props.agreeCheck) ? "label error" : "label"}>&nbsp;我同意上述規範</div>
+                        </label>
+                        <label className="togglebtn runtext">
+                            <Toggle
+                              defaultChecked={(screen.width >= 700) ? true : false}
+                              icons={false}
+                              onChange={this.runtextClick} />
+                            <div className="label">&nbsp;顯示彈幕</div>
+                        </label>
+                    </div>
                 </FormGroup>
                 <PostForm agreeCheck={this.props.isAgree} firebase={this.props.firebase}/>
                 {showList}

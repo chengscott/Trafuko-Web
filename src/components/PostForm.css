@@ -6,6 +6,7 @@
 }
 
 .postFormDisplay .TextArea {
+    font-size: 1.3rem;
     display: inline-block;
     min-width: 160px;
     width: 90%;

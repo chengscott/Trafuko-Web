@@ -9,13 +9,20 @@ input {
     margin-bottom: 10px;
 }
 
+.rankpage .table {
+    border-color: black;
+}
+
 .rankpage .statusbtn {
     cursor: pointer;
 }
 
+.rankpage .activebtn {
+    z-index: 0 !important;
+}
+
 .rankpage .active {
-    background-color: #673ab7 !important;
-    color: white !important;
+    background-color: #4db6ac !important;
 }
 
 .rankpage .clickHand {
@@ -23,13 +30,18 @@ input {
 }
 
 .rankpage .tableTitle {
-    background: #673ab7;
+    background: #D1C4E9;
     color: white;
 }
 
 .rankpage .tableEntry {
-    background: #d1c4e9;
+    background: #e0f2f1;
     color: black;
+}
+
+.rankpage .tableEntry .likebox {
+    width: 4rem;
+    font-weight: bold;
 }
 
 #id_content .z-index-modify {

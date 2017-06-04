@@ -25,8 +25,8 @@ export default class Background extends React.Component {
                         <div className="bgg"></div>
                         <img className="layer bg" data-depth="0.30" id="logo" src="./images/logo.svg"></img>
                 <div id="scene" className="obj bg" style={{width: "100%", height: "100%"}}>
-                        <img className="layer bg" data-depth="0.80" id="o6" src="./images/6.png"></img>
-                        <img className="layer bg" data-depth="1.00" id="o2" src="./images/2.png"></img>
+                        <img className="layer bg" data-depth="0.30" id="o6" src="./images/6.png"></img>
+                        <img className="layer bg" data-depth="0.80" id="o2" src="./images/2.png"></img>
                         <img className="layer bg" data-depth="0.10" id="o3" src="./images/3.png"></img>
                         <img className="layer bg" data-depth="0.40" id="o4" src="./images/4.png"></img>
                         <img className="layer bg" data-depth="0.35" id="o5" src="./images/5.png"></img>
