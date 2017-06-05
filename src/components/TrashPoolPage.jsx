@@ -159,9 +159,9 @@ class Pause extends React.Component {
                 id: id,
                 ts: now.toString()
             });
-            console("add to favor list");
+            console.log("add to favor list");
         }else {
-            console("login to get the benifit of favor list");
+            console.log("login to get the benifit of favor list");
         }
     }
 
