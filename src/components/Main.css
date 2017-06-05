@@ -44,6 +44,8 @@ body {
 }
 
 #id_content {
+
+    vertical-align: middle;
     padding-top: 36px;
     padding-bottom: 36px;
     box-sizing: inherit;
