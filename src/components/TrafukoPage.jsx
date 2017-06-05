@@ -66,6 +66,7 @@ class TrafukoPage extends React.Component {
     }
 
     componentWillUnmount() {
+        this.props.firebase.ref('posts').off();
         clearInterval(this.reRender);
     }
 

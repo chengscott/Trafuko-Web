@@ -42,7 +42,9 @@ export default class RankPage extends React.Component {
             this.setState({Data: objToarr(snapshot.val())});
         });
     }
-
+    componentWillUnmount() {
+        this.props.firebase.ref('posts').off();
+    }
     changePage(page) {
         const showlen = (this.state.status == "top") ? 100 : 10;
         const page_num = Math.ceil(showlen/this.state.npp);

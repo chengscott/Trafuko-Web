@@ -24,7 +24,7 @@ export default class FavorPage extends React.Component {
         this.props.wrap(false); // overflow: auto
         this.props.auth().onAuthStateChanged((firebaseUser) => {
             if (firebaseUser) {
-                this.props.firebase.ref('/fav/'+firebaseUser.uid).on('value', snapshot => {
+                this.props.firebase.ref('/fav/'+firebaseUser.uid).once('value').then(snapshot => {
                     let arr = objToarr(snapshot.val());
                     arr.forEach(function(element){
                         this.getFavList(firebaseUser.uid,element.id,element.ts);
@@ -35,7 +35,7 @@ export default class FavorPage extends React.Component {
     }
 
     getFavList(uid,pid,ts){
-        this.props.firebase.ref('/posts/' + pid).on('value', (snapshot) =>{
+        this.props.firebase.ref('/posts/' + pid).once('value').then((snapshot) =>{
             let val = snapshot.val();
             if(val !== null) {
                 let obj = {

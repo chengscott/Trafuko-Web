@@ -8,7 +8,7 @@ import './TrashPoolPage.css';
 export default class TrashPoolPage extends React.Component {
 
     static propTypes = {
-        userid: PropTypes.string.isRequired,
+        auth: PropTypes.func.isRequired,
         firebase: PropTypes.object.isRequired,
         wrap: PropTypes.func.isRequired
     };
@@ -27,6 +27,7 @@ export default class TrashPoolPage extends React.Component {
             style: {},
             ifPause: false,
             ptext: "",
+            userid: "",
             id: "",
             clicked: false,
             Data: []
@@ -49,23 +50,36 @@ export default class TrashPoolPage extends React.Component {
             () => this.tick(),
             5000
         );
+        this.props.auth().onAuthStateChanged(firebaseUser=>{
+            if(firebaseUser){
+                if(firebaseUser.uid != this.state.userid){
+                    this.setState({
+                        userid: firebaseUser.uid
+                    });
+                }
+            }
+        });
         this.props.firebase.ref('posts').on('value', snapshot => {
             this.setState({Data: objToarr(snapshot.val())});
         });
     }
 
     componentWillUnmount() {
+        this.props.firebase.ref('posts').off();
         clearInterval(this.reRender);
     }
 
     handleClickout(e) {
 
-        if (!document.getElementById('PauseBox').contains(e.target)) {
-            if (!this.state.clicked) {
-                window.removeEventListener('click', this.handleClickout);
-                this.setState({ifPause: false});
+        if(e != null){
+            let pauseBox = document.getElementById('PauseBox');
+            if (pauseBox != null && !pauseBox.contains(e.target)) {
+                if (!this.state.clicked) {
+                    window.removeEventListener('click', this.handleClickout);
+                    this.setState({ifPause: false});
+                }
+                this.setState({clicked: false});
             }
-            this.setState({clicked: false});
         }
     }
 
@@ -123,7 +137,7 @@ export default class TrashPoolPage extends React.Component {
         const items6 = data6.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s6} pause={this.capture}/>));
         return (
             <div className="trashPool">
-                <Pause  firebase={this.props.firebase} userid={this.props.userid} style={this.state.style} ifPause={this.state.ifPause} text={this.state.ptext} id={this.state.id}/>
+                <Pause  firebase={this.props.firebase} userid={this.state.userid} style={this.state.style} ifPause={this.state.ifPause} text={this.state.ptext} id={this.state.id}/>
                 {items1}
                 {items2}
                 {items3}

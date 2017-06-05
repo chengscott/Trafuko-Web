@@ -168,17 +168,17 @@ class Main extends React.Component {
                                                 <NavLink style={{cursor:"pointer"}} onClick={() => this.signIn()}><i className="fa fa-user-o" aria-hidden="true"></i></NavLink>
                                             )*/
                                         }
-                                        {/*this.props.logtxt == "登出"?(
+                                        {this.props.logtxt == "登出"?(
                                                 <NavLink tag={Link} to='/Favor'>收藏列表&nbsp;<i className="fa fa-circle" aria-hidden="true"></i></NavLink>
                                             ):(
                                                 <NavLink style={{cursor:"pointer"}} onClick={() => {this.toggleInfo();this.signIn();}} >收藏列表&nbsp;<i className="fa fa-circle-o" aria-hidden="true"></i></NavLink>
-                                            )*/
+                                            )
                                         }
                                     </NavItem>
-                                    {/*this.props.logtxt == "登出" &&
+                                    {this.props.logtxt == "登出" &&
                                         <NavItem>
                                             <NavLink tag={Link} to='/' onClick={() => this.signOut()} >登出</NavLink>
-                                        </NavItem>*/
+                                        </NavItem>
                                     }
                                 </Nav>
                             </Collapse>
@@ -193,7 +193,7 @@ class Main extends React.Component {
                                 <RankPage firebase={fb} wrap={this.setwrapEnable}/>
                             )}/>
                         <Route exact path="/TrashPool" render={() => (
-                                <TrashPoolPage userid={this.props.userid} firebase={fb} wrap={this.setwrapEnable}/>
+                                <TrashPoolPage auth={firebase.auth} userid={this.props.userid} firebase={fb} wrap={this.setwrapEnable}/>
                             )}/>
                         <Route exact path="/Favor" render={() => (
                                 <FavorPage auth={firebase.auth} firebase={fb} wrap={this.setwrapEnable}/>
