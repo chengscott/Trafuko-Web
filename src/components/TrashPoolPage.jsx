@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Card, Button, CardText} from 'reactstrap';
+import {Card, CardText} from 'reactstrap';
 import {Animate} from 'react-move';
 
 import './TrashPoolPage.css';
@@ -35,6 +35,7 @@ export default class TrashPoolPage extends React.Component {
         this.tick = this.tick.bind(this);
         this.capture = this.capture.bind(this);
         this.handleClickout = this.handleClickout.bind(this);
+        this.handleLike = this.handleLike.bind(this);
         this.s1 = 0;
         this.s2 = 1;
         this.s3 = 2;
@@ -120,6 +121,25 @@ export default class TrashPoolPage extends React.Component {
         window.addEventListener('click', this.handleClickout);
     }
 
+    handleLike(id) {
+        if (this.state.userid !== "") {
+
+            const now = new Date();
+            this.props.firebase.ref('fav/' + this.state.userid +'/' + id).set({
+                id: id,
+                ts: now.toString()
+            });
+            //console.log("add to favor list");
+        } else {
+            //console.log("login to get the benifit of favor list");
+        }
+    }
+
+    checkIfLike(id) {
+        id;
+        return false;
+    }
+
     render() {
         const showNum = this.state.showNum;
         const data1 = this.state.Data.slice( this.state.a * showNum, (this.state.a + 1) * showNum);
@@ -129,15 +149,20 @@ export default class TrashPoolPage extends React.Component {
         const data5 = this.state.Data.slice( this.state.e * showNum, (this.state.e + 1) * showNum);
         const data6 = this.state.Data.slice( this.state.f * showNum, (this.state.f + 1) * showNum);
 
-        const items1 = data1.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s1} pause={this.capture}/>));
-        const items2 = data2.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s2} pause={this.capture}/>));
-        const items3 = data3.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s3} pause={this.capture}/>));
-        const items4 = data4.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s4} pause={this.capture}/>));
-        const items5 = data5.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s5} pause={this.capture}/>));
-        const items6 = data6.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s6} pause={this.capture}/>));
+        const items1 = data1.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s1} pause={this.capture} ifLiked={this.checkIfLike(a.id)}/>));
+        const items2 = data2.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s2} pause={this.capture} ifLiked={this.checkIfLike(a.id)}/>));
+        const items3 = data3.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s3} pause={this.capture} ifLiked={this.checkIfLike(a.id)}/>));
+        const items4 = data4.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s4} pause={this.capture} ifLiked={this.checkIfLike(a.id)}/>));
+        const items5 = data5.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s5} pause={this.capture} ifLiked={this.checkIfLike(a.id)}/>));
+        const items6 = data6.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s6} pause={this.capture} ifLiked={this.checkIfLike(a.id)}/>));
         return (
             <div className="trashPool">
-                <Pause  firebase={this.props.firebase} userid={this.state.userid} style={this.state.style} ifPause={this.state.ifPause} text={this.state.ptext} id={this.state.id}/>
+                <Pause style={this.state.style}
+                       ifPause={this.state.ifPause}
+                       text={this.state.ptext}
+                       id={this.state.id}
+                       ifLiked={this.checkIfLike(this.state.id)}
+                       like={this.handleLike}/>
                 {items1}
                 {items2}
                 {items3}
@@ -152,31 +177,16 @@ export default class TrashPoolPage extends React.Component {
 class Pause extends React.Component {
 
     static propTypes = {
-        firebase: PropTypes.object.isRequired,
-        userid: PropTypes.string.isRequired,
         style: PropTypes.object,
         id: PropTypes.string,
         ifPause: PropTypes.bool,
-        text: PropTypes.string
+        text: PropTypes.string,
+        ifLiked: PropTypes.bool,
+        like: PropTypes.func
     };
 
     constructor(props) {
         super(props);
-        this.handleLike = this.handleLike.bind(this);
-    }
-
-    handleLike(id) {
-        if (this.props.userid !== "") {
-
-            const now = new Date();
-            this.props.firebase.ref('fav/' + this.props.userid +'/' + id).set({
-                id: id,
-                ts: now.toString()
-            });
-            console.log("add to favor list");
-        }else {
-            console.log("login to get the benifit of favor list");
-        }
     }
 
     render() {
@@ -186,21 +196,33 @@ class Pause extends React.Component {
                         id="PauseBox"
                         style={{
                             float: 'center',
-                            width: '200px',
+                            width: '187px',
                             height: "auto",
                             padding: "8px",
                             borderRadius: "11px",
                             position: "absolute",
                             left: this.props.style.left,
                             top: this.props.style.top,
-                            background: "linear-gradient(to right, #0575E6, #021B79)",
+                            background: "#76FF03",
                             zIndex: 1,
                             display: this.props.ifPause ? "" : "none"
                         }}
                         className="disable"
                         /*onClick={() => this.props.clickOut()}*/>
-                        <h4><CardText style={{color: "yellow"}}>{this.props.text}</CardText></h4>
-                        <Button className="hvr-grow" onClick={() => this.handleLike(this.props.id)}>收藏</Button>
+                        <h4><CardText style={{color: "black"}}>{this.props.text}</CardText></h4>
+                        <h4 className="addLikeBox">
+                        { (!this.ifLiked) &&
+                        <i className="fa fa-bookmark-o"
+                           aria-hidden="true"
+                           onClick={() => this.props.like(this.props.id)}>
+                        </i>
+                        }
+                        { (this.ifLiked) &&
+                        <i className="fa fa-bookmark"
+                           aria-hidden="true">
+                        </i>
+                        }
+                        </h4>
                     </Card>
             );
         } else return <div id="PauseBox"></div>;
@@ -213,7 +235,8 @@ class Item extends React.Component {
         text: PropTypes.string.isRequired,
         status: PropTypes.number.isRequired,
         id: PropTypes.string.isRequired,
-        pause: PropTypes.func
+        pause: PropTypes.func,
+        ifLiked: PropTypes.bool
     };
 
     constructor(props) {
@@ -271,7 +294,7 @@ class Item extends React.Component {
                     <Card
                         style={{
                             float: 'center',
-                            width: '200px',
+                            width: '187px',
                             height: "auto",
                             padding: "8px",
                             borderRadius: "11px",
@@ -286,6 +309,18 @@ class Item extends React.Component {
                         className="disable"
                         onClick={() => this.handle()}>
                         <h4><CardText style={{color: data.textcolor}}>{this.props.text}</CardText></h4>
+                        <h4 className="addLikeBox">
+                        { (!this.props.ifLiked) &&
+                        <i className="fa fa-bookmark-o"
+                           aria-hidden="true">
+                        </i>
+                        }
+                        { (this.props.ifLiked) &&
+                        <i className="fa fa-bookmark"
+                           aria-hidden="true">
+                        </i>
+                        }
+                        </h4>
                     </Card>
                 )}
             </Animate>

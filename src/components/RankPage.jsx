@@ -187,13 +187,13 @@ const Box = (props) => (
     <tr className="tableEntry">
         <th className="likebox">{props.order}&nbsp;&nbsp;
             { (!props.ifLiked) &&
-            <i className="fa fa-bookmark-o hvr-bounce-in"
+            <i className="fa fa-bookmark-o"
                aria-hidden="true"
                onClick={() => props.like(props.id)}>
             </i>
             }
             { (props.ifLiked) &&
-            <i className="fa fa-bookmark hvr-bounce-in"
+            <i className="fa fa-bookmark"
                aria-hidden="true">
             </i>
             }
