@@ -99,7 +99,7 @@ class Item extends React.Component {
         const favtime = fecha.format(time, "YYYY-MM-DD");
         const show = (this.state.showable)?'none':'block';
         return (
-            <li style={{display:show}} className="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+            <li style={{display:show}} className="col-xs-12 col-sm-6 col-md-6 col-lg-4 fade-in">
                 <div className="ui-history-close fa fa-close fa-fw" onClick={()=>this.deleteFav(this.props.post.id)}></div>
                 <div className="item">
                 <div className="content">
