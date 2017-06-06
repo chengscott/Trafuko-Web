@@ -26,6 +26,11 @@ export default class FavorPage extends React.Component {
             if (firebaseUser) {
                 this.props.firebase.ref('/fav/'+firebaseUser.uid).once('value').then(snapshot => {
                     let arr = objToarr(snapshot.val());
+                    arr.sort(function(a,b){
+                        let a_t = new Date(a.ts);
+                        let b_t = new Date(b.ts);
+                        return b_t.getTime() - a_t.getTime();
+                    });
                     arr.forEach(function(element){
                         this.getFavList(firebaseUser.uid,element.id,element.ts);
                     }.bind(this));
