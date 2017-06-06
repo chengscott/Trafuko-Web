@@ -100,12 +100,12 @@ class Main extends React.Component {
     }
 
     toggleModal_A(e) {
-        e.preventDefault();
+        if(e !== undefined) e.preventDefault();
         this.props.dispatch(toggleModal_a());
     }
 
     toggleModal_L(e) {
-        e.preventDefault();
+        if(e !== undefined) e.preventDefault();
         this.props.dispatch(toggleModal_l());
     }
 
@@ -118,6 +118,9 @@ class Main extends React.Component {
             fbsdk.login().then(info => {
                 this.props.dispatch(setUserid(info.uid));
                 this.props.dispatch(setLogTxt("登出"));
+                setTimeout(()=>{
+                    this.props.dispatch(toggleModal_Info());
+                },500);
             });
         }
     }

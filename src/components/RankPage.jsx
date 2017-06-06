@@ -92,19 +92,6 @@ export default class RankPage extends React.Component {
         }
     }
 
-    checkIfLike(id) {
-        this.props.firebase.ref('/fav/' + this.state.userid).once('value').then((snapshot) => {
-            let val = snapshot.val();
-            if (val !== null) {
-                for (let x in val) {
-                    if (x === id) {
-                    }
-                }
-            }
-        });
-        return false;
-    }
-
     render() {
         let btnarr = [];
         const status = this.state.status;
@@ -260,7 +247,7 @@ class Box extends React.Component {
                 </th>
                 <td className="font">{this.props.text}</td>
             </tr>
-            );
+        );
     }
 }
 

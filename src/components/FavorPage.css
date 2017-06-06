@@ -9,6 +9,8 @@
 
 
 .title {
+
+    font-family: 'Play', sans-serif;
     text-align: center;
     margin-bottom: 4%;
 }
@@ -41,6 +43,7 @@
 }
 
 .item {
+
     padding: 5px 25px;
     margin: 10px 0;
     background: white;
@@ -53,7 +56,7 @@
 }
 
 .content {
-    padding-top: 10%;
+    padding-top: 7%;
 }
 
 .text {
@@ -102,4 +105,27 @@
     min-height: 1px;
     padding-right: 15px;
     padding-left: 15px;
+}
+
+@keyframes fade {
+  0%   { opacity:0; }
+  100% { opacity:1; }
+}
+@-o-keyframes fade{
+  0%  { opacity:0; }
+  100% { opacity:1; }
+}
+@-moz-keyframes fade{
+  0%   { opacity:0; }
+  100% { opacity:1; }
+}
+@-webkit-keyframes fade{
+  0%   { opacity:0; }
+  100% { opacity:1; }
+}
+.fade-in{
+   -webkit-animation: fade 0.6s linear;
+   -moz-animation: fade 0.6s linear;
+   -o-animation: fade 0.6s linear;
+    animation: fade 0.6s linear;
 }
