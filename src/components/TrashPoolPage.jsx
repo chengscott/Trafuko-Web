@@ -29,13 +29,14 @@ export default class TrashPoolPage extends React.Component {
             ptext: "",
             userid: "",
             id: "",
-            clicked: false,
+            PIL: false,
             Data: []
         };
         this.tick = this.tick.bind(this);
         this.capture = this.capture.bind(this);
         this.handleClickout = this.handleClickout.bind(this);
         this.handleLike = this.handleLike.bind(this);
+        this.setPIL = this.setPIL.bind(this);
         this.s1 = 0;
         this.s2 = 1;
         this.s3 = 2;
@@ -43,6 +44,7 @@ export default class TrashPoolPage extends React.Component {
         this.s5 = 4;
         this.s6 = 5;
         this.index = 5;
+        this.clicked = false;
     }
 
     componentDidMount() {
@@ -71,15 +73,14 @@ export default class TrashPoolPage extends React.Component {
     }
 
     handleClickout(e) {
-
         if(e != null){
             let pauseBox = document.getElementById('PauseBox');
             if (pauseBox != null && !pauseBox.contains(e.target)) {
-                if (!this.state.clicked) {
+                if (!this.clicked) {
                     window.removeEventListener('click', this.handleClickout);
                     this.setState({ifPause: false});
                 }
-                this.setState({clicked: false});
+                this.clicked = false;
             }
         }
     }
@@ -115,15 +116,20 @@ export default class TrashPoolPage extends React.Component {
             style: style,
             ifPause: true,
             ptext: text,
-            id: id,
-            clicked: true
+            id: id
         });
+        this.clicked = true;
         window.addEventListener('click', this.handleClickout);
     }
 
-    handleLike(id) {
-        if (this.state.userid !== "") {
+    setPIL(value) {
+        this.setState({PIL: value});
+    }
 
+    handleLike(id) {
+        this.clicked = true;
+        if (this.state.userid !== "") {
+            this.setState({PIL: true});
             const now = new Date();
             this.props.firebase.ref('fav/' + this.state.userid +'/' + id).set({
                 id: id,
@@ -135,11 +141,6 @@ export default class TrashPoolPage extends React.Component {
         }
     }
 
-    checkIfLike(id) {
-        id;
-        return false;
-    }
-
     render() {
         const showNum = this.state.showNum;
         const data1 = this.state.Data.slice( this.state.a * showNum, (this.state.a + 1) * showNum);
@@ -149,20 +150,20 @@ export default class TrashPoolPage extends React.Component {
         const data5 = this.state.Data.slice( this.state.e * showNum, (this.state.e + 1) * showNum);
         const data6 = this.state.Data.slice( this.state.f * showNum, (this.state.f + 1) * showNum);
 
-        const items1 = data1.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s1} pause={this.capture} ifLiked={this.checkIfLike(a.id)}/>));
-        const items2 = data2.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s2} pause={this.capture} ifLiked={this.checkIfLike(a.id)}/>));
-        const items3 = data3.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s3} pause={this.capture} ifLiked={this.checkIfLike(a.id)}/>));
-        const items4 = data4.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s4} pause={this.capture} ifLiked={this.checkIfLike(a.id)}/>));
-        const items5 = data5.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s5} pause={this.capture} ifLiked={this.checkIfLike(a.id)}/>));
-        const items6 = data6.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s6} pause={this.capture} ifLiked={this.checkIfLike(a.id)}/>));
+        const items1 = data1.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s1} pause={this.capture} firebase={this.props.firebase} userid={this.state.userid} setPIL={this.setPIL}/>));
+        const items2 = data2.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s2} pause={this.capture} firebase={this.props.firebase} userid={this.state.userid} setPIL={this.setPIL}/>));
+        const items3 = data3.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s3} pause={this.capture} firebase={this.props.firebase} userid={this.state.userid} setPIL={this.setPIL}/>));
+        const items4 = data4.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s4} pause={this.capture} firebase={this.props.firebase} userid={this.state.userid} setPIL={this.setPIL}/>));
+        const items5 = data5.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s5} pause={this.capture} firebase={this.props.firebase} userid={this.state.userid} setPIL={this.setPIL}/>));
+        const items6 = data6.map(a => (<Item text={a.text} key={a.id} id={a.id} status={this.s6} pause={this.capture} firebase={this.props.firebase} userid={this.state.userid} setPIL={this.setPIL}/>));
         return (
             <div className="trashPool">
                 <Pause style={this.state.style}
                        ifPause={this.state.ifPause}
                        text={this.state.ptext}
                        id={this.state.id}
-                       ifLiked={this.checkIfLike(this.state.id)}
-                       like={this.handleLike}/>
+                       like={this.handleLike}
+                       ifLiked={this.state.PIL}/>
                 {items1}
                 {items2}
                 {items3}
@@ -181,8 +182,8 @@ class Pause extends React.Component {
         id: PropTypes.string,
         ifPause: PropTypes.bool,
         text: PropTypes.string,
-        ifLiked: PropTypes.bool,
-        like: PropTypes.func
+        like: PropTypes.func,
+        ifLiked: PropTypes.bool
     };
 
     constructor(props) {
@@ -211,13 +212,13 @@ class Pause extends React.Component {
                         /*onClick={() => this.props.clickOut()}*/>
                         <h4><CardText style={{color: "black"}}>{this.props.text}</CardText></h4>
                         <h4 className="addLikeBox">
-                        { (!this.ifLiked) &&
-                        <i className="fa fa-bookmark-o"
+                        { (!this.props.ifLiked) &&
+                        <i className="fa fa-bookmark-o clickHand"
                            aria-hidden="true"
                            onClick={() => this.props.like(this.props.id)}>
                         </i>
                         }
-                        { (this.ifLiked) &&
+                        { (this.props.ifLiked) &&
                         <i className="fa fa-bookmark"
                            aria-hidden="true">
                         </i>
@@ -236,14 +237,17 @@ class Item extends React.Component {
         status: PropTypes.number.isRequired,
         id: PropTypes.string.isRequired,
         pause: PropTypes.func,
-        ifLiked: PropTypes.bool
+        firebase: PropTypes.object.isRequired,
+        userid: PropTypes.string,
+        setPIL: PropTypes.func
     };
 
     constructor(props) {
         super(props);
         this.state = {
             style: change(this.props.status),
-            show: true
+            show: true,
+            ifLiked: false
         };
         this.status = this.props.status;
         this.handle = this.handle.bind(this);
@@ -252,12 +256,23 @@ class Item extends React.Component {
 
     componentDidMount() {
         this.change = setInterval(() => this.tick(), 5000);
+        this.props.firebase.ref('/fav/' + this.props.userid).once('value').then((snapshot) => {
+            let val = snapshot.val();
+            if (val !== null) {
+                for (let x in val) {
+                    if (x === this.props.id) {
+                        this.setState({ifLiked: true});
+                    }
+                }
+            }
+        });
     }
 
     handle() {
         let style = document.getElementById("i_" + this.props.id).style;
         style.color = this.state.style.color;
         style.textcolor = this.state.style.textcolor;
+        this.props.setPIL(this.state.ifLiked);
         this.props.pause(style, this.props.text, this.props.id);
         this.setState({show: false, style: style});
         clearInterval(this.change);
@@ -310,12 +325,12 @@ class Item extends React.Component {
                         onClick={() => this.handle()}>
                         <h4><CardText style={{color: data.textcolor}}>{this.props.text}</CardText></h4>
                         <h4 className="addLikeBox">
-                        { (!this.props.ifLiked) &&
+                        { (!this.state.ifLiked) &&
                         <i className="fa fa-bookmark-o"
                            aria-hidden="true">
                         </i>
                         }
-                        { (this.props.ifLiked) &&
+                        { (this.state.ifLiked) &&
                         <i className="fa fa-bookmark"
                            aria-hidden="true">
                         </i>

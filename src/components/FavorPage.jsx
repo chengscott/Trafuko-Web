@@ -24,20 +24,21 @@ export default class FavorPage extends React.Component {
         this.props.wrap(false); // overflow: auto
         this.props.auth().onAuthStateChanged((firebaseUser) => {
             if (firebaseUser) {
-                this.props.firebase.ref('/fav/'+firebaseUser.uid).once('value').then(snapshot => {
+                this.props.firebase.ref('/fav/' + firebaseUser.uid)
+                    .once('value').then(snapshot => {
                     let arr = objToarr(snapshot.val());
-                    arr.forEach(function(element){
-                        this.getFavList(firebaseUser.uid,element.id,element.ts);
-                    }.bind(this));
+                    arr.forEach((element) => {
+                        this.getFavList(firebaseUser.uid, element.id, element.ts);
+                    });
                 });
             }
         });
     }
 
-    getFavList(uid,pid,ts){
+    getFavList(uid, pid, ts) {
         this.props.firebase.ref('/posts/' + pid).once('value').then((snapshot) =>{
             let val = snapshot.val();
-            if(val !== null) {
+            if (val !== null) {
                 let obj = {
                     uid: uid,
                     id: pid,
@@ -53,13 +54,14 @@ export default class FavorPage extends React.Component {
             }
         });
     }
+
     render() {
         //const items = this.state.favlist.map(a=> (<Item text={()=>this.getPost(a.id)} time={a.ts}/>));
-        const items = this.state.favlist.map( a=>(<Item key={a.id} post={a} firebase={this.props.firebase}/>));
+        const items = this.state.favlist.map(a =>(<Item key={a.id} post={a} firebase={this.props.firebase}/>));
         return (
             <div id="favorpage">
                 <div className="title">
-                    <h1> Trafuko favorite list</h1>
+                    <h1>幹話書籤</h1>
                 </div>
                 <ui className="list">
                     {items}
@@ -68,6 +70,7 @@ export default class FavorPage extends React.Component {
         );
     }
 }
+
 class Item extends React.Component {
     // time // text //
     static propTypes = {
@@ -83,19 +86,20 @@ class Item extends React.Component {
         this.deleteFav = this.deleteFav.bind(this);
     }
 
-    deleteFav(id){
-        this.props.firebase.ref('/fav/'+this.props.post.uid+'/'+id).remove();
+    deleteFav(id) {
+        this.props.firebase.ref('/fav/' + this.props.post.uid + '/' + id).remove();
         this.setState({
             showable: true
         });
     }
+
     render() {
         const time = new Date(this.props.post.ts);
         const favtime = fecha.format(time, "YYYY-MM-DD");
-        const show = (this.state.showable)?'none':'block';
+        const show = this.state.showable ? 'none' : 'block';
         return (
             <li style={{display:show}} className="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                <div className="ui-history-close fa fa-close fa-fw" onClick={()=>this.deleteFav(this.props.post.id)}></div>
+                <div className="ui-history-close fa fa-close fa-fw" onClick={() => this.deleteFav(this.props.post.id)}></div>
                 <div className="item">
                 <div className="content">
                     <h4 className="text"

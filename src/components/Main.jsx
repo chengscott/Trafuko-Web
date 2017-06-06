@@ -190,7 +190,7 @@ class Main extends React.Component {
                                 <TrafukoPage firebase={fb} wrap={this.setwrapEnable}/>
                             )}/>
                         <Route exact path="/Rank" render={() => (
-                                <RankPage firebase={fb} wrap={this.setwrapEnable}/>
+                                <RankPage auth={firebase.auth} firebase={fb} wrap={this.setwrapEnable}/>
                             )}/>
                         <Route exact path="/TrashPool" render={() => (
                                 <TrashPoolPage auth={firebase.auth} userid={this.props.userid} firebase={fb} wrap={this.setwrapEnable}/>

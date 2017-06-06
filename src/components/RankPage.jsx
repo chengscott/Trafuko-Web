@@ -18,7 +18,8 @@ export default class RankPage extends React.Component {
 
     static propTypes = {
         firebase: PropTypes.object.isRequired,
-        wrap: PropTypes.func.isRequired
+        wrap: PropTypes.func.isRequired,
+        auth: PropTypes.func.isRequired
     };
 
     constructor(props) {
@@ -28,18 +29,30 @@ export default class RankPage extends React.Component {
             page: 1,
             npp: npp,
             status: "top",
-            Data: []
+            Data: [],
+            userid: "",
+            ifLiked: false
         };
         this.handleSChange = this.handleSChange.bind(this);
         this.changePage = this.changePage.bind(this);
         this.getBtnStart = this.getBtnStart.bind(this);
         this.handleLike = this.handleLike.bind(this);
+        this.ifLiked = false;
     }
 
     componentDidMount() {
         this.props.wrap(false); // overflow: auto
         this.props.firebase.ref('posts').on('value', snapshot => {
             this.setState({Data: objToarr(snapshot.val())});
+        });
+        this.props.auth().onAuthStateChanged(firebaseUser=>{
+            if(firebaseUser){
+                if(firebaseUser.uid != this.state.userid){
+                    this.setState({
+                        userid: firebaseUser.uid
+                    });
+                }
+            }
         });
     }
     componentWillUnmount() {
@@ -66,12 +79,29 @@ export default class RankPage extends React.Component {
     }
 
     handleLike(id) {
-        id;
-        //this.props.firebase.ref('fav')
+        if (this.state.userid !== "") {
+
+            const now = new Date();
+            this.props.firebase.ref('fav/' + this.state.userid +'/' + id).set({
+                id: id,
+                ts: now.toString()
+            });
+            //console.log("add to favor list");
+        } else {
+            //console.log("login to get the benifit of favor list");
+        }
     }
 
     checkIfLike(id) {
-        id;
+        this.props.firebase.ref('/fav/' + this.state.userid).once('value').then((snapshot) => {
+            let val = snapshot.val();
+            if (val !== null) {
+                for (let x in val) {
+                    if (x === id) {
+                    }
+                }
+            }
+        });
         return false;
     }
 
@@ -100,7 +130,8 @@ export default class RankPage extends React.Component {
                  text={each.text}
                  like={this.handleLike}
                  id={each.id}
-                 ifLiked={this.checkIfLike(each.id)}
+                 userid={this.state.userid}
+                 firebase={this.props.firebase}
             />);
         return(
             <div className="rankpage">
@@ -183,31 +214,63 @@ export default class RankPage extends React.Component {
     }
 }
 
-const Box = (props) => (
-    <tr className="tableEntry">
-        <th className="likebox">{props.order}&nbsp;&nbsp;
-            { (!props.ifLiked) &&
-            <i className="fa fa-bookmark-o"
-               aria-hidden="true"
-               onClick={() => props.like(props.id)}>
-            </i>
+class Box extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            ifLiked: false
+        };
+        this.clickLike = this.clickLike.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.firebase.ref('/fav/' + this.props.userid).once('value').then((snapshot) => {
+            let val = snapshot.val();
+            if (val !== null) {
+                for (let x in val) {
+                    if (x === this.props.id) {
+                        this.setState({ifLiked: true});
+                    }
+                }
             }
-            { (props.ifLiked) &&
-            <i className="fa fa-bookmark"
-               aria-hidden="true">
-            </i>
-            }
-        </th>
-        <td className="font">{props.text}</td>
-    </tr>
-);
+        });
+    }
+
+    clickLike() {
+        this.setState({ifLiked: true});
+        this.props.like(this.props.id);
+    }
+
+    render() {
+        return (
+            <tr className="tableEntry">
+                <th className="likebox">{this.props.order}&nbsp;&nbsp;
+                    { (!this.state.ifLiked) &&
+                    <i className="fa fa-bookmark-o clickHand"
+                       aria-hidden="true"
+                       onClick={this.clickLike}>
+                    </i>
+                    }
+                    { (this.state.ifLiked) &&
+                    <i className="fa fa-bookmark"
+                       aria-hidden="true">
+                    </i>
+                    }
+                </th>
+                <td className="font">{this.props.text}</td>
+            </tr>
+            );
+    }
+}
 
 Box.propTypes = {
     order: PropTypes.number.isRequired,
     text: PropTypes.string.isRequired,
     like: PropTypes.func,
     id: PropTypes.string,
-    ifLiked: PropTypes.bool
+    firebase: PropTypes.object.isRequired,
+    userid: PropTypes.string
 };
 
 function compare(a, b) {
