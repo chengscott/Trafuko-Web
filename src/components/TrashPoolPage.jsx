@@ -11,7 +11,8 @@ export default class TrashPoolPage extends React.Component {
         auth: PropTypes.func.isRequired,
         firebase: PropTypes.object.isRequired,
         wrap: PropTypes.func.isRequired,
-        logIn: PropTypes.func.isRequired
+        logIn: PropTypes.func.isRequired,
+        toggleInfo: PropTypes.func
     };
 
     constructor(props) {
@@ -135,6 +136,7 @@ export default class TrashPoolPage extends React.Component {
             });
             //console.log("add to favor list");
         } else {
+            this.props.toggleInfo();
             this.props.logIn();
             //console.log("login to get the benifit of favor list");
         }
