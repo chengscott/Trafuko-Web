@@ -20,7 +20,8 @@ export default class RankPage extends React.Component {
         firebase: PropTypes.object.isRequired,
         wrap: PropTypes.func.isRequired,
         auth: PropTypes.func.isRequired,
-        logIn: PropTypes.func.isRequired
+        logIn: PropTypes.func.isRequired,
+        toggleInfo: PropTypes.func
     };
 
     constructor(props) {
@@ -89,6 +90,7 @@ export default class RankPage extends React.Component {
             });
             //console.log("add to favor list");
         } else {
+            this.props.toggleInfo();
             this.props.logIn();
             //console.log("login to get the benifit of favor list");
         }
@@ -214,16 +216,18 @@ class Box extends React.Component {
     }
 
     componentDidMount() {
-        this.props.firebase.ref('/fav/' + this.props.userid).once('value').then((snapshot) => {
-            let val = snapshot.val();
-            if (val !== null) {
-                for (let x in val) {
-                    if (x === this.props.id) {
-                        this.setState({ifLiked: true});
+        if (this.props.userid) {
+            this.props.firebase.ref('/fav/' + this.props.userid).once('value').then((snapshot) => {
+                let val = snapshot.val();
+                if (val !== null) {
+                    for (let x in val) {
+                        if (x === this.props.id) {
+                            this.setState({ifLiked: true});
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
     }
 
     clickLike() {
