@@ -5,7 +5,8 @@ const mainInitState = {
     modal_info: false,
     wrapenable: true,
     logtxt: '登入',
-    userid: ''
+    userid: '',
+    Data: []
 };
 
 export function main(state = mainInitState, action) {
@@ -44,6 +45,16 @@ export function main(state = mainInitState, action) {
             return {
                 ...state,
                 userid: action.id
+            };
+        case '@MAIN_GET_DATA':
+            return {
+                ...state,
+                Data: action.Data
+            };
+        case '@MAIN_SET_DATA_IFFAV':
+            return {
+                ...state,
+                Data: action.Data
             };
         default:
             return state;

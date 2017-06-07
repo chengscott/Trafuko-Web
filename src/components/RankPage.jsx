@@ -12,16 +12,24 @@ import {
     NavItem,
     NavLink
 } from 'reactstrap';
+import {connect} from 'react-redux';
 import classnames from 'classnames';
 
-export default class RankPage extends React.Component {
+import {
+    setDataifFav
+} from 'states/main-action.js';
+
+class RankPage extends React.Component {
 
     static propTypes = {
         firebase: PropTypes.object.isRequired,
         wrap: PropTypes.func.isRequired,
         auth: PropTypes.func.isRequired,
         logIn: PropTypes.func.isRequired,
-        toggleInfo: PropTypes.func
+        toggleInfo: PropTypes.func,
+        Data: PropTypes.array,
+        userid: PropTypes.string,
+        dispatch: PropTypes.func
     };
 
     constructor(props) {
@@ -31,8 +39,6 @@ export default class RankPage extends React.Component {
             page: 1,
             npp: npp,
             status: "top",
-            Data: [],
-            userid: "",
             ifLiked: false
         };
         this.handleSChange = this.handleSChange.bind(this);
@@ -44,24 +50,10 @@ export default class RankPage extends React.Component {
 
     componentDidMount() {
         this.props.wrap(false); // overflow: auto
-        this.props.firebase.ref('posts').on('value', snapshot => {
-            this.setState({Data: objToarr(snapshot.val())});
-        });
-        this.props.auth().onAuthStateChanged(firebaseUser => {
-            if (firebaseUser) {
-                if (firebaseUser.uid != this.state.userid) {
-                    this.setState({
-                        userid: firebaseUser.uid
-                    });
-                }
-            }
-        });
     }
-
     componentWillUnmount() {
         this.props.firebase.ref('posts').off();
     }
-
     changePage(page) {
         const showlen = (this.state.status == "top") ? 100 : 10;
         const page_num = Math.ceil(showlen/this.state.npp);
@@ -83,9 +75,17 @@ export default class RankPage extends React.Component {
     }
 
     handleLike(id) {
-        if (this.state.userid !== "") {
+        if (this.props.userid !== "") {
+            let Data = this.props.Data;
+            for (let x in Data) {
+                if (Data[x].id == id) {
+                    Data[x].ifFav = true;
+                    this.props.dispatch(setDataifFav(Data));
+                    break;
+                }
+            }
             const now = new Date();
-            this.props.firebase.ref('fav/' + this.state.userid +'/' + id).set({
+            this.props.firebase.ref('fav/' + this.props.userid +'/' + id).set({
                 id: id,
                 ts: now.toString()
             });
@@ -114,16 +114,17 @@ export default class RankPage extends React.Component {
             </PaginationItem>)
         );
         const npp = this.state.npp;
-        const data = this.state.Data.sort(compare);
-        const showList = data.slice((this.state.page - 1) * npp , Math.min(this.state.page * npp, this.state.Data.length - 1));
+        const DATA = this.props.Data;
+        const data = DATA.sort(compare);
+
+        const showList = data.slice((this.state.page - 1) * npp , Math.min(this.state.page * npp, data.length - 1));
         const listItems = showList.map((each) =>
             <Box order={data.indexOf(each) + 1}
                  key={each.id}
                  text={each.text}
                  like={this.handleLike}
                  id={each.id}
-                 userid={this.state.userid}
-                 firebase={this.props.firebase}
+                 ifFav={each.ifFav}
             />);
         return(
             <div className="rankpage">
@@ -210,43 +211,19 @@ class Box extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            ifLiked: false
-        };
-        this.clickLike = this.clickLike.bind(this);
-    }
-
-    componentDidMount() {
-        if (this.props.userid) {
-            this.props.firebase.ref('/fav/' + this.props.userid).once('value').then((snapshot) => {
-                let val = snapshot.val();
-                if (val !== null) {
-                    for (let x in val) {
-                        if (x === this.props.id) {
-                            this.setState({ifLiked: true});
-                        }
-                    }
-                }
-            });
-        }
-    }
-
-    clickLike() {
-        this.setState({ifLiked: true});
-        this.props.like(this.props.id);
     }
 
     render() {
         return (
             <tr className="tableEntry">
                 <th className="likebox">{this.props.order}&nbsp;&nbsp;
-                    { (!this.state.ifLiked) &&
+                    { (!this.props.ifFav) &&
                     <i className="fa fa-bookmark-o clickHand"
                        aria-hidden="true"
-                       onClick={this.clickLike}>
+                       onClick={() => this.props.like(this.props.id)}>
                     </i>
                     }
-                    { (this.state.ifLiked) &&
+                    { (this.props.ifFav) &&
                     <i className="fa fa-bookmark"
                        aria-hidden="true">
                     </i>
@@ -263,22 +240,14 @@ Box.propTypes = {
     text: PropTypes.string.isRequired,
     like: PropTypes.func,
     id: PropTypes.string,
-    firebase: PropTypes.object.isRequired,
-    userid: PropTypes.string
+    ifFav: PropTypes.bool
 };
 
 function compare(a, b) {
-    if (a.vote < b.vote)
-        return 1;
-    if (a.vote > b.vote)
-        return -1;
-    return 0;
+    return a.vote < b.vote;
 }
 
-function objToarr(obj) {
-    let arr = [];
-    for (let x in obj) {
-        arr.push(obj[x]);
-    }
-    return arr;
-}
+export default connect(state => ({
+    Data: state.main.Data,
+    userid: state.main.userid
+}))(RankPage);

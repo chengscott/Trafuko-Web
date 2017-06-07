@@ -38,7 +38,9 @@ import {
     toggleModal_Info,
     setwrap,
     setLogTxt,
-    setUserid
+    setUserid,
+    setDataifFav,
+    getData
 } from 'states/main-action.js';
 
 import './Main.css';
@@ -62,7 +64,8 @@ class Main extends React.Component {
         wrapenable: PropTypes.bool.isRequired,
         logtxt: PropTypes.string.isRequired,
         userid: PropTypes.string,
-        dispatch: PropTypes.func.isRequired
+        dispatch: PropTypes.func.isRequired,
+        Data: PropTypes.array
     };
 
     constructor(props) {
@@ -75,6 +78,26 @@ class Main extends React.Component {
         this.setwrapEnable = this.setwrapEnable.bind(this);
         this.signIn = this.signIn.bind(this);
         this.signOut = this.signOut.bind(this);
+        this.setData = this.setData.bind(this);
+    }
+
+    componentDidMount() {
+        fb.ref('posts').on('value', snapshot => {
+            this.props.dispatch(getData(objToarr(snapshot.val())));
+        });
+    }
+
+    setData(favList) {
+        let Data = this.props.Data;
+        for (let x in Data) {
+            for (let y in favList) {
+                if (y == Data[x].id) {
+                    Data[x].ifFav = true;
+                    break;
+                }
+            }
+        }
+        this.props.dispatch(setDataifFav(Data));
     }
 
     componentWillMount() {
@@ -83,6 +106,10 @@ class Main extends React.Component {
             if (firebaseUser) {
                 this.props.dispatch(setUserid(firebaseUser.uid));
                 this.props.dispatch(setLogTxt("登出"));
+                fb.ref('/fav/' + firebaseUser.uid).once('value').then((snapshot) => {
+                    let val = snapshot.val();
+                    this.setData(val);
+                });
             }
         });
     }
@@ -112,6 +139,10 @@ class Main extends React.Component {
     signIn() {
         if (this.props.logtxt == "登入") {
             fbsdk.login().then(info => {
+                fb.ref('/fav/' + info.uid).once('value').then((snapshot) => {
+                    let val = snapshot.val();
+                    this.setData(val);
+                });
                 this.props.dispatch(setUserid(info.uid));
                 this.props.dispatch(setLogTxt("登出"));
                 setTimeout(() => {
@@ -174,7 +205,7 @@ class Main extends React.Component {
                                 <TrafukoPage firebase={fb} wrap={this.setwrapEnable}/>
                             )}/>
                         <Route exact path="/Rank" render={() => (
-                                <RankPage toggleInfo={this.toggleInfo} logIn={this.signIn} auth={firebase.auth} firebase={fb} wrap={this.setwrapEnable}/>
+                                <RankPage toggleInfo={this.toggleInfo} logIn={this.signIn} auth={firebase.auth} wrap={this.setwrapEnable} firebase={fb}/>
                             )}/>
                         <Route exact path="/TrashPool" render={() => (
                                 <TrashPoolPage toggleInfo={this.toggleInfo} logIn={this.signIn} auth={firebase.auth} userid={this.props.userid} firebase={fb} wrap={this.setwrapEnable}/>
@@ -230,6 +261,15 @@ class Main extends React.Component {
             </Router>
         );
     }
+}
+
+function objToarr(obj) {
+    let arr = [];
+    for (let x in obj) {
+        obj[x].ifFav = false;
+        arr.push(obj[x]);
+    }
+    return arr;
 }
 
 export default connect(state => ({

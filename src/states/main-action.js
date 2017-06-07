@@ -46,3 +46,17 @@ export function setUserid(id) {
         id: id
     };
 }
+
+export function getData(Data) {
+    return {
+        type: '@MAIN_GET_DATA',
+        Data: Data
+    };
+}
+
+export function setDataifFav(Data) {
+    return {
+        type: '@MAIN_SET_DATA_IFFAV',
+        Data: Data
+    };
+}

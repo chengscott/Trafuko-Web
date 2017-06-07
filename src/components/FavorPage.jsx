@@ -3,13 +3,18 @@ import PropTypes from 'prop-types';
 import fecha from 'fecha';
 
 import './FavorPage.css';
+import {connect} from 'react-redux';
 
-export default class FavorPage extends React.Component {
+import {setDataifFav} from 'states/main-action.js';
+
+class FavorPage extends React.Component {
 
     static propTypes = {
         firebase: PropTypes.object.isRequired,
         auth: PropTypes.func.isRequired,
-        wrap: PropTypes.func.isRequired
+        wrap: PropTypes.func.isRequired,
+        Data: PropTypes.array,
+        dispatch: PropTypes.func
     };
 
     constructor(props) {
@@ -18,6 +23,7 @@ export default class FavorPage extends React.Component {
             favlist: []
         };
         this.getFavList = this.getFavList.bind(this);
+        this.deleteFav = this.deleteFav.bind(this);
     }
 
     componentDidMount() {
@@ -60,9 +66,20 @@ export default class FavorPage extends React.Component {
         });
     }
 
+    deleteFav(id) {
+        let Data = this.props.Data;
+        for (let x in Data) {
+            if (Data[x].id == id) {
+                Data[x].ifFav = false;
+                this.props.dispatch(setDataifFav(Data));
+                break;
+            }
+        }
+    }
+
     render() {
         //const items = this.state.favlist.map(a=> (<Item text={()=>this.getPost(a.id)} time={a.ts}/>));
-        const items = this.state.favlist.map(a =>(<Item key={a.id} post={a} firebase={this.props.firebase}/>));
+        const items = this.state.favlist.map(a =>(<Item key={a.id} post={a} firebase={this.props.firebase} delFav={this.deleteFav}/>));
         return (
             <div id="favorpage">
                 <div className="title">
@@ -80,7 +97,8 @@ class Item extends React.Component {
     // time // text //
     static propTypes = {
         firebase: PropTypes.object.isRequired,
-        post: PropTypes.object.isRequired
+        post: PropTypes.object.isRequired,
+        delFav: PropTypes.func
     };
 
     constructor(props) {
@@ -92,6 +110,7 @@ class Item extends React.Component {
     }
 
     deleteFav(id) {
+        this.props.delFav(id);
         this.props.firebase.ref('/fav/' + this.props.post.uid + '/' + id).remove();
         this.setState({
             showable: true
@@ -129,3 +148,7 @@ function objToarr(obj) {
     }
     return arr;
 }
+
+export default connect(state => ({
+    Data: state.main.Data
+}))(FavorPage);
