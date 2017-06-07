@@ -211,19 +211,27 @@ class Box extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            ifFav: this.props.ifFav
+        };
+    }
+
+    like(id) {
+        this.setState({ifFav: true});
+        this.props.like(id);
     }
 
     render() {
         return (
             <tr className="tableEntry">
                 <th className="likebox">{this.props.order}&nbsp;&nbsp;
-                    { (!this.props.ifFav) &&
+                    { (!this.state.ifFav) &&
                     <i className="fa fa-bookmark-o clickHand"
                        aria-hidden="true"
-                       onClick={() => this.props.like(this.props.id)}>
+                       onClick={() => this.like(this.props.id)}>
                     </i>
                     }
-                    { (this.props.ifFav) &&
+                    { (this.state.ifFav) &&
                     <i className="fa fa-bookmark"
                        aria-hidden="true">
                     </i>
