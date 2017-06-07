@@ -3,10 +3,9 @@ input {
 }
 
 .rankpage {
-    height: 160px;
     max-width: 720px;
-    margin: auto;
-    margin-bottom: 10px;
+    height: 160px;
+    margin: auto auto 10px;
 }
 
 .rankpage .table {
@@ -30,13 +29,13 @@ input {
 }
 
 .rankpage .tableTitle {
-    background: #d1c4e9;
     color: white;
+    background: #d1c4e9;
 }
 
 .rankpage .tableEntry {
-    background: #e0f2f1;
     color: black;
+    background: #e0f2f1;
 }
 
 .rankpage .tableEntry .likebox {

@@ -21,10 +21,6 @@ import {
     ModalBody,
     ModalFooter,
     Button
-    /*Dropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,*/
 } from 'reactstrap';
 import * as firebase from "firebase";
 
@@ -100,12 +96,12 @@ class Main extends React.Component {
     }
 
     toggleModal_A(e) {
-        if(e !== undefined) e.preventDefault();
+        if (e !== undefined) e.preventDefault();
         this.props.dispatch(toggleModal_a());
     }
 
     toggleModal_L(e) {
-        if(e !== undefined) e.preventDefault();
+        if (e !== undefined) e.preventDefault();
         this.props.dispatch(toggleModal_l());
     }
 
@@ -118,9 +114,9 @@ class Main extends React.Component {
             fbsdk.login().then(info => {
                 this.props.dispatch(setUserid(info.uid));
                 this.props.dispatch(setLogTxt("登出"));
-                setTimeout(()=>{
+                setTimeout(() => {
                     this.props.dispatch(toggleModal_Info());
-                },500);
+                }, 500);
             });
         }
     }
@@ -156,24 +152,9 @@ class Main extends React.Component {
                                         <NavLink tag={Link} to='/Rank'>排行榜</NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        {/*
-                                            old way need  state dropdownOpen
-                                            this.props.logtxt == "登出"?(
-                                                <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                                                    <NavLink style={{cursor:"pointer"}} onClick={() => this.toggle()}><i className="fa fa-user" aria-hidden="true">&nbsp;</i>Welcome&nbsp;<i className="fa fa-chevron-down" aria-hidden="true"></i></NavLink>
-                                                    <DropdownMenu>
-                                                        <DropdownItem>收藏列表&nbsp;&nbsp;&nbsp;&nbsp;<i className="fa fa-star" aria-hidden="true"></i></DropdownItem>
-                                                        <DropdownItem divider />
-                                                        <DropdownItem onClick={() => this.signOut()}>登出&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i className="fa fa-sign-out" aria-hidden="true"></i></DropdownItem>
-                                                    </DropdownMenu>
-                                              </Dropdown>
-                                            ):(
-                                                <NavLink style={{cursor:"pointer"}} onClick={() => this.signIn()}><i className="fa fa-user-o" aria-hidden="true"></i></NavLink>
-                                            )*/
-                                        }
-                                        {this.props.logtxt == "登出"?(
+                                        {this.props.logtxt == "登出" ? (
                                                 <NavLink tag={Link} to='/Favor'>收藏列表&nbsp;<i className="fa fa-circle" aria-hidden="true"></i></NavLink>
-                                            ):(
+                                            ) : (
                                                 <NavLink style={{cursor:"pointer"}} onClick={() => {this.toggleInfo();this.signIn();}} >收藏列表&nbsp;<i className="fa fa-circle-o" aria-hidden="true"></i></NavLink>
                                             )
                                         }

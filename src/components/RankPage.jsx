@@ -46,9 +46,9 @@ export default class RankPage extends React.Component {
         this.props.firebase.ref('posts').on('value', snapshot => {
             this.setState({Data: objToarr(snapshot.val())});
         });
-        this.props.auth().onAuthStateChanged(firebaseUser=>{
-            if(firebaseUser){
-                if(firebaseUser.uid != this.state.userid){
+        this.props.auth().onAuthStateChanged(firebaseUser => {
+            if (firebaseUser) {
+                if (firebaseUser.uid != this.state.userid) {
                     this.setState({
                         userid: firebaseUser.uid
                     });
@@ -56,9 +56,11 @@ export default class RankPage extends React.Component {
             }
         });
     }
+
     componentWillUnmount() {
         this.props.firebase.ref('posts').off();
     }
+
     changePage(page) {
         const showlen = (this.state.status == "top") ? 100 : 10;
         const page_num = Math.ceil(showlen/this.state.npp);
@@ -81,7 +83,6 @@ export default class RankPage extends React.Component {
 
     handleLike(id) {
         if (this.state.userid !== "") {
-
             const now = new Date();
             this.props.firebase.ref('fav/' + this.state.userid +'/' + id).set({
                 id: id,

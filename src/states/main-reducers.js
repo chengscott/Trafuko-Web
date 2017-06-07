@@ -4,8 +4,8 @@ const mainInitState = {
     modal_logs:false,
     modal_info: false,
     wrapenable: true,
-    logtxt: "登入",
-    userid: ""
+    logtxt: '登入',
+    userid: ''
 };
 
 export function main(state = mainInitState, action) {
@@ -41,7 +41,7 @@ export function main(state = mainInitState, action) {
                 logtxt: action.str
             };
         case '@MAIN_SET_USERID':
-            return{
+            return {
                 ...state,
                 userid: action.id
             };

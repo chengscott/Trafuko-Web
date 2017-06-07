@@ -57,7 +57,7 @@ class TrafukoPage extends React.Component {
 
     componentDidMount() {
         this.props.wrap(true); // set overflow:hidden
-        const runtext = (screen.width >= 700) ? true : false;
+        const runtext = screen.width >= 700;
         this.props.dispatch(setRuntext(runtext));
         this.reRender = setInterval(() => this.tick(), 15000);
         this.props.firebase.ref('posts').on('value', snapshot => {
@@ -82,7 +82,7 @@ class TrafukoPage extends React.Component {
         const data = this.props.Data.slice(page * runNum, Math.min((page + 1) * runNum, this.props.Data.length - 1));
         const showList = this.props.runtext ? data.map(a => <RunText text={a.text} color={(a.color === 0)?'black':a.color} key={a.id} id={a.id}/>) : <div></div>;
         return (
-            <div className = "trafuko">
+            <div className="trafuko">
                 <FormGroup>
                     <Accordion>
                         <AccordionItem>

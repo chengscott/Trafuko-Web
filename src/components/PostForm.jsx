@@ -74,6 +74,7 @@ class PostForm extends React.Component {
                             value={this.props.inputValue}
                             placeholder={defaultText}
                             maxLength="140"
+                            autoFocus
                         />
                         <div className="toolList">
                             <Button className="box hvr-wobble-horizontal" style={{background: 'black'}} onClick={()=>{this.handleColorMode('black');}}></Button>

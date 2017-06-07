@@ -50,13 +50,10 @@ export default class TrashPoolPage extends React.Component {
 
     componentDidMount() {
         this.props.wrap(true); // overflow:hidden
-        this.reRender = setInterval(
-            () => this.tick(),
-            5000
-        );
-        this.props.auth().onAuthStateChanged(firebaseUser=>{
-            if(firebaseUser){
-                if(firebaseUser.uid != this.state.userid){
+        this.reRender = setInterval(() => this.tick(), 5000);
+        this.props.auth().onAuthStateChanged(firebaseUser => {
+            if (firebaseUser) {
+                if (firebaseUser.uid != this.state.userid) {
                     this.setState({
                         userid: firebaseUser.uid
                     });
@@ -74,7 +71,7 @@ export default class TrashPoolPage extends React.Component {
     }
 
     handleClickout(e) {
-        if(e != null){
+        if (e != null) {
             let pauseBox = document.getElementById('PauseBox');
             if (pauseBox != null && !pauseBox.contains(e.target)) {
                 if (!this.clicked) {
