@@ -47,3 +47,8 @@ input {
 #id_content .z-index-modify {
     z-index: -1;
 }
+
+.rankpage .paginationBtn {
+    width: 65%;
+    margin: auto;
+}

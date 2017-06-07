@@ -193,10 +193,10 @@ class Main extends React.Component {
                                 <TrafukoPage firebase={fb} wrap={this.setwrapEnable}/>
                             )}/>
                         <Route exact path="/Rank" render={() => (
-                                <RankPage auth={firebase.auth} firebase={fb} wrap={this.setwrapEnable}/>
+                                <RankPage logIn={this.signIn} auth={firebase.auth} firebase={fb} wrap={this.setwrapEnable}/>
                             )}/>
                         <Route exact path="/TrashPool" render={() => (
-                                <TrashPoolPage auth={firebase.auth} userid={this.props.userid} firebase={fb} wrap={this.setwrapEnable}/>
+                                <TrashPoolPage logIn={this.signIn} auth={firebase.auth} userid={this.props.userid} firebase={fb} wrap={this.setwrapEnable}/>
                             )}/>
                         <Route exact path="/Favor" render={() => (
                                 <FavorPage auth={firebase.auth} firebase={fb} wrap={this.setwrapEnable}/>

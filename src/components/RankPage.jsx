@@ -19,7 +19,8 @@ export default class RankPage extends React.Component {
     static propTypes = {
         firebase: PropTypes.object.isRequired,
         wrap: PropTypes.func.isRequired,
-        auth: PropTypes.func.isRequired
+        auth: PropTypes.func.isRequired,
+        logIn: PropTypes.func.isRequired
     };
 
     constructor(props) {
@@ -88,6 +89,7 @@ export default class RankPage extends React.Component {
             });
             //console.log("add to favor list");
         } else {
+            this.props.logIn();
             //console.log("login to get the benifit of favor list");
         }
     }
@@ -180,7 +182,7 @@ export default class RankPage extends React.Component {
                 </TabContent>
                 {
                 (screen.width < 700 || this.state.status == "top") &&
-                    <Pagination style={{'marginBottom':'72px'}}>
+                    <Pagination className="paginationBtn">
                         {
                         (this.state.page != 1) &&
                         <PaginationItem className="hvr-backward clickHand" onClick={() => this.changePage(this.state.page - 1)}>
