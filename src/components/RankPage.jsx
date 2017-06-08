@@ -77,13 +77,7 @@ class RankPage extends React.Component {
     handleLike(id) {
         if (this.props.userid !== "") {
             let Data = this.props.Data;
-            for (let x in Data) {
-                if (Data[x].id == id) {
-                    Data[x].ifFav = true;
-                    this.props.dispatch(setDataifFav(Data));
-                    break;
-                }
-            }
+            this.props.dispatch(setDataifFav(Data, id, true));
             const now = new Date();
             this.props.firebase.ref('fav/' + this.props.userid +'/' + id).set({
                 id: id,
@@ -225,13 +219,13 @@ class Box extends React.Component {
         return (
             <tr className="tableEntry">
                 <th className="likebox">{this.props.order}&nbsp;&nbsp;
-                    { (!this.state.ifFav) &&
+                    { (!this.props.ifFav) &&
                     <i className="fa fa-bookmark-o clickHand"
                        aria-hidden="true"
                        onClick={() => this.like(this.props.id)}>
                     </i>
                     }
-                    { (this.state.ifFav) &&
+                    { (this.props.ifFav) &&
                     <i className="fa fa-bookmark"
                        aria-hidden="true">
                     </i>

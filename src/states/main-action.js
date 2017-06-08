@@ -54,7 +54,16 @@ export function getData(Data) {
     };
 }
 
-export function setDataifFav(Data) {
+export function setDataifFav(Data, id, value) {
+    return (dispatch, getState) => {
+        console.log(getState);
+    };
+    for (let x in Data) {
+        if (Data[x].id == id) {
+            Data[x].ifFav = value;
+            break;
+        }
+    }
     return {
         type: '@MAIN_SET_DATA_IFFAV',
         Data: Data

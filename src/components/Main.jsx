@@ -89,15 +89,9 @@ class Main extends React.Component {
 
     setData(favList) {
         let Data = this.props.Data;
-        for (let x in Data) {
-            for (let y in favList) {
-                if (y == Data[x].id) {
-                    Data[x].ifFav = true;
-                    break;
-                }
-            }
+        for (let y in favList) {
+            this.props.dispatch(setDataifFav(Data, y, true));
         }
-        this.props.dispatch(setDataifFav(Data));
     }
 
     componentWillMount() {

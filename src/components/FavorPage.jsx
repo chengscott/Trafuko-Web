@@ -68,13 +68,7 @@ class FavorPage extends React.Component {
 
     deleteFav(id) {
         let Data = this.props.Data;
-        for (let x in Data) {
-            if (Data[x].id == id) {
-                Data[x].ifFav = false;
-                this.props.dispatch(setDataifFav(Data));
-                break;
-            }
-        }
+        this.props.dispatch(setDataifFav(Data, id, false));
     }
 
     render() {
