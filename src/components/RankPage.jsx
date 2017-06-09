@@ -116,8 +116,8 @@ class RankPage extends React.Component {
         const npp = this.state.npp;
         const DATA = this.props.Data;
         const data = DATA.sort(compare);
-
         const showList = data.slice((this.state.page - 1) * npp , Math.min(this.state.page * npp, data.length - 1));
+
         const listItems = showList.map((each) =>
             <Box order={data.indexOf(each) + 1}
                  key={each.id}
@@ -209,15 +209,16 @@ class RankPage extends React.Component {
 
 class Box extends React.Component {
 
+
     constructor(props) {
         super(props);
-        this.state = {
-            ifFav: this.props.ifFav
-        };
+        // this.state = {
+        //     ifFav: this.props.ifFav
+        // };
     }
 
     like(id) {
-        this.setState({ifFav: true});
+        //this.setState({ifFav: true});
         this.props.like(id);
     }
 
@@ -225,13 +226,13 @@ class Box extends React.Component {
         return (
             <tr className="tableEntry">
                 <th className="likebox">{this.props.order}&nbsp;&nbsp;
-                    { (!this.state.ifFav) &&
+                    { (!this.props.ifFav) &&
                     <i className="fa fa-bookmark-o clickHand"
                        aria-hidden="true"
                        onClick={() => this.like(this.props.id)}>
                     </i>
                     }
-                    { (this.state.ifFav) &&
+                    { (this.props.ifFav) &&
                     <i className="fa fa-bookmark"
                        aria-hidden="true">
                     </i>

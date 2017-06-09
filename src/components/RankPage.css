@@ -50,4 +50,5 @@ input {
 .rankpage .paginationBtn {
     width: 65%;
     margin: auto;
+    margin-bottom: 80px;
 }
