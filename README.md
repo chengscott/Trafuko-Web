@@ -71,7 +71,6 @@ yarn lint
 
 Since the course has ended, the original development team may **NOT** involve with the program, but future releases will probably be geared more towards bug-fixes rather than addition of new features.
 
-
 Read more on [Contributing Guidelines](CONTRIBUTING.md). Thanks for your participation!
 
 ## Code of Conduct
