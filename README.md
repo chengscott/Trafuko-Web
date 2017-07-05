@@ -1,9 +1,35 @@
 ### Software Studio
 # Trafuko | 垃圾話
-
+[![Maintenance](https://img.shields.io/maintenance/yes/2017.svg)]()
 [![Build Status](https://travis-ci.com/chengscott/Trafuko-Web.svg?token=6qy6kyyaykPzLdMZwRRn&branch=master)](https://travis-ci.com/chengscott/Trafuko-Web)
-[![Dependency Status](https://david-dm.org/chengscott/Trafuko-Web.svg)](https://david-dm.org/chengscott/Trafuko-Web)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+![](/dist/images/logo.svg)
+
+# Features
+
+1. 錯視背景與幹話彈幕
+
+![](/metadata/background.png)
+
+2. 幹話池
+
+![](/metadata/pool.png)
+
+3. 排行榜
+
+![](/metadata/rank.png)
+
+4. 同步收藏列表
+
+![](/metadata/fav.png)
+
+## Demo
+
+The midterm demo slide deck is available at the [Presentation Markdown](/metadata/講幹話？Trafuko.md).
+
+# Development
+
 ## Prerequisites
 
 * node
@@ -41,6 +67,12 @@ yarn test
 yarn lint
 ```
 
+# Contributing
+
+Since the course has ended, the original development team may **NOT** involve with the program, but future releases will probably be geared more towards bug-fixes rather than addition of new features.
+
+More contributing guides should be referred to our Wiki. Thanks for your participation!
+
 # Workflow
 
 1. Up to date
@@ -62,3 +94,4 @@ yarn lint
 - Post Sync
     - Travis CI
     - Azure CD
+
