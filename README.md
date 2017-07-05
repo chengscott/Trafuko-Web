@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.com/chengscott/Trafuko-Web.svg?token=6qy6kyyaykPzLdMZwRRn&branch=master)](https://travis-ci.com/chengscott/Trafuko-Web)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-![](/dist/images/logo.svg)
+![](/metadata/logo.png)
 
 # Features
 
